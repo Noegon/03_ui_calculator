@@ -25,14 +25,12 @@
 }
 
 - (IBAction)digitButtonTouched:(UIButton *)sender {
-    @autoreleasepool {
-        NSString *activeLabel = [sender titleForState:UIControlStateNormal];
-        NSString *tmpString = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, activeLabel];
-        if ([tmpString containsString:@"."]) {
-            self.digitInsertionField.text = tmpString;
-        } else {
-            self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpString.integerValue];
-        }
+    NSString *tapedButtontitle = [sender titleForState:UIControlStateNormal];
+    NSString *tmpString = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tapedButtonTitle];
+    if ([tmpString containsString:@"."]) {
+        self.digitInsertionField.text = tmpString;
+    } else {
+        self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpString.integerValue];
     }
 }
 
@@ -42,14 +40,12 @@
 
 //deletion by swipe left-to-right
 - (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender {
-    @autoreleasepool {
-        NSString *value = self.digitInsertionField.text;
-        NSString *result = [value substringToIndex:value.length - 1];
-        if (result.length == 0) {
-            self.digitInsertionField.text = @"0";
-        } else {
-            self.digitInsertionField.text = result;
-        }
+    NSString *value = self.digitInsertionField.text;
+    NSString *result = [value substringToIndex:value.length - 1];
+    if (result.length == 0) {
+        self.digitInsertionField.text = @"0";
+    } else {
+        self.digitInsertionField.text = result;
     }
 }
 
