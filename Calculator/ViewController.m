@@ -7,8 +7,17 @@
 //
 
 #import "ViewController.h"
+#import "AboutViewController.h"
+#import "LicenseViewController.h"
+
+static NSString *const errorTitle = @"error - press clear btn";
+static NSString *const dotString = @".";
+static NSString *const zeroString = @"0";
+static NSInteger const maxAmountOfDigitsInInsertionField = 18;
 
 @interface ViewController ()
+
+- (void)switchCalculationButtonsEnabled:(BOOL)areBUttonsEnabled;
 
 @end
 
@@ -17,40 +26,92 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // we should to create an instance of UIGestureRecognizer to use it
-    // (if we didn't do it in interface builder)
-    // And, ofcourse, we should to release it in dealloc method if we don't use ARC
-//    UIGestureRecognizer *swipeRec = [[UIGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeRecognizer:)];
-//    [[self nameTextField] addGestureRecognizer:swipeRec];
+    self.navigationController.navigationBar.backgroundColor = [UIColor grayColor];
+    UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(aboutButtonTouched:)];
+    self.navigationItem.leftBarButtonItem = aboutBarButton;
+    
+    UIBarButtonItem *licenseBarButton = [[UIBarButtonItem alloc] initWithTitle:@"License" style:UIBarButtonItemStylePlain target:self action:@selector(licenseButtonTouched:)];
+    self.navigationItem.rightBarButtonItem = licenseBarButton;
 }
 
 - (IBAction)digitButtonTouched:(UIButton *)sender {
-    NSString *tapedButtontitle = [sender titleForState:UIControlStateNormal];
-    NSString *tmpString = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tapedButtonTitle];
-    if ([tmpString containsString:@"."]) {
-        self.digitInsertionField.text = tmpString;
-    } else {
-        self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpString.integerValue];
+    NSString *tapedButtonTitle = [sender titleForState:UIControlStateNormal];
+    NSString *tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tapedButtonTitle];
+    if (![self.digitInsertionField.text isEqualToString:errorTitle]) {
+        if ((self.digitInsertionField.text.doubleValue < CGFLOAT_MAX) &&
+            [self.digitInsertionField.text length] < maxAmountOfDigitsInInsertionField) {
+            if ([tmpStringfiedDigit containsString:dotString]) {
+                self.digitInsertionField.text = tmpStringfiedDigit;
+            } else {
+                self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpStringfiedDigit.integerValue];
+            }
+        } else {
+            self.digitInsertionField.text = errorTitle;
+            [self switchCalculationButtonsEnabled:NO];
+        }
     }
 }
 
 - (IBAction)clearButtonTouched:(UIButton *)sender {
-    self.digitInsertionField.text = @"0";
+    if ([self.digitInsertionField.text isEqualToString:errorTitle]) {
+        [self switchCalculationButtonsEnabled:YES];
+    }
+    self.digitInsertionField.text = zeroString;
 }
 
 //deletion by swipe left-to-right
 - (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender {
     NSString *value = self.digitInsertionField.text;
     NSString *result = [value substringToIndex:value.length - 1];
-    if (result.length == 0) {
-        self.digitInsertionField.text = @"0";
+    if (![self.digitInsertionField.text isEqualToString:errorTitle]) {
+        if (result.length == 0) {
+            self.digitInsertionField.text = zeroString;
+        } else {
+            self.digitInsertionField.text = result;
+        }
+    }
+}
+
+- (IBAction)aboutButtonTouched:(UIButton *)sender {
+    AboutViewController *aboutViewController = [[AboutViewController alloc] init];
+    [self.navigationController pushViewController:aboutViewController animated:YES];
+    [aboutViewController release];
+}
+
+- (IBAction)licenseButtonTouched:(UIBarButtonItem *)sender {
+    LicenseViewController *licenseController = [[LicenseViewController alloc] init];
+    [self presentViewController:licenseController animated:YES completion: nil];
+    [licenseController release];
+}
+
+- (IBAction)dotButtonTouched:(UIButton *)sender {
+    if (![self.digitInsertionField.text containsString:dotString]) {
+            NSString *tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, dotString];
+        self.digitInsertionField.text = tmpStringfiedDigit;
+    }
+}
+
+- (void)switchCalculationButtonsEnabled:(BOOL)areBUttonsEnabled {
+    if (!areBUttonsEnabled) {
+        for (UIButton *view in self.view.subviews) {
+            view.enabled = NO;
+        }
+        self.clearButton.enabled = YES;
+        self.aboutButton.enabled = YES;
     } else {
-        self.digitInsertionField.text = result;
+        for (UIButton *view in self.view.subviews) {
+            view.enabled = YES;
+        }
     }
 }
 
 - (void)dealloc {
     [_digitInsertionField release];
+    [_digitButtonsArray release];
+    [_dotButton release];
+    [_equalButton release];
+    [_clearButton release];
+    [_aboutButton release];
     [super dealloc];
 }
 @end

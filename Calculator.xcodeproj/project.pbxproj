@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE735B4C1ECB0A37004A4025 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE735B4A1ECB0A37004A4025 /* AboutViewController.m */; };
+		CE735B4D1ECB0A37004A4025 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE735B4B1ECB0A37004A4025 /* AboutViewController.xib */; };
+		CE735B531ECB2B7B004A4025 /* LicenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE735B511ECB2B7B004A4025 /* LicenseViewController.m */; };
+		CE735B541ECB2B7B004A4025 /* LicenseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE735B521ECB2B7B004A4025 /* LicenseViewController.xib */; };
 		CEF814AF1EC777F70002E360 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF814AE1EC777F70002E360 /* main.m */; };
 		CEF814B21EC777F70002E360 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF814B11EC777F70002E360 /* AppDelegate.m */; };
 		CEF814B51EC777F70002E360 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF814B41EC777F70002E360 /* ViewController.m */; };
@@ -16,6 +20,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE735B491ECB0A37004A4025 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = AdditionalControllers/AboutViewController.h; sourceTree = "<group>"; };
+		CE735B4A1ECB0A37004A4025 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = AdditionalControllers/AboutViewController.m; sourceTree = "<group>"; };
+		CE735B4B1ECB0A37004A4025 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AboutViewController.xib; path = AdditionalControllers/AboutViewController.xib; sourceTree = "<group>"; };
+		CE735B501ECB2B7B004A4025 /* LicenseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LicenseViewController.h; path = AdditionalControllers/LicenseViewController.h; sourceTree = "<group>"; };
+		CE735B511ECB2B7B004A4025 /* LicenseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LicenseViewController.m; path = AdditionalControllers/LicenseViewController.m; sourceTree = "<group>"; };
+		CE735B521ECB2B7B004A4025 /* LicenseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LicenseViewController.xib; path = AdditionalControllers/LicenseViewController.xib; sourceTree = "<group>"; };
 		CEF814AA1EC777F70002E360 /* Calculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Calculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF814AE1EC777F70002E360 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEF814B01EC777F70002E360 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -39,6 +49,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE735B4E1ECB0A41004A4025 /* AdditionalControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CE735B491ECB0A37004A4025 /* AboutViewController.h */,
+				CE735B4A1ECB0A37004A4025 /* AboutViewController.m */,
+				CE735B4B1ECB0A37004A4025 /* AboutViewController.xib */,
+				CE735B501ECB2B7B004A4025 /* LicenseViewController.h */,
+				CE735B511ECB2B7B004A4025 /* LicenseViewController.m */,
+				CE735B521ECB2B7B004A4025 /* LicenseViewController.xib */,
+			);
+			name = AdditionalControllers;
+			sourceTree = "<group>";
+		};
 		CEF814A11EC777F70002E360 = {
 			isa = PBXGroup;
 			children = (
@@ -58,14 +81,11 @@
 		CEF814AC1EC777F70002E360 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				CE735B4E1ECB0A41004A4025 /* AdditionalControllers */,
 				CEF814B01EC777F70002E360 /* AppDelegate.h */,
 				CEF814B11EC777F70002E360 /* AppDelegate.m */,
 				CEF814B31EC777F70002E360 /* ViewController.h */,
 				CEF814B41EC777F70002E360 /* ViewController.m */,
-				CEF814B61EC777F70002E360 /* Main.storyboard */,
-				CEF814B91EC777F70002E360 /* Assets.xcassets */,
-				CEF814BB1EC777F70002E360 /* LaunchScreen.storyboard */,
-				CEF814BE1EC777F70002E360 /* Info.plist */,
 				CEF814AD1EC777F70002E360 /* Supporting Files */,
 			);
 			path = Calculator;
@@ -74,6 +94,10 @@
 		CEF814AD1EC777F70002E360 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				CEF814B61EC777F70002E360 /* Main.storyboard */,
+				CEF814B91EC777F70002E360 /* Assets.xcassets */,
+				CEF814BB1EC777F70002E360 /* LaunchScreen.storyboard */,
+				CEF814BE1EC777F70002E360 /* Info.plist */,
 				CEF814AE1EC777F70002E360 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -140,7 +164,9 @@
 			files = (
 				CEF814BD1EC777F70002E360 /* LaunchScreen.storyboard in Resources */,
 				CEF814BA1EC777F70002E360 /* Assets.xcassets in Resources */,
+				CE735B4D1ECB0A37004A4025 /* AboutViewController.xib in Resources */,
 				CEF814B81EC777F70002E360 /* Main.storyboard in Resources */,
+				CE735B541ECB2B7B004A4025 /* LicenseViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,7 +178,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEF814B51EC777F70002E360 /* ViewController.m in Sources */,
+				CE735B531ECB2B7B004A4025 /* LicenseViewController.m in Sources */,
 				CEF814B21EC777F70002E360 /* AppDelegate.m in Sources */,
+				CE735B4C1ECB0A37004A4025 /* AboutViewController.m in Sources */,
 				CEF814AF1EC777F70002E360 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +340,7 @@
 				CEF814C31EC777F70002E360 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
