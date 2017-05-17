@@ -10,6 +10,6 @@
 
 @interface LicenseViewController : UIViewController
 
-- (IBAction)closeLicenseViewController:(UIButton *)sender;
+- (IBAction)closeButtonTouched:(UIButton *)sender;
 
 @end

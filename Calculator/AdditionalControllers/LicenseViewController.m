@@ -14,7 +14,7 @@
 
 @implementation LicenseViewController
 
-- (IBAction)closeLicenseViewController:(UIButton *)sender {
+- (IBAction)closeButtonTouched:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

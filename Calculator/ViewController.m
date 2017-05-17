@@ -17,7 +17,10 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
 
 @interface ViewController ()
 
-- (void)switchCalculationButtonsEnabled:(BOOL)areBUttonsEnabled;
+@property (retain, nonatomic) UIBarButtonItem *aboutBarButton;
+@property (retain, nonatomic) UIBarButtonItem *licenseBarButton;
+
+- (void)switchCalculationButtonsEnabled:(BOOL)areButtonsEnabled;
 
 @end
 
@@ -27,11 +30,14 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
     [super viewDidLoad];
     
     self.navigationController.navigationBar.backgroundColor = [UIColor grayColor];
-    UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(aboutButtonTouched:)];
-    self.navigationItem.leftBarButtonItem = aboutBarButton;
+    _aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(aboutButtonTouched:)];
+    self.navigationItem.leftBarButtonItem = _aboutBarButton;
+    [_aboutBarButton release];
     
-    UIBarButtonItem *licenseBarButton = [[UIBarButtonItem alloc] initWithTitle:@"License" style:UIBarButtonItemStylePlain target:self action:@selector(licenseButtonTouched:)];
-    self.navigationItem.rightBarButtonItem = licenseBarButton;
+    
+    _licenseBarButton = [[UIBarButtonItem alloc] initWithTitle:@"License" style:UIBarButtonItemStylePlain target:self action:@selector(licenseButtonTouched:)];
+    self.navigationItem.rightBarButtonItem = _licenseBarButton;
+    [_licenseBarButton release];
 }
 
 - (IBAction)digitButtonTouched:(UIButton *)sender {
@@ -93,14 +99,19 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
 
 - (void)switchCalculationButtonsEnabled:(BOOL)areBUttonsEnabled {
     if (!areBUttonsEnabled) {
-        for (UIButton *view in self.view.subviews) {
-            view.enabled = NO;
+        for (UIView *view in self.view.subviews) {
+            if ([view isKindOfClass:UIButton.class]) {
+                if ((view != self.clearButton) &&
+                    (view != self.aboutButton)) {
+                    ((UIButton *)view).enabled = NO;
+                }
+            }
         }
-        self.clearButton.enabled = YES;
-        self.aboutButton.enabled = YES;
     } else {
         for (UIButton *view in self.view.subviews) {
-            view.enabled = YES;
+            if ([view isKindOfClass:UIButton.class]) {
+                ((UIButton *)view).enabled = YES;
+            }
         }
     }
 }
@@ -112,6 +123,8 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
     [_equalButton release];
     [_clearButton release];
     [_aboutButton release];
+    [_aboutBarButton release];
+    [_licenseBarButton release];
     [super dealloc];
 }
 @end

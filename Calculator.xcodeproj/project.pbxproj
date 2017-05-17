@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE23137E1ECCD6AC00FA91D2 /* NGNCalcModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CE23137D1ECCD6AC00FA91D2 /* NGNCalcModel.m */; };
 		CE735B4C1ECB0A37004A4025 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE735B4A1ECB0A37004A4025 /* AboutViewController.m */; };
 		CE735B4D1ECB0A37004A4025 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE735B4B1ECB0A37004A4025 /* AboutViewController.xib */; };
 		CE735B531ECB2B7B004A4025 /* LicenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE735B511ECB2B7B004A4025 /* LicenseViewController.m */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE23137C1ECCD6AC00FA91D2 /* NGNCalcModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNCalcModel.h; path = Model/NGNCalcModel.h; sourceTree = "<group>"; };
+		CE23137D1ECCD6AC00FA91D2 /* NGNCalcModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNCalcModel.m; path = Model/NGNCalcModel.m; sourceTree = "<group>"; };
 		CE735B491ECB0A37004A4025 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = AdditionalControllers/AboutViewController.h; sourceTree = "<group>"; };
 		CE735B4A1ECB0A37004A4025 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = AdditionalControllers/AboutViewController.m; sourceTree = "<group>"; };
 		CE735B4B1ECB0A37004A4025 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AboutViewController.xib; path = AdditionalControllers/AboutViewController.xib; sourceTree = "<group>"; };
@@ -49,6 +52,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE23137B1ECCD67400FA91D2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CE23137C1ECCD6AC00FA91D2 /* NGNCalcModel.h */,
+				CE23137D1ECCD6AC00FA91D2 /* NGNCalcModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		CE735B4E1ECB0A41004A4025 /* AdditionalControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +93,7 @@
 		CEF814AC1EC777F70002E360 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				CE23137B1ECCD67400FA91D2 /* Model */,
 				CE735B4E1ECB0A41004A4025 /* AdditionalControllers */,
 				CEF814B01EC777F70002E360 /* AppDelegate.h */,
 				CEF814B11EC777F70002E360 /* AppDelegate.m */,
@@ -177,6 +190,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE23137E1ECCD6AC00FA91D2 /* NGNCalcModel.m in Sources */,
 				CEF814B51EC777F70002E360 /* ViewController.m in Sources */,
 				CE735B531ECB2B7B004A4025 /* LicenseViewController.m in Sources */,
 				CEF814B21EC777F70002E360 /* AppDelegate.m in Sources */,

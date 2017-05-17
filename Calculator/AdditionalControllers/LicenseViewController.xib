@@ -39,7 +39,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="Close"/>
                     <connections>
-                        <action selector="closeLicenseViewController:" destination="-1" eventType="touchUpInside" id="x9k-CT-41g"/>
+                        <action selector="closeButtonTouched:" destination="-1" eventType="touchUpInside" id="xft-Bg-aPW"/>
                     </connections>
                 </button>
             </subviews>
