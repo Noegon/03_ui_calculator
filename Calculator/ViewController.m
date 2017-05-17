@@ -25,7 +25,7 @@
 }
 
 - (IBAction)digitButtonTouched:(UIButton *)sender {
-    NSString *tapedButtonTitle = [sender titleForState:UIControlStateNormal];
+    NSString *tapedButtontitle = [sender titleForState:UIControlStateNormal];
     NSString *tmpString = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tapedButtonTitle];
     if ([tmpString containsString:@"."]) {
         self.digitInsertionField.text = tmpString;
