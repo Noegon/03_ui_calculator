@@ -55,11 +55,19 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
 
 - (IBAction)digitButtonTouched:(UIButton *)sender {
     NSString *tapedButtonTitle = [sender titleForState:UIControlStateNormal];
-    NSString *tmpString = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tapedButtonTitle];
-    if ([tmpString containsString:@"."]) {
-        self.digitInsertionField.text = tmpString;
-    } else {
-        self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpString.integerValue];
+    NSString *tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tapedButtonTitle];
+    if (![self.digitInsertionField.text isEqualToString:errorTitle]) {
+        if ((self.digitInsertionField.text.doubleValue < CGFLOAT_MAX) &&
+            [self.digitInsertionField.text length] < maxAmountOfDigitsInInsertionField) {
+            if ([tmpStringfiedDigit containsString:dotString]) {
+                self.digitInsertionField.text = tmpStringfiedDigit;
+            } else {
+                self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpStringfiedDigit.integerValue];
+            }
+        } else {
+            self.digitInsertionField.text = errorTitle;
+            [self switchCalculationButtonsEnabled:NO];
+        }
     }
 }
 
