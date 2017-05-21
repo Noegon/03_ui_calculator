@@ -97,21 +97,17 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
     }
 }
 
-- (void)switchCalculationButtonsEnabled:(BOOL)areBUttonsEnabled {
-    if (!areBUttonsEnabled) {
+- (void)switchCalculationButtonsEnabled:(BOOL)areButtonsEnabled {
+    if (!areButtonsEnabled) {
         for (UIView *view in self.view.subviews) {
-            if ([view isKindOfClass:UIButton.class]) {
-                if ((view != self.clearButton) &&
-                    (view != self.aboutButton)) {
-                    ((UIButton *)view).enabled = NO;
-                }
+            if ((view != self.clearButton) &&
+                (view != self.aboutButton)) {
+                view.userInteractionEnabled = NO;
             }
         }
     } else {
-        for (UIButton *view in self.view.subviews) {
-            if ([view isKindOfClass:UIButton.class]) {
-                ((UIButton *)view).enabled = YES;
-            }
+        for (UIView *view in self.view.subviews) {
+            view.userInteractionEnabled = YES;
         }
     }
 }
