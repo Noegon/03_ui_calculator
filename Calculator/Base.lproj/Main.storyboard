@@ -81,18 +81,6 @@
                                     <action selector="digitButtonTouched:" destination="Zef-R4-fTz" eventType="touchUpInside" id="bFq-7p-cj8"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIs-Oe-9h0">
-                                <rect key="frame" x="147" y="306" width="80" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.60955882620000001" green="0.2887784712" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="5">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="digitButtonTouched:" destination="Zef-R4-fTz" eventType="touchUpInside" id="OfO-PE-ORN"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKs-4T-Hi6">
                                 <rect key="frame" x="248" y="306" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -150,7 +138,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="digitButtonTouched:" destination="Zef-R4-fTz" eventType="touchUpInside" id="J1C-6Q-gOu"/>
+                                    <action selector="dotButtonTouched:" destination="Zef-R4-fTz" eventType="touchUpInside" id="2Zh-84-G02"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZv-Mu-ZvE">
@@ -179,19 +167,54 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.64579881110000004" green="1" blue="0.96031455369999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Il1-Fr-68R" appends="YES" id="9HA-Sc-FUW"/>
                                 </connections>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iWq-jn-XGX">
+                                <rect key="frame" x="248" y="600" width="80" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="About"/>
+                                <connections>
+                                    <action selector="aboutButtonTouched:" destination="Zef-R4-fTz" eventType="touchUpInside" id="nPb-mE-Ihw"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIs-Oe-9h0">
+                                <rect key="frame" x="147" y="306" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.60955882620000001" green="0.2887784712" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="5">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="digitButtonTouched:" destination="Zef-R4-fTz" eventType="touchUpInside" id="OfO-PE-ORN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="gZB-gD-pAm"/>
                     <connections>
+                        <outlet property="aboutButton" destination="iWq-jn-XGX" id="vXB-ZX-YUF"/>
+                        <outlet property="clearButton" destination="ITV-Dn-gGb" id="OZ2-Co-pBg"/>
                         <outlet property="digitInsertionField" destination="Ohk-0I-Yhf" id="H9T-iZ-PXz"/>
+                        <outlet property="dotButton" destination="RTQ-2K-3kd" id="QlE-Hl-gDt"/>
+                        <outlet property="equalButton" destination="13m-go-JJG" id="cx5-SD-Fs9"/>
+                        <outletCollection property="digitButtonsArray" destination="jZv-Mu-ZvE" id="nQq-9P-RcQ"/>
+                        <outletCollection property="digitButtonsArray" destination="Jtr-Nn-1ae" id="By8-nD-oJy"/>
+                        <outletCollection property="digitButtonsArray" destination="rZk-Qj-DPL" id="uK9-7T-7Qd"/>
+                        <outletCollection property="digitButtonsArray" destination="Tro-1g-ZZx" id="daW-we-XEB"/>
+                        <outletCollection property="digitButtonsArray" destination="4QZ-Tk-35p" id="CGR-UC-8vL"/>
+                        <outletCollection property="digitButtonsArray" destination="OIs-Oe-9h0" id="Ne5-ZO-dKX"/>
+                        <outletCollection property="digitButtonsArray" destination="WKs-4T-Hi6" id="8uH-C3-w02"/>
+                        <outletCollection property="digitButtonsArray" destination="J08-eD-i4S" id="cBr-cm-r8t"/>
+                        <outletCollection property="digitButtonsArray" destination="po4-GL-dUt" id="iUx-5S-qsM"/>
+                        <outletCollection property="digitButtonsArray" destination="Y6z-UP-KSK" id="Rus-nh-hQy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pt7-D1-g58" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -201,7 +224,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="58" y="714"/>
+            <point key="canvasLocation" x="56.799999999999997" y="713.79310344827593"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pSP-0l-yTF">
