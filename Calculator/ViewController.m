@@ -17,8 +17,6 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
 
 @interface ViewController ()
 
-@property (retain, nonatomic) UIBarButtonItem *aboutBarButton;
-@property (retain, nonatomic) UIBarButtonItem *licenseBarButton;
 @property (retain, nonatomic) IBOutlet UILabel *digitInsertionField;
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *digitButtonsArray;
 @property (retain, nonatomic) IBOutlet UIButton *dotButton;
@@ -43,14 +41,29 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
     [super viewDidLoad];
     
     self.navigationController.navigationBar.backgroundColor = [UIColor grayColor];
-    _aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStylePlain target:self action:@selector(aboutButtonTouched:)];
-    self.navigationItem.leftBarButtonItem = _aboutBarButton;
-    [_aboutBarButton release];
+    //Create temporary var (ret count == 1)
+    UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:@"About"
+                                                       style:UIBarButtonItemStylePlain
+                                                      target:self
+                                                      action:@selector(aboutButtonTouched:)];
+    //Assign value of temp var to leftBarButton (ret count == 2)
+    self.navigationItem.leftBarButtonItem = aboutBarButton;
+    /*
+    Release aboutButton once (ret count == 1 i.e. var retaining only by
+    self.navigationItem.leftBarButtonItem, that will be released in [super dealoc] because it is a property of
+    UIViewController - superclass of current class. Isn't it? Or I did some mistakes in my reasonings?
+     */
+    [aboutBarButton release];
+    NSLog(@"%ld", CFGetRetainCount((__bridge CFTypeRef) aboutBarButton)); //refcount == 1
     
     
-    _licenseBarButton = [[UIBarButtonItem alloc] initWithTitle:@"License" style:UIBarButtonItemStylePlain target:self action:@selector(licenseButtonTouched:)];
-    self.navigationItem.rightBarButtonItem = _licenseBarButton;
-    [_licenseBarButton release];
+    UIBarButtonItem *licenseBarButton = [[UIBarButtonItem alloc] initWithTitle:@"License"
+                                                                         style:UIBarButtonItemStylePlain
+                                                                        target:self
+                                                                        action:@selector(licenseButtonTouched:)];
+    self.navigationItem.rightBarButtonItem = licenseBarButton;
+    [licenseBarButton release];
+    NSLog(@"%ld", CFGetRetainCount((__bridge CFTypeRef) licenseBarButton));
 }
 
 - (IBAction)digitButtonTouched:(UIButton *)sender {
@@ -132,8 +145,6 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
     [_equalButton release];
     [_clearButton release];
     [_aboutButton release];
-    [_aboutBarButton release];
-    [_licenseBarButton release];
     [super dealloc];
 }
 @end
