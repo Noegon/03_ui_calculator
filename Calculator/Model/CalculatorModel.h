@@ -11,9 +11,11 @@
 @interface CalculatorModel : NSObject
 
 @property (retain, nonatomic) NSString *currentOperator;
+@property (assign, nonatomic) double currentOperand;
 @property (assign, nonatomic) double displayedResult;
 
 - (void)executeOperationWithOperator:(NSString *)operator;
+- (void)executeOperation;
 - (void)executeLastOperation;
 - (void)clear;
 

@@ -11,7 +11,6 @@
 @interface CalculatorModel ()
 
 @property (retain, nonatomic) NSDictionary *operations;
-@property (assign, nonatomic) double currentOperand;
 @property (retain, nonatomic) NSString *waitingOperation;
 
 @end
@@ -23,11 +22,12 @@
 - (NSDictionary *)operations {
     if (!_operations) {
         NSDictionary *tmpDict = @{@"√": @"squareRoot",
-                                  @"mod": @"divisionRemainder",
+                                  @"%": @"divisionRemainder",
                                   @"+": @"add",
                                   @"-": @"subtract",
                                   @"x": @"multiply",
-                                  @"/": @"divide"};
+                                  @"/": @"divide",
+                                  @"+/-": @"reverseSign"};
         _operations = [[NSDictionary alloc]initWithDictionary:tmpDict];
     }
     return _operations;
@@ -43,6 +43,10 @@
 
 #pragma mark - model logic methods
 
+- (void)executeOperation {
+    [self executeOperationWithOperator:self.currentOperator];
+}
+
 - (void)executeLastOperation {
     [self executeOperationWithOperator:self.waitingOperation];
 }
@@ -51,13 +55,13 @@
     NSLog(@"%@", self.operations[operator]);
     if (self.currentOperand <= DBL_MAX &&
         self.currentOperand >= -DBL_MAX) {
-        SEL tmpSelector = NSSelectorFromString([self.operations valueForKey:operator]);
+        SEL tmpSelector = NSSelectorFromString(self.operations[operator]);
         if ([self respondsToSelector:tmpSelector]) {
             [self performSelector:tmpSelector];
             self.waitingOperation = self.currentOperator;
         }
     } else {
-        @throw [NSException exceptionWithName:@"AmountOverflow"
+        @throw [NSException exceptionWithName:@"Amount overflow"
                                        reason:@"Too big digit"
                                      userInfo:@{@"errMessage": @" - large number!",
                                                 @"tag": @"err"}];
@@ -65,11 +69,29 @@
 }
 
 - (void)squareRoot {
-    self.displayedResult = sqrt(self.displayedResult);
+    if (self.displayedResult >= 0) {
+        self.displayedResult = sqrt(self.displayedResult);
+    } else {
+        @throw [NSException exceptionWithName:@"Square root from negative"
+                                       reason:@"Sqare root from negative"
+                                     userInfo:@{@"errMessage": @" - sq root from neg!",
+                                                @"tag": @"err"}];
+    }
+}
+
+- (void)reverseSign {
+    self.displayedResult = -1 * self.displayedResult;
 }
 
 - (void)divisionRemainder {
-    self.displayedResult = (NSInteger)round(self.displayedResult) % (NSInteger)round(self.currentOperand);
+    if (self.currentOperand != 0) {
+        self.displayedResult = (NSInteger)round(self.displayedResult) % (NSInteger)round(self.currentOperand);
+    } else {
+        @throw [NSException exceptionWithName:@"Division by zero"
+                                       reason:@"Division by zero"
+                                     userInfo:@{@"errMessage": @" - div by zero!",
+                                                @"tag": @"err"}];
+    }
 }
 
 - (void)add {
@@ -88,7 +110,7 @@
     if (self.currentOperand != 0) {
         self.displayedResult /= self.currentOperand;
     } else {
-        @throw [NSException exceptionWithName:@"DivByZero"
+        @throw [NSException exceptionWithName:@"Division by zero"
                                        reason:@"Division by zero"
                                      userInfo:@{@"errMessage": @" - div by zero!",
                                                 @"tag": @"err"}];

@@ -14,14 +14,17 @@
 //static NSString *const errorTitle = @"error - press clear btn";
 static NSString *const dotString = @".";
 static NSString *const zeroString = @"0";
-static NSInteger const maxAmountOfDigitsInInsertionField = 18;
+static NSInteger const maxAmountOfDigitsInInsertionField = 16;
+//static const char *formatForOutput = "";
+//static NSString *const formatForOutput = @"%.*g";
 
 @interface ViewController ()
 
 #pragma mark - outlets
 @property (retain, nonatomic) IBOutlet UILabel *digitInsertionField;
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *digitButtonsArray;
-@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *operationButtonsArray;
+@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *binaryOperationButtonsArray;
+@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *unaryOperationsButtonsArray;
 @property (retain, nonatomic) IBOutlet UIButton *dotButton;
 @property (retain, nonatomic) IBOutlet UIButton *equalButton;
 @property (retain, nonatomic) IBOutlet UIButton *clearButton;
@@ -29,7 +32,11 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
 
 #pragma mark - main logic performing arguments
 @property (retain, nonatomic) CalculatorModel *model;
-@property (assign, nonatomic, getter=isFirstCalculatingChain) BOOL firstTimeCalculatingChain;
+@property (assign, nonatomic, getter=isNewCalculatingChain) BOOL newCalculatingChain;
+@property (assign, nonatomic, getter=isSecondOperandTypingInProgress) BOOL secondOperandTypingInProgress;
+
+#pragma mark - helper arguments
+@property (retain, nonatomic, readonly) NSString *formatForOutput;
 
 #pragma mark - main logic performing methods
 - (IBAction)digitButtonTouched:(UIButton *)sender;
@@ -52,7 +59,9 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        _model = [[CalculatorModel alloc] init];
+        _secondOperandTypingInProgress = NO;
+        _newCalculatingChain = YES;
+        _formatForOutput = [[NSString alloc]initWithFormat:@"%%.%ldg", maxAmountOfDigitsInInsertionField];
     }
     return self;
 }
@@ -64,8 +73,9 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
     [_equalButton release];
     [_clearButton release];
     [_aboutButton release];
-    [_operationButtonsArray release];
+    [_binaryOperationButtonsArray release];
     [_model release];
+    [_unaryOperationsButtonsArray release];
     [super dealloc];
 }
 
@@ -88,55 +98,49 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
     [licenseBarButton release];
 }
 
-//- (CalculatorModel *)model {
-//    if (!_model) {
-//        _model = [[CalculatorModel alloc] init];
-//    }
-//    return _model;
-//}
+- (CalculatorModel *)model {
+    if (!_model) {
+        _model = [[CalculatorModel alloc] init];
+    }
+    return _model;
+}
 
 #pragma mark - main logic performing methods
 
 - (IBAction)digitButtonTouched:(UIButton *)sender {
     NSString *tappedButtonTitle = [sender titleForState:UIControlStateNormal];
-    NSString *tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tappedButtonTitle];
-    if (![self.digitInsertionField.text containsString:@"err"]) {
-        if ([self.digitInsertionField.text length] < maxAmountOfDigitsInInsertionField) {
-            @try {
-                if ([tmpStringfiedDigit containsString:dotString]) {
-                    self.digitInsertionField.text = tmpStringfiedDigit;
-                } else {
-                    self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpStringfiedDigit.integerValue];
-                }
-            } @catch (NSException *exception) {
-                if (exception.userInfo[@"errMessage"]) {
-                    self.digitInsertionField.text = [NSString stringWithFormat:@"%@%@",
-                                                     exception.userInfo[@"tag"],
-                                                     exception.userInfo[@"errMessage"]];
-                    [self switchCalculationButtonsEnabled:NO];
-                }
-            }
+    NSString *tmpStringfiedDigit = nil;
+    if (self.isSecondOperandTypingInProgress || self.isNewCalculatingChain) {
+        tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tappedButtonTitle];
+    } else {
+        tmpStringfiedDigit = [NSString stringWithFormat:@"%@", tappedButtonTitle];
+        self.secondOperandTypingInProgress = YES;
+    }
+    if ([self.digitInsertionField.text length] < maxAmountOfDigitsInInsertionField) {
+        if ([tmpStringfiedDigit containsString:dotString]) {
+            self.digitInsertionField.text = tmpStringfiedDigit;
+        } else {
+            self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpStringfiedDigit.integerValue];
         }
     }
 }
 
 - (IBAction)clearButtonTouched:(UIButton *)sender {
-    if (![self.digitInsertionField.text containsString:@"err"]) {
-        [self switchCalculationButtonsEnabled:YES];
-    }
+    [self.model clear];
+    [self switchCalculationButtonsEnabled:YES];
     self.digitInsertionField.text = zeroString;
+    self.secondOperandTypingInProgress = NO;
+    self.newCalculatingChain = YES;
 }
 
 //deletion by swipe left-to-right
 - (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender {
     NSString *value = self.digitInsertionField.text;
     NSString *result = [value substringToIndex:value.length - 1];
-    if (![self.digitInsertionField.text containsString:@"err"]) {
-        if (result.length == 0) {
-            self.digitInsertionField.text = zeroString;
-        } else {
-            self.digitInsertionField.text = result;
-        }
+    if (result.length == 0) {
+        self.digitInsertionField.text = zeroString;
+    } else {
+        self.digitInsertionField.text = result;
     }
 }
 
@@ -160,13 +164,62 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 18;
 }
 
 - (IBAction)equalsButtonTouched:(UIButton *)sender {
-    
+    @try {
+        if (self.isSecondOperandTypingInProgress) {
+            self.model.currentOperand = self.digitInsertionField.text.doubleValue;
+            [self.model executeOperation];
+            self.secondOperandTypingInProgress = NO;
+        } else {
+            [self.model executeLastOperation];
+        }
+        self.digitInsertionField.text = [NSString stringWithFormat:self.formatForOutput, self.model.displayedResult];
+    } @catch (NSException *exception) {
+        if (exception.userInfo[@"errMessage"]) {
+            self.digitInsertionField.text = [NSString stringWithFormat:@"%@%@",
+                                             exception.userInfo[@"tag"],
+                                             exception.userInfo[@"errMessage"]];
+            [self switchCalculationButtonsEnabled:NO];
+        }
+    }
 }
 
 - (IBAction)operationButtonTouched:(UIButton *)sender {
-    NSString *operator = sender.titleLabel.text;
-    [self.model executeOperationWithOperator:operator];
-    self.digitInsertionField.text = [NSString stringWithFormat:@"%g", self.model.displayedResult];
+    @try {
+        NSString *operator = sender.titleLabel.text;
+        BOOL isBinaryOperator = [self.binaryOperationButtonsArray containsObject:sender];
+        if (self.isNewCalculatingChain) {
+            self.model.displayedResult = self.digitInsertionField.text.doubleValue;
+            self.model.currentOperator = operator;
+            self.newCalculatingChain = NO;
+            if (!isBinaryOperator) {
+                [self.model executeOperationWithOperator:operator];
+                self.digitInsertionField.text = [NSString stringWithFormat:self.formatForOutput, self.model.displayedResult];
+                self.secondOperandTypingInProgress = NO;
+            }
+        } else {
+            if ([self.binaryOperationButtonsArray containsObject:sender]) {
+                if (self.isSecondOperandTypingInProgress) {
+                    self.model.currentOperand = self.digitInsertionField.text.doubleValue;
+                    [self.model executeOperation];
+                    self.digitInsertionField.text = [NSString stringWithFormat:self.formatForOutput, self.model.displayedResult];
+                    self.secondOperandTypingInProgress = NO;
+                }
+            } else {
+                self.model.currentOperand = self.digitInsertionField.text.doubleValue;
+                [self.model executeOperationWithOperator:operator];
+                self.digitInsertionField.text = [NSString stringWithFormat:self.formatForOutput, self.model.displayedResult];
+                self.secondOperandTypingInProgress = NO;
+            }
+            self.model.currentOperator = operator;
+        }
+    } @catch (NSException *exception) {
+        if (exception.userInfo[@"errMessage"]) {
+            self.digitInsertionField.text = [NSString stringWithFormat:@"%@%@",
+                                             exception.userInfo[@"tag"],
+                                             exception.userInfo[@"errMessage"]];
+            [self switchCalculationButtonsEnabled:NO];
+        }
+    }
 }
 
 #pragma mark - helper methods
