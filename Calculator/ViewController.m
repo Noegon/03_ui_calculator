@@ -7,14 +7,14 @@
 //
 
 #import "ViewController.h"
+#import "Constants.h"
+#import "AboutViewController.h"
+#import "LicenseViewController.h"
+#import "CalculatorModel.h"
 
-static NSString *const dotString = @".";
-static NSString *const zeroString = @"0";
-static NSInteger const maxAmountOfDigitsInInsertionField = 16;
-static NSInteger const maximumDisplayedFractionDigits = 6;
-static NSInteger const minimumDisplayedIntegerDigits = 1;
+static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionEnabled";
 
-@interface ViewController ()
+@interface ViewController () <CalculatorModelDelegate>
 
 #pragma mark - outlets
 @property (retain, nonatomic) IBOutlet UILabel *digitInsertionField;
@@ -88,14 +88,14 @@ static NSInteger const minimumDisplayedIntegerDigits = 1;
     [super viewDidLoad];
     
     self.navigationController.navigationBar.backgroundColor = [UIColor grayColor];
-    UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:@"About"
+    UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:aboutTitle
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(aboutButtonTouched:)];
     self.navigationItem.leftBarButtonItem = aboutBarButton;
     [aboutBarButton release];
     
-    UIBarButtonItem *licenseBarButton = [[UIBarButtonItem alloc] initWithTitle:@"License"
+    UIBarButtonItem *licenseBarButton = [[UIBarButtonItem alloc] initWithTitle:licenseTitle
                                                                          style:UIBarButtonItemStylePlain
                                                                         target:self
                                                                         action:@selector(licenseButtonTouched:)];
@@ -204,18 +204,18 @@ static NSInteger const minimumDisplayedIntegerDigits = 1;
                                            object != self.aboutButton);
     }]];
     if (!areButtonsEnabled) {
-        [tmpViewsArray setValuesForKeysWithDictionary:@{@"userInteractionEnabled": @NO}];
+        [tmpViewsArray setValuesForKeysWithDictionary:@{uiViewPropertyUserInteractionEnabled: @NO}];
     } else {
-        [tmpViewsArray setValuesForKeysWithDictionary:@{@"userInteractionEnabled": @YES}];
+        [tmpViewsArray setValuesForKeysWithDictionary:@{uiViewPropertyUserInteractionEnabled: @YES}];
     }
 }
 
 // method to help with handling my arithmetic exceptions
 - (void)exceptionHandling:(NSException *)exception {
-    if (exception.userInfo[@"errMessage"]) {
+    if (exception.userInfo[errMessageKey]) {
         self.digitInsertionField.text = [NSString stringWithFormat:@"%@%@",
-                                         exception.userInfo[@"tag"],
-                                         exception.userInfo[@"errMessage"]];
+                                         exception.userInfo[tagKey],
+                                         exception.userInfo[errMessageKey]];
         [self switchCalculationButtonsEnabled:NO];
     }
 }

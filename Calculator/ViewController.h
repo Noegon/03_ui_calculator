@@ -7,11 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AboutViewController.h"
-#import "LicenseViewController.h"
-#import "CalculatorModel.h"
 
-@interface ViewController : UIViewController <CalculatorModelDelegate>
+@interface ViewController : UIViewController
 
 @end
 

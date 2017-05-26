@@ -7,6 +7,7 @@
 //
 
 #import "CalculatorModel.h"
+#import "Constants.h"
 
 @interface CalculatorModel ()
 
@@ -21,13 +22,13 @@
 
 - (NSDictionary *)operations {
     if (!_operations) {
-        NSDictionary *tmpDict = @{@"√": @"squareRoot",
-                                  @"%": @"divisionRemainder",
-                                  @"+": @"add",
-                                  @"-": @"subtract",
-                                  @"x": @"multiply",
-                                  @"/": @"divide",
-                                  @"+/-": @"reverseSign"};
+        NSDictionary *tmpDict = @{squareRootSign: @"squareRoot",
+                                  percentSign: @"divisionRemainder",
+                                  plusSign: @"add",
+                                  minusSign: @"subtract",
+                                  multiplicationSign: @"multiply",
+                                  divisionSign: @"divide",
+                                  reverseSign: @"reverseSign"};
         _operations = [[NSDictionary alloc]initWithDictionary:tmpDict];
     }
     return _operations;
@@ -72,10 +73,7 @@
             }
         }
     } else {
-        @throw [NSException exceptionWithName:@"Amount overflow"
-                                       reason:@"Too big digit"
-                                     userInfo:@{@"errMessage": @" - large number!",
-                                                @"tag": @"err"}];
+        @throw Constants.amountOverflowException;
     }
 }
 
@@ -83,10 +81,7 @@
     if (self.displayedResult >= 0) {
         self.displayedResult = sqrt(self.displayedResult);
     } else {
-        @throw [NSException exceptionWithName:@"Square root from negative"
-                                       reason:@"Sqare root from negative"
-                                     userInfo:@{@"errMessage": @" - sq root from neg!",
-                                                @"tag": @"err"}];
+        @throw Constants.squareRootFromNegativeException;
     }
 }
 
@@ -98,10 +93,7 @@
     if (self.currentOperand != 0) {
         self.displayedResult = (NSInteger)round(self.displayedResult) % (NSInteger)round(self.currentOperand);
     } else {
-        @throw [NSException exceptionWithName:@"Division by zero"
-                                       reason:@"Division by zero"
-                                     userInfo:@{@"errMessage": @" - div by zero!",
-                                                @"tag": @"err"}];
+        @throw Constants.divisionByZeroException;
     }
 }
 
@@ -121,10 +113,7 @@
     if (self.currentOperand != 0) {
         self.displayedResult /= self.currentOperand;
     } else {
-        @throw [NSException exceptionWithName:@"Division by zero"
-                                       reason:@"Division by zero"
-                                     userInfo:@{@"errMessage": @" - div by zero!",
-                                                @"tag": @"err"}];
+        @throw Constants.divisionByZeroException;
     }
 }
 
