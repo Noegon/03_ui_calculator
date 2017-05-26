@@ -7,9 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "AboutViewController.h"
-#import "LicenseViewController.h"
-#import "CalculatorModel.h"
 
 static NSString *const dotString = @".";
 static NSString *const zeroString = @"0";
@@ -67,6 +64,8 @@ static NSInteger const minimumDisplayedIntegerDigits = 1;
         _outputFormatter = [[NSNumberFormatter alloc]init];
         _outputFormatter.maximumFractionDigits = maximumDisplayedFractionDigits;
         _outputFormatter.minimumIntegerDigits = minimumDisplayedIntegerDigits;
+        _model = [[CalculatorModel alloc] init];
+        _model.delegate = self;
     }
     return self;
 }
@@ -102,13 +101,6 @@ static NSInteger const minimumDisplayedIntegerDigits = 1;
                                                                         action:@selector(licenseButtonTouched:)];
     self.navigationItem.rightBarButtonItem = licenseBarButton;
     [licenseBarButton release];
-}
-
-- (CalculatorModel *)model {
-    if (!_model) {
-        _model = [[CalculatorModel alloc] init];
-    }
-    return _model;
 }
 
 #pragma mark - main logic performing methods
@@ -178,7 +170,6 @@ static NSInteger const minimumDisplayedIntegerDigits = 1;
         } else {
             [self.model executeLastOperation];
         }
-        self.digitInsertionField.text = [self.outputFormatter stringFromNumber:[NSNumber numberWithDouble:self.model.displayedResult]];
     } @catch (NSException *exception) {
         [self exceptionHandling:exception];
     }
@@ -202,6 +193,7 @@ static NSInteger const minimumDisplayedIntegerDigits = 1;
 }
 
 #pragma mark - helper methods
+
 // if threre's some exception, this method switches all view elements besides clear and about buttons
 // than, if clear button is tapped, all views are in enable mode again
 - (void)switchCalculationButtonsEnabled:(BOOL)areButtonsEnabled {
@@ -228,28 +220,36 @@ static NSInteger const minimumDisplayedIntegerDigits = 1;
     }
 }
 
+// method handling situation when we start calculating from "clear page"
 - (void)renewedCalculationChainHandling {
     self.model.displayedResult = self.digitInsertionField.text.doubleValue;
     self.renewedCalculatingChain = NO;
 }
 
+// performing logic of binary operation
 - (void)binaryOperationHandlingWithOperator:(NSString *)operator {
     if (self.isSecondOperandTypingInProgress) {
         self.model.currentOperand = self.digitInsertionField.text.doubleValue;
         [self.model executeOperation];
         self.secondOperandTypingInProgress = NO;
-        self.digitInsertionField.text =
-            [self.outputFormatter stringFromNumber:[NSNumber numberWithDouble:self.model.displayedResult]];
     }
     self.model.currentOperator = operator;
 }
 
+// performing logic of unary operation
 - (void)unaryOperationHandlingWithOperator:(NSString *)operator {
     self.model.currentOperator = operator;
     [self.model executeOperationWithOperator:operator];
     self.secondOperandTypingInProgress = NO;
+}
+
+#pragma mark - delegate methods
+
+// method changes digit in digit input label when 'displayedResult' variable in model changes
+- (void)calculatorModel:(CalculatorModel *)model
+        didChangeResult:(double)displayedResult {
     self.digitInsertionField.text =
-        [self.outputFormatter stringFromNumber:[NSNumber numberWithDouble:self.model.displayedResult]];
+    [self.outputFormatter stringFromNumber:[NSNumber numberWithDouble:self.model.displayedResult]];
 }
 
 @end
