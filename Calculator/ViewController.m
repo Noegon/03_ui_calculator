@@ -11,12 +11,11 @@
 #import "LicenseViewController.h"
 #import "CalculatorModel.h"
 
-//static NSString *const errorTitle = @"error - press clear btn";
 static NSString *const dotString = @".";
 static NSString *const zeroString = @"0";
 static NSInteger const maxAmountOfDigitsInInsertionField = 16;
-//static const char *formatForOutput = "";
-//static NSString *const formatForOutput = @"%.*g";
+static NSInteger const maximumDisplayedFractionDigits = 6;
+static NSInteger const minimumDisplayedIntegerDigits = 1;
 
 @interface ViewController ()
 
@@ -32,11 +31,11 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 16;
 
 #pragma mark - main logic performing arguments
 @property (retain, nonatomic) CalculatorModel *model;
-@property (assign, nonatomic, getter=isNewCalculatingChain) BOOL newCalculatingChain;
+@property (assign, nonatomic, getter=isRenewedCalculatingChain) BOOL renewedCalculatingChain;
 @property (assign, nonatomic, getter=isSecondOperandTypingInProgress) BOOL secondOperandTypingInProgress;
 
 #pragma mark - helper arguments
-@property (retain, nonatomic, readonly) NSString *formatForOutput;
+@property (retain, nonatomic, readonly) NSNumberFormatter *outputFormatter;
 
 #pragma mark - main logic performing methods
 - (IBAction)digitButtonTouched:(UIButton *)sender;
@@ -50,6 +49,10 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 16;
 
 #pragma mark - helper methods
 - (void)switchCalculationButtonsEnabled:(BOOL)areButtonsEnabled;
+- (void)exceptionHandling:(NSException *)exception;
+- (void)renewedCalculationChainHandling;
+- (void)binaryOperationHandlingWithOperator:(NSString *)operator;
+- (void)unaryOperationHandlingWithOperator:(NSString *)operator;
 
 @end
 
@@ -60,8 +63,10 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 16;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
         _secondOperandTypingInProgress = NO;
-        _newCalculatingChain = YES;
-        _formatForOutput = [[NSString alloc]initWithFormat:@"%%.%ldg", maxAmountOfDigitsInInsertionField];
+        _renewedCalculatingChain = YES;
+        _outputFormatter = [[NSNumberFormatter alloc]init];
+        _outputFormatter.maximumFractionDigits = maximumDisplayedFractionDigits;
+        _outputFormatter.minimumIntegerDigits = minimumDisplayedIntegerDigits;
     }
     return self;
 }
@@ -76,6 +81,7 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 16;
     [_binaryOperationButtonsArray release];
     [_model release];
     [_unaryOperationsButtonsArray release];
+    [_outputFormatter release];
     [super dealloc];
 }
 
@@ -107,10 +113,21 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 16;
 
 #pragma mark - main logic performing methods
 
+//deletion by swipe left-to-right
+- (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender {
+    NSString *value = self.digitInsertionField.text;
+    NSString *result = [value substringToIndex:value.length - 1];
+    if (result.length == 0) {
+        self.digitInsertionField.text = zeroString;
+    } else {
+        self.digitInsertionField.text = result;
+    }
+}
+
 - (IBAction)digitButtonTouched:(UIButton *)sender {
     NSString *tappedButtonTitle = [sender titleForState:UIControlStateNormal];
     NSString *tmpStringfiedDigit = nil;
-    if (self.isSecondOperandTypingInProgress || self.isNewCalculatingChain) {
+    if (self.isSecondOperandTypingInProgress || self.isRenewedCalculatingChain) {
         tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tappedButtonTitle];
     } else {
         tmpStringfiedDigit = [NSString stringWithFormat:@"%@", tappedButtonTitle];
@@ -127,21 +144,10 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 16;
 
 - (IBAction)clearButtonTouched:(UIButton *)sender {
     [self.model clear];
-    [self switchCalculationButtonsEnabled:YES];
     self.digitInsertionField.text = zeroString;
+    [self switchCalculationButtonsEnabled:YES];
     self.secondOperandTypingInProgress = NO;
-    self.newCalculatingChain = YES;
-}
-
-//deletion by swipe left-to-right
-- (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender {
-    NSString *value = self.digitInsertionField.text;
-    NSString *result = [value substringToIndex:value.length - 1];
-    if (result.length == 0) {
-        self.digitInsertionField.text = zeroString;
-    } else {
-        self.digitInsertionField.text = result;
-    }
+    self.renewedCalculatingChain = YES;
 }
 
 - (IBAction)aboutButtonTouched:(UIButton *)sender {
@@ -172,14 +178,9 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 16;
         } else {
             [self.model executeLastOperation];
         }
-        self.digitInsertionField.text = [NSString stringWithFormat:self.formatForOutput, self.model.displayedResult];
+        self.digitInsertionField.text = [self.outputFormatter stringFromNumber:[NSNumber numberWithDouble:self.model.displayedResult]];
     } @catch (NSException *exception) {
-        if (exception.userInfo[@"errMessage"]) {
-            self.digitInsertionField.text = [NSString stringWithFormat:@"%@%@",
-                                             exception.userInfo[@"tag"],
-                                             exception.userInfo[@"errMessage"]];
-            [self switchCalculationButtonsEnabled:NO];
-        }
+        [self exceptionHandling:exception];
     }
 }
 
@@ -187,56 +188,68 @@ static NSInteger const maxAmountOfDigitsInInsertionField = 16;
     @try {
         NSString *operator = sender.titleLabel.text;
         BOOL isBinaryOperator = [self.binaryOperationButtonsArray containsObject:sender];
-        if (self.isNewCalculatingChain) {
-            self.model.displayedResult = self.digitInsertionField.text.doubleValue;
-            self.model.currentOperator = operator;
-            self.newCalculatingChain = NO;
-            if (!isBinaryOperator) {
-                [self.model executeOperationWithOperator:operator];
-                self.digitInsertionField.text = [NSString stringWithFormat:self.formatForOutput, self.model.displayedResult];
-                self.secondOperandTypingInProgress = NO;
-            }
+        if (self.isRenewedCalculatingChain) {
+            [self renewedCalculationChainHandling];
+        }
+        if (isBinaryOperator) {
+            [self binaryOperationHandlingWithOperator:operator];
         } else {
-            if ([self.binaryOperationButtonsArray containsObject:sender]) {
-                if (self.isSecondOperandTypingInProgress) {
-                    self.model.currentOperand = self.digitInsertionField.text.doubleValue;
-                    [self.model executeOperation];
-                    self.digitInsertionField.text = [NSString stringWithFormat:self.formatForOutput, self.model.displayedResult];
-                    self.secondOperandTypingInProgress = NO;
-                }
-            } else {
-                self.model.currentOperand = self.digitInsertionField.text.doubleValue;
-                [self.model executeOperationWithOperator:operator];
-                self.digitInsertionField.text = [NSString stringWithFormat:self.formatForOutput, self.model.displayedResult];
-                self.secondOperandTypingInProgress = NO;
-            }
-            self.model.currentOperator = operator;
+            [self unaryOperationHandlingWithOperator:operator];
         }
     } @catch (NSException *exception) {
-        if (exception.userInfo[@"errMessage"]) {
-            self.digitInsertionField.text = [NSString stringWithFormat:@"%@%@",
-                                             exception.userInfo[@"tag"],
-                                             exception.userInfo[@"errMessage"]];
-            [self switchCalculationButtonsEnabled:NO];
-        }
+        [self exceptionHandling:exception];
     }
 }
 
 #pragma mark - helper methods
-
+// if threre's some exception, this method switches all view elements besides clear and about buttons
+// than, if clear button is tapped, all views are in enable mode again
 - (void)switchCalculationButtonsEnabled:(BOOL)areButtonsEnabled {
+    NSArray *tmpViewsArray = [self.view.subviews filteredArrayUsingPredicate:
+                              [NSPredicate predicateWithBlock:
+                               ^BOOL(id object, NSDictionary *bindings){
+                                   return (object != self.clearButton &&
+                                           object != self.aboutButton);
+    }]];
     if (!areButtonsEnabled) {
-        for (UIView *view in self.view.subviews) {
-            if ((view != self.clearButton) &&
-                (view != self.aboutButton)) {
-                view.userInteractionEnabled = NO;
-            }
-        }
+        [tmpViewsArray setValuesForKeysWithDictionary:@{@"userInteractionEnabled": @NO}];
     } else {
-        for (UIView *view in self.view.subviews) {
-            view.userInteractionEnabled = YES;
-        }
+        [tmpViewsArray setValuesForKeysWithDictionary:@{@"userInteractionEnabled": @YES}];
     }
+}
+
+// method to help with handling my arithmetic exceptions
+- (void)exceptionHandling:(NSException *)exception {
+    if (exception.userInfo[@"errMessage"]) {
+        self.digitInsertionField.text = [NSString stringWithFormat:@"%@%@",
+                                         exception.userInfo[@"tag"],
+                                         exception.userInfo[@"errMessage"]];
+        [self switchCalculationButtonsEnabled:NO];
+    }
+}
+
+- (void)renewedCalculationChainHandling {
+    self.model.displayedResult = self.digitInsertionField.text.doubleValue;
+    self.renewedCalculatingChain = NO;
+}
+
+- (void)binaryOperationHandlingWithOperator:(NSString *)operator {
+    if (self.isSecondOperandTypingInProgress) {
+        self.model.currentOperand = self.digitInsertionField.text.doubleValue;
+        [self.model executeOperation];
+        self.secondOperandTypingInProgress = NO;
+        self.digitInsertionField.text =
+            [self.outputFormatter stringFromNumber:[NSNumber numberWithDouble:self.model.displayedResult]];
+    }
+    self.model.currentOperator = operator;
+}
+
+- (void)unaryOperationHandlingWithOperator:(NSString *)operator {
+    self.model.currentOperator = operator;
+    [self.model executeOperationWithOperator:operator];
+    self.secondOperandTypingInProgress = NO;
+    self.digitInsertionField.text =
+        [self.outputFormatter stringFromNumber:[NSNumber numberWithDouble:self.model.displayedResult]];
 }
 
 @end
