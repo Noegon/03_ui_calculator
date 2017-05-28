@@ -50,7 +50,6 @@ static NSString *const divisionByZeroExceptionReason = @"Division by zero";
 static NSString *const amountOverflowExceptionReason = @"Too large number";
 static NSString *const squareRootFromNegativeExceptionReason = @"Square root from negative";
 
-
 @interface Constants : NSObject
 
 #pragma mark - exceptions

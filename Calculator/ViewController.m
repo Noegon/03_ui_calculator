@@ -12,8 +12,6 @@
 #import "LicenseViewController.h"
 #import "CalculatorModel.h"
 
-static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionEnabled";
-
 @interface ViewController () <CalculatorModelDelegate>
 
 #pragma mark - outlets
@@ -21,6 +19,8 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *digitButtonsArray;
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *binaryOperationButtonsArray;
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *unaryOperationsButtonsArray;
+@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *blockableButtonsArray;
+@property (retain, nonatomic) IBOutletCollection(UIStackView) NSArray *buttonsStackViews;
 @property (retain, nonatomic) IBOutlet UIButton *dotButton;
 @property (retain, nonatomic) IBOutlet UIButton *equalButton;
 @property (retain, nonatomic) IBOutlet UIButton *clearButton;
@@ -50,6 +50,11 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 - (void)renewedCalculationChainHandling;
 - (void)binaryOperationHandlingWithOperator:(NSString *)operator;
 - (void)unaryOperationHandlingWithOperator:(NSString *)operator;
+- (void) changeTheViewToPortrait:(BOOL)portrait duration:(NSTimeInterval)duration;
+
+#pragma mark - pre-defined colors
+- (UIColor *)enabledViewTextColor;
+- (UIColor *)disabledViewTextColor;
 
 @end
 
@@ -81,6 +86,8 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
     [_model release];
     [_unaryOperationsButtonsArray release];
     [_outputFormatter release];
+    [_blockableButtonsArray release];
+    [_buttonsStackViews release];
     [super dealloc];
 }
 
@@ -197,16 +204,16 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 // if threre's some exception, this method switches all view elements besides clear and about buttons
 // than, if clear button is tapped, all views are in enable mode again
 - (void)switchCalculationButtonsEnabled:(BOOL)areButtonsEnabled {
-    NSArray *tmpViewsArray = [self.view.subviews filteredArrayUsingPredicate:
-                              [NSPredicate predicateWithBlock:
-                               ^BOOL(id object, NSDictionary *bindings){
-                                   return (object != self.clearButton &&
-                                           object != self.aboutButton);
-    }]];
+    for (UIButton *button in self.blockableButtonsArray) {
+        [button setTitleColor:UIColor.darkGrayColor forState:UIControlStateDisabled];
+        [button setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+    }
     if (!areButtonsEnabled) {
-        [tmpViewsArray setValuesForKeysWithDictionary:@{uiViewPropertyUserInteractionEnabled: @NO}];
+        self.digitInsertionField.userInteractionEnabled = NO;
+        [self.blockableButtonsArray setValuesForKeysWithDictionary:@{@"enabled": @NO}];
     } else {
-        [tmpViewsArray setValuesForKeysWithDictionary:@{uiViewPropertyUserInteractionEnabled: @YES}];
+        self.digitInsertionField.userInteractionEnabled = YES;
+        [self.blockableButtonsArray setValuesForKeysWithDictionary:@{@"enabled": @YES}];
     }
 }
 
@@ -252,4 +259,63 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
     [self.outputFormatter stringFromNumber:[NSNumber numberWithDouble:self.model.displayedResult]];
 }
 
+#pragma mark - pre-defined colors
+- (UIColor *)enabledViewTextColor {
+    return UIColor.blackColor;
+}
+
+- (UIColor *)disabledViewTextColor {
+    return UIColor.grayColor;
+}
+
+#pragma mark - orientation change handling methods
+//Note, that these methods are in use begining of iOS 6 and latest versions
+- (BOOL)shouldAutorotate {
+    return YES;
+}
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return (UIInterfaceOrientationMaskPortrait |
+            UIInterfaceOrientationMaskLandscapeLeft |
+            UIInterfaceOrientationMaskLandscapeRight);
+    
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    if(UIInterfaceOrientationIsPortrait(toInterfaceOrientation)){
+        [self changeTheViewToPortrait:YES duration:duration];
+        
+    }
+    else if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation)){
+        [self changeTheViewToPortrait:NO duration:duration];
+    }
+}
+
+
+- (void)changeTheViewToPortrait:(BOOL)portrait duration:(NSTimeInterval)duration {
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:duration];
+    
+    if(portrait) {
+        //change the view and subview frames for the portrait view here
+        NSLog(@"%@", @"portrait orientation");
+        for (UIStackView *stackView in self.buttonsStackViews) {
+            UIButton *tmpButton = stackView.arrangedSubviews.firstObject;
+            [stackView removeArrangedSubview:tmpButton];
+            [stackView addArrangedSubview:tmpButton];
+        }
+    } else {
+        //change the view and subview frames for the landscape view here
+        NSLog(@"%@", @"landscape orientation");
+        for (UIStackView *stackView in self.buttonsStackViews) {
+            UIButton *tmpButton = stackView.arrangedSubviews.lastObject;
+            [stackView removeArrangedSubview:tmpButton];
+            [stackView insertArrangedSubview:tmpButton atIndex:0];
+        }
+    }
+    
+    [UIView commitAnimations];
+}
 @end
