@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+#define SCREEN_WIDTH UIScreen.mainScreen.bounds.size.width
+#define SCREEN_HEIGHT UIScreen.mainScreen.bounds.size.height
+
 #pragma mark - common constants
 
 static NSString *const squareRootSign = @"√";
@@ -19,7 +22,7 @@ static NSString *const divisionSign = @"/";
 static NSString *const reverseSign = @"+/-";
 static NSString *const dotString = @".";
 static NSString *const zeroString = @"0";
-static NSInteger const maxAmountOfDigitsInInsertionField = 16;
+static NSInteger const maxAmountOfDigitsInInsertionField = 20;
 static NSInteger const maximumDisplayedFractionDigits = 6;
 static NSInteger const minimumDisplayedIntegerDigits = 1;
 
@@ -36,9 +39,9 @@ static NSString *const errMessageKey = @"errMessage";
 static NSString *const tagValue = @"err";
 
 //user info errorMessage values:
-static NSString *const divisionByZeroExceptionUserInfoErrMessageValue = @" - div by zero!";
-static NSString *const amountOverflowExceptionUserInfoErrMessageValue = @" - large number!";
-static NSString *const squareRootFromNegativeExceptionUserInfoErrMessageValue = @" - sq root from neg!";
+static NSString *const divisionByZeroExceptionUserInfoErrMessageValue = @"-div by zero!";
+static NSString *const amountOverflowExceptionUserInfoErrMessageValue = @"-too large number!";
+static NSString *const squareRootFromNegativeExceptionUserInfoErrMessageValue = @"-sq root from neg!";
 
 //names:
 static NSString *const divisionByZeroExceptionName = @"Division by zero";

@@ -94,6 +94,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    if (SCREEN_HEIGHT < SCREEN_WIDTH) {
+        [self changeTheViewToPortrait:NO duration:0];
+    }
+    
     self.navigationController.navigationBar.backgroundColor = [UIColor grayColor];
     UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:aboutTitle
                                                                        style:UIBarButtonItemStylePlain
@@ -127,17 +131,19 @@
     NSString *tappedButtonTitle = [sender titleForState:UIControlStateNormal];
     NSString *tmpStringfiedDigit = nil;
     if (self.isSecondOperandTypingInProgress || self.isRenewedCalculatingChain) {
-        tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tappedButtonTitle];
+        tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@",
+                              self.digitInsertionField.text,
+                              tappedButtonTitle];
     } else {
-        tmpStringfiedDigit = [NSString stringWithFormat:@"%@", tappedButtonTitle];
+        tmpStringfiedDigit = [NSString stringWithFormat:@"%@",
+                              tappedButtonTitle];
         self.secondOperandTypingInProgress = YES;
     }
-    if ([self.digitInsertionField.text length] < maxAmountOfDigitsInInsertionField) {
-        if ([tmpStringfiedDigit containsString:dotString]) {
-            self.digitInsertionField.text = tmpStringfiedDigit;
-        } else {
-            self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpStringfiedDigit.integerValue];
-        }
+    if ([tmpStringfiedDigit containsString:dotString]) {
+        self.digitInsertionField.text = tmpStringfiedDigit;
+    } else {
+        self.digitInsertionField.text = [NSString stringWithFormat:@"%ld",
+                                         tmpStringfiedDigit.integerValue];
     }
 }
 
@@ -163,7 +169,9 @@
 
 - (IBAction)dotButtonTouched:(UIButton *)sender {
     if (![self.digitInsertionField.text containsString:dotString]) {
-        NSString *tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, dotString];
+        NSString *tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@",
+                                        self.digitInsertionField.text,
+                                        dotString];
         self.digitInsertionField.text = tmpStringfiedDigit;
     }
 }
@@ -205,8 +213,8 @@
 // than, if clear button is tapped, all views are in enable mode again
 - (void)switchCalculationButtonsEnabled:(BOOL)areButtonsEnabled {
     for (UIButton *button in self.blockableButtonsArray) {
-        [button setTitleColor:UIColor.darkGrayColor forState:UIControlStateDisabled];
-        [button setTitleColor:UIColor.blackColor forState:UIControlStateNormal];
+        [button setTitleColor:[self disabledViewTextColor] forState:UIControlStateDisabled];
+        [button setTitleColor:[self enabledViewTextColor] forState:UIControlStateNormal];
     }
     if (!areButtonsEnabled) {
         self.digitInsertionField.userInteractionEnabled = NO;
@@ -265,41 +273,40 @@
 }
 
 - (UIColor *)disabledViewTextColor {
-    return UIColor.grayColor;
+    return UIColor.darkGrayColor;
 }
 
 #pragma mark - orientation change handling methods
-//Note, that these methods are in use begining of iOS 6 and latest versions
+
+//Note, that these two methods are in use begining from iOS 6 and latest versions
 - (BOOL)shouldAutorotate {
     return YES;
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return (UIInterfaceOrientationMaskPortrait |
+            UIInterfaceOrientationMaskPortraitUpsideDown |
             UIInterfaceOrientationMaskLandscapeLeft |
             UIInterfaceOrientationMaskLandscapeRight);
-    
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     if(UIInterfaceOrientationIsPortrait(toInterfaceOrientation)){
         [self changeTheViewToPortrait:YES duration:duration];
-        
     }
     else if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation)){
         [self changeTheViewToPortrait:NO duration:duration];
     }
 }
 
-
+//method changes the view and subview frames for the portrait/landscape view here
 - (void)changeTheViewToPortrait:(BOOL)portrait duration:(NSTimeInterval)duration {
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:duration];
     
     if(portrait) {
-        //change the view and subview frames for the portrait view here
         NSLog(@"%@", @"portrait orientation");
         for (UIStackView *stackView in self.buttonsStackViews) {
             UIButton *tmpButton = stackView.arrangedSubviews.firstObject;
@@ -307,7 +314,6 @@
             [stackView addArrangedSubview:tmpButton];
         }
     } else {
-        //change the view and subview frames for the landscape view here
         NSLog(@"%@", @"landscape orientation");
         for (UIStackView *stackView in self.buttonsStackViews) {
             UIButton *tmpButton = stackView.arrangedSubviews.lastObject;
