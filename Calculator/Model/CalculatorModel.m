@@ -13,6 +13,10 @@
 
 @property (retain, nonatomic) NSDictionary *operations;
 @property (retain, nonatomic) NSString *waitingOperation;
+@property (assign, nonatomic) NSMutableString *stringfiedResult;
+
+#pragma mark - helper arguments
+@property (retain, nonatomic) NSNumberFormatter *outputFormatter;
 
 @end
 
@@ -22,16 +26,24 @@
 
 - (NSDictionary *)operations {
     if (!_operations) {
-        NSDictionary *tmpDict = @{squareRootSign: @"squareRoot",
-                                  percentSign: @"divisionRemainder",
-                                  plusSign: @"add",
-                                  minusSign: @"subtract",
-                                  multiplicationSign: @"multiply",
-                                  divisionSign: @"divide",
-                                  reverseSign: @"reverseSign"};
-        _operations = [[NSDictionary alloc]initWithDictionary:tmpDict];
+        _operations = [[NSDictionary alloc]initWithDictionary:@{squareRootSign: @"squareRoot",
+                                                                percentSign: @"divisionRemainder",
+                                                                plusSign: @"add",
+                                                                minusSign: @"subtract",
+                                                                multiplicationSign: @"multiply",
+                                                                divisionSign: @"divide",
+                                                                reverseSign: @"reverseSign"}];
     }
     return _operations;
+}
+
+- (NSNumberFormatter *)outputFormatter {
+    if (!_outputFormatter) {
+        _outputFormatter = [[NSNumberFormatter alloc]init];
+        _outputFormatter.maximumFractionDigits = maximumDisplayedFractionDigits;
+        _outputFormatter.minimumIntegerDigits = minimumDisplayedIntegerDigits;
+    }
+    return _outputFormatter;
 }
 
 - (void)dealloc
@@ -39,6 +51,7 @@
     [_operations release];
     [_currentOperator release];
     [_waitingOperation release];
+    [_outputFormatter release];
     [super dealloc];
 }
 
@@ -53,10 +66,6 @@
 }
 
 - (void)executeOperationWithOperator:(NSString *)operator {
-    // Xcode will complain if we access a weak property more than
-    // once here, since it could in theory be nilled between accesses
-    // leading to unpredictable results. So we'll start by taking
-    // a local, strong reference to the delegate.
     id<CalculatorModelDelegate> strongDelegate = self.delegate;
     
     if (self.currentOperand <= DBL_MAX &&
@@ -65,9 +74,10 @@
         if ([self respondsToSelector:tmpSelector]) {
             [self performSelector:tmpSelector];
             self.waitingOperation = self.currentOperator;
+            self.stringfiedResult = [NSMutableString stringWithString:
+                                     [self.outputFormatter stringFromNumber:
+                                                                       [NSNumber numberWithDouble:self.displayedResult]]];
             
-            // Our delegate method is optional, so we should
-            // check that the delegate implements it
             if ([strongDelegate respondsToSelector:@selector(calculatorModel:didChangeResult:)]) {
                 [strongDelegate calculatorModel:self didChangeResult:self.displayedResult];
             }

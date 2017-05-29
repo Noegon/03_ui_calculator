@@ -31,8 +31,7 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 @property (assign, nonatomic, getter=isRenewedCalculatingChain) BOOL renewedCalculatingChain;
 @property (assign, nonatomic, getter=isSecondOperandTypingInProgress) BOOL secondOperandTypingInProgress;
 
-#pragma mark - helper arguments
-@property (retain, nonatomic, readonly) NSNumberFormatter *outputFormatter;
+
 
 #pragma mark - main logic performing methods
 - (IBAction)digitButtonTouched:(UIButton *)sender;
@@ -61,9 +60,6 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
     if (self = [super initWithCoder:aDecoder]) {
         _secondOperandTypingInProgress = NO;
         _renewedCalculatingChain = YES;
-        _outputFormatter = [[NSNumberFormatter alloc]init];
-        _outputFormatter.maximumFractionDigits = maximumDisplayedFractionDigits;
-        _outputFormatter.minimumIntegerDigits = minimumDisplayedIntegerDigits;
         _model = [[CalculatorModel alloc] init];
         _model.delegate = self;
     }
@@ -80,7 +76,6 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
     [_binaryOperationButtonsArray release];
     [_model release];
     [_unaryOperationsButtonsArray release];
-    [_outputFormatter release];
     [super dealloc];
 }
 
@@ -248,8 +243,7 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 // method changes digit in digit input label when 'displayedResult' variable in model changes
 - (void)calculatorModel:(CalculatorModel *)model
         didChangeResult:(double)displayedResult {
-    self.digitInsertionField.text =
-    [self.outputFormatter stringFromNumber:[NSNumber numberWithDouble:self.model.displayedResult]];
+    self.digitInsertionField.text = self.model.stringfiedResult;
 }
 
 @end
