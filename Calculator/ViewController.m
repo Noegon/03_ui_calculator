@@ -16,6 +16,7 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 
 @interface ViewController () <CalculatorModelDelegate>
 
+
 #pragma mark - outlets
 @property (retain, nonatomic) IBOutlet UILabel *digitInsertionField;
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *digitButtonsArray;
@@ -94,7 +95,7 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
                                                                       action:@selector(aboutButtonTouched:)];
     self.navigationItem.leftBarButtonItem = aboutBarButton;
     [aboutBarButton release];
-    
+
     UIBarButtonItem *licenseBarButton = [[UIBarButtonItem alloc] initWithTitle:licenseTitle
                                                                          style:UIBarButtonItemStylePlain
                                                                         target:self
