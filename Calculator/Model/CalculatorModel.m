@@ -22,14 +22,13 @@
 
 - (NSDictionary *)operations {
     if (!_operations) {
-        NSDictionary *tmpDict = @{squareRootSign: @"squareRoot",
-                                  percentSign: @"divisionRemainder",
-                                  plusSign: @"add",
-                                  minusSign: @"subtract",
-                                  multiplicationSign: @"multiply",
-                                  divisionSign: @"divide",
-                                  reverseSign: @"reverseSign"};
-        _operations = [[NSDictionary alloc]initWithDictionary:tmpDict];
+        _operations = [[NSDictionary alloc]initWithDictionary:@{squareRootSign: @"squareRoot",
+                                                                percentSign: @"divisionRemainder",
+                                                                plusSign: @"add",
+                                                                minusSign: @"subtract",
+                                                                multiplicationSign: @"multiply",
+                                                                divisionSign: @"divide",
+                                                                reverseSign: @"reverseSign"}];
     }
     return _operations;
 }

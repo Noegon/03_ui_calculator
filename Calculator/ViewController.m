@@ -50,7 +50,7 @@
 - (void)renewedCalculationChainHandling;
 - (void)binaryOperationHandlingWithOperator:(NSString *)operator;
 - (void)unaryOperationHandlingWithOperator:(NSString *)operator;
-- (void) changeTheViewToPortrait:(BOOL)portrait duration:(NSTimeInterval)duration;
+//- (void) changeTheViewToPortrait:(BOOL)portrait duration:(NSTimeInterval)duration;
 
 #pragma mark - pre-defined colors
 - (UIColor *)enabledViewTextColor;
@@ -94,9 +94,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (SCREEN_HEIGHT < SCREEN_WIDTH) {
+   /* if (SCREEN_HEIGHT < SCREEN_WIDTH) {
         [self changeTheViewToPortrait:NO duration:0];
-    }
+    }*/
     
     self.navigationController.navigationBar.backgroundColor = [UIColor grayColor];
     UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:aboutTitle
@@ -273,7 +273,7 @@
 }
 
 - (UIColor *)disabledViewTextColor {
-    return UIColor.darkGrayColor;
+    return UIColor.lightGrayColor;
 }
 
 #pragma mark - orientation change handling methods
@@ -290,7 +290,7 @@
             UIInterfaceOrientationMaskLandscapeRight);
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+/*- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:*(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     if(UIInterfaceOrientationIsPortrait(toInterfaceOrientation)){
         [self changeTheViewToPortrait:YES duration:duration];
@@ -298,10 +298,10 @@
     else if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation)){
         [self changeTheViewToPortrait:NO duration:duration];
     }
-}
+}*/
 
 //method changes the view and subview frames for the portrait/landscape view here
-- (void)changeTheViewToPortrait:(BOOL)portrait duration:(NSTimeInterval)duration {
+/*- (void)changeTheViewToPortrait:(BOOL)portrait duration:(NSTimeInterval)duration {
     
     [UIView beginAnimations:nil context:NULL];
     [UIView setAnimationDuration:duration];
@@ -323,5 +323,5 @@
     }
     
     [UIView commitAnimations];
-}
+}*/
 @end

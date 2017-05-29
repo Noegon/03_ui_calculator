@@ -53,6 +53,9 @@ static NSString *const divisionByZeroExceptionReason = @"Division by zero";
 static NSString *const amountOverflowExceptionReason = @"Too large number";
 static NSString *const squareRootFromNegativeExceptionReason = @"Square root from negative";
 
+#pragma mark - notations
+typedef const enum {BINNotation, OCTNotation, DECNotation, HEXNotation} NGNNotations;
+
 @interface Constants : NSObject
 
 #pragma mark - exceptions
