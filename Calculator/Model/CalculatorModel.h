@@ -14,21 +14,20 @@
 
 @optional
 - (void)calculatorModel:(CalculatorModel *)model
-        didChangeResult:(double)displayedResult;
+        didChangeResult:(NSString *)stringfiedResult;
 
 @end;
 
 @interface CalculatorModel : NSObject
 
-@property (retain, nonatomic) NSString *currentOperator;
 @property (assign, nonatomic) double currentOperand;
-@property (assign, nonatomic) double displayedResult;
+@property (assign, nonatomic) double result;
 @property (assign, nonatomic, readonly) NSString *stringfiedResult;
 @property (nonatomic, assign) id<CalculatorModelDelegate> delegate;
 
 - (void)executeOperationWithOperator:(NSString *)operator;
 - (void)executeOperation;
-- (void)executeLastOperation;
 - (void)clear;
+- (void)equals;
 
 @end

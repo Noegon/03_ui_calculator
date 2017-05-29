@@ -28,10 +28,6 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 
 #pragma mark - main logic performing arguments
 @property (retain, nonatomic) CalculatorModel *model;
-@property (assign, nonatomic, getter=isRenewedCalculatingChain) BOOL renewedCalculatingChain;
-@property (assign, nonatomic, getter=isSecondOperandTypingInProgress) BOOL secondOperandTypingInProgress;
-
-
 
 #pragma mark - main logic performing methods
 - (IBAction)digitButtonTouched:(UIButton *)sender;
@@ -46,9 +42,6 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 #pragma mark - helper methods
 - (void)switchCalculationButtonsEnabled:(BOOL)areButtonsEnabled;
 - (void)exceptionHandling:(NSException *)exception;
-- (void)renewedCalculationChainHandling;
-- (void)binaryOperationHandlingWithOperator:(NSString *)operator;
-- (void)unaryOperationHandlingWithOperator:(NSString *)operator;
 
 @end
 
@@ -58,8 +51,6 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super initWithCoder:aDecoder]) {
-        _secondOperandTypingInProgress = NO;
-        _renewedCalculatingChain = YES;
         _model = [[CalculatorModel alloc] init];
         _model.delegate = self;
     }
@@ -113,28 +104,18 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 
 - (IBAction)digitButtonTouched:(UIButton *)sender {
     NSString *tappedButtonTitle = [sender titleForState:UIControlStateNormal];
-    NSString *tmpStringfiedDigit = nil;
-    if (self.isSecondOperandTypingInProgress || self.isRenewedCalculatingChain) {
-        tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tappedButtonTitle];
+    NSString *tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tappedButtonTitle];
+    if ([tmpStringfiedDigit containsString:dotString]) {
+        self.digitInsertionField.text = tmpStringfiedDigit;
     } else {
-        tmpStringfiedDigit = [NSString stringWithFormat:@"%@", tappedButtonTitle];
-        self.secondOperandTypingInProgress = YES;
+        self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpStringfiedDigit.integerValue];
     }
-    if ([self.digitInsertionField.text length] < maxAmountOfDigitsInInsertionField) {
-        if ([tmpStringfiedDigit containsString:dotString]) {
-            self.digitInsertionField.text = tmpStringfiedDigit;
-        } else {
-            self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpStringfiedDigit.integerValue];
-        }
-    }
+    self.model.currentOperand = self.digitInsertionField.text.doubleValue;
 }
 
 - (IBAction)clearButtonTouched:(UIButton *)sender {
     [self.model clear];
     self.digitInsertionField.text = zeroString;
-    [self switchCalculationButtonsEnabled:YES];
-    self.secondOperandTypingInProgress = NO;
-    self.renewedCalculatingChain = YES;
 }
 
 - (IBAction)aboutButtonTouched:(UIButton *)sender {
@@ -158,13 +139,7 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 
 - (IBAction)equalsButtonTouched:(UIButton *)sender {
     @try {
-        if (self.isSecondOperandTypingInProgress) {
-            self.model.currentOperand = self.digitInsertionField.text.doubleValue;
-            [self.model executeOperation];
-            self.secondOperandTypingInProgress = NO;
-        } else {
-            [self.model executeLastOperation];
-        }
+        [self.model equals];
     } @catch (NSException *exception) {
         [self exceptionHandling:exception];
     }
@@ -173,15 +148,7 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 - (IBAction)operationButtonTouched:(UIButton *)sender {
     @try {
         NSString *operator = sender.titleLabel.text;
-        BOOL isBinaryOperator = [self.binaryOperationButtonsArray containsObject:sender];
-        if (self.isRenewedCalculatingChain) {
-            [self renewedCalculationChainHandling];
-        }
-        if (isBinaryOperator) {
-            [self binaryOperationHandlingWithOperator:operator];
-        } else {
-            [self unaryOperationHandlingWithOperator:operator];
-        }
+        [self.model executeOperationWithOperator:operator];
     } @catch (NSException *exception) {
         [self exceptionHandling:exception];
     }
@@ -215,35 +182,12 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
     }
 }
 
-// method handling situation when we start calculating from "clear page"
-- (void)renewedCalculationChainHandling {
-    self.model.displayedResult = self.digitInsertionField.text.doubleValue;
-    self.renewedCalculatingChain = NO;
-}
-
-// performing logic of binary operation
-- (void)binaryOperationHandlingWithOperator:(NSString *)operator {
-    if (self.isSecondOperandTypingInProgress) {
-        self.model.currentOperand = self.digitInsertionField.text.doubleValue;
-        [self.model executeOperation];
-        self.secondOperandTypingInProgress = NO;
-    }
-    self.model.currentOperator = operator;
-}
-
-// performing logic of unary operation
-- (void)unaryOperationHandlingWithOperator:(NSString *)operator {
-    self.model.currentOperator = operator;
-    [self.model executeOperationWithOperator:operator];
-    self.secondOperandTypingInProgress = NO;
-}
-
 #pragma mark - delegate methods
 
 // method changes digit in digit input label when 'displayedResult' variable in model changes
 - (void)calculatorModel:(CalculatorModel *)model
-        didChangeResult:(double)displayedResult {
-    self.digitInsertionField.text = self.model.stringfiedResult;
+        didChangeResult:(NSString *)stringfiedResult {
+    self.digitInsertionField.text = stringfiedResult;
 }
 
 @end
