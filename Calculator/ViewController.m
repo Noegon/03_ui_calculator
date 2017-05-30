@@ -103,6 +103,11 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 }
 
 - (IBAction)digitButtonTouched:(UIButton *)sender {
+    if (!self.model.isNewOperand &&
+        !self.model.isNewOperatorAdded) {
+        self.model.newOperatorAdded = YES;
+        self.digitInsertionField.text = zeroString;
+    }
     NSString *tappedButtonTitle = [sender titleForState:UIControlStateNormal];
     NSString *tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tappedButtonTitle];
     if ([tmpStringfiedDigit containsString:dotString]) {
@@ -116,6 +121,7 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 - (IBAction)clearButtonTouched:(UIButton *)sender {
     [self.model clear];
     self.digitInsertionField.text = zeroString;
+    [self switchCalculationButtonsEnabled:YES];
 }
 
 - (IBAction)aboutButtonTouched:(UIButton *)sender {
@@ -132,8 +138,9 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 
 - (IBAction)dotButtonTouched:(UIButton *)sender {
     if (![self.digitInsertionField.text containsString:dotString]) {
-        NSString *tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, dotString];
-        self.digitInsertionField.text = tmpStringfiedDigit;
+        self.digitInsertionField.text = [NSString stringWithFormat:@"%@%@",
+                                         self.digitInsertionField.text,
+                                         dotString];
     }
 }
 

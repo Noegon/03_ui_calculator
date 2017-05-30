@@ -11,13 +11,14 @@
 
 @interface CalculatorModel ()
 
+@property (assign, nonatomic) double result;
 @property (retain, nonatomic) NSMutableDictionary *operations;
 @property (retain, nonatomic) NSDictionary *binaryOperations;
 @property (retain, nonatomic) NSDictionary *unaryOperations;
 @property (retain, nonatomic) NSString *waitingOperation;
-@property (assign, nonatomic) NSMutableString *stringfiedResult;
-@property (assign, nonatomic, getter=isNewOperand) BOOL newOperand;
-@property (assign, nonatomic, getter=isNewOperandInTypingProgress) BOOL newOperandInTypingProgress;
+@property (assign, nonatomic, readwrite) NSString *stringfiedResult;
+//@property (assign, nonatomic, getter=isNewOperand, readwrite) BOOL newOperand;
+//@property (assign, nonatomic, getter=isNewOperandAdded, readwrite) BOOL newOperandAdded;
 
 #pragma mark - helper arguments
 @property (retain, nonatomic) NSNumberFormatter *outputFormatter;
@@ -36,6 +37,7 @@
     if (self = [super init]) {
         _result = NAN;
         _newOperand = YES;
+        _newOperatorAdded = NO;
         _unaryOperations = [@{squareRootSign: @"squareRoot",
                               reverseSign: @"reverseSign"} retain];
         
@@ -77,15 +79,9 @@
     if ([self respondsToSelector:tmpSelector]) {
         [self performSelector:tmpSelector];
     }
-    self.newOperandInTypingProgress = NO;
-    id<CalculatorModelDelegate> strongDelegate = self.delegate;
-    self.stringfiedResult = [NSMutableString stringWithString:
-                             [self.outputFormatter stringFromNumber:
-                              [NSNumber numberWithDouble:self.result]]];
-    
-    if ([strongDelegate respondsToSelector:@selector(calculatorModel:didChangeResult:)]) {
-        [strongDelegate calculatorModel:self didChangeResult:self.stringfiedResult];
-    }
+//    self.newOperand = NO;
+    self.newOperatorAdded = NO;
+    [self sendMessageWithResultForDelegate];
 }
 
 //executing inserted operation
@@ -98,10 +94,10 @@
             self.result = self.currentOperand;
         }
         
-        if (self.isNewOperandInTypingProgress) {
+        if ([self isNewOperatorAdded]) {
             [self executeOperation];
         }
-
+        
         if (self.isNewOperand && [self isBinaryOperation:operator]) {
             [self executeOperation];
         }
@@ -110,23 +106,29 @@
         
         if ([self isUnaryOperation:operator]) {
             [self executeOperation];
-            if ([operator isEqualToString:reverseSign]) {
-                self.newOperandInTypingProgress = YES;
-            }
         }
     } else {
         @throw Constants.amountOverflowException;
     }
 }
 
+- (void)setCurrentOperand:(double)currentOperand {
+    if (isnan(self.result)) {
+        self.newOperand = YES;
+    }
+    _currentOperand = currentOperand;
+}
+
 - (void)clear {
     self.result = NAN;
     self.waitingOperation = nil;
+    self.currentOperand = 0;
+    self.stringfiedResult = nil;
 }
 
 - (void)equals {
-    self.newOperand = YES;
     [self executeOperation];
+    self.newOperand = YES;
 }
 
 - (BOOL) isBinaryOperation:(NSString *)operator {
@@ -137,11 +139,24 @@
     return [[self.unaryOperations allKeys]containsObject:operator];
 }
 
-- (void)setCurrentOperand:(double)currentOperand {
-    if (isnan(self.result)) {
-        self.newOperand = YES;
+- (void)setStringfiedResultFromDoubleValue:(double)newResult {
+    NSString *tmpStringfiedResult = [[NSMutableString stringWithString:
+                                     [self.outputFormatter stringFromNumber:
+                                      [NSNumber numberWithDouble:newResult]]]retain];
+    [_stringfiedResult release];
+    _stringfiedResult = tmpStringfiedResult;
+}
+
+- (void)sendMessageWithResultForDelegate {
+    if (!isnan(self.result)) {
+        [self setStringfiedResultFromDoubleValue:self.result];
+        
+        id<CalculatorModelDelegate> strongDelegate = self.delegate;
+        
+        if ([strongDelegate respondsToSelector:@selector(calculatorModel:didChangeResult:)]) {
+            [strongDelegate calculatorModel:self didChangeResult:self.stringfiedResult];
+        }
     }
-    _currentOperand = currentOperand;
 }
 
 #pragma mark - mathematic operations
