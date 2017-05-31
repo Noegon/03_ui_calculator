@@ -292,6 +292,7 @@
                         <outlet property="digitInsertionField" destination="Ohk-0I-Yhf" id="H9T-iZ-PXz"/>
                         <outlet property="dotButton" destination="RTQ-2K-3kd" id="QlE-Hl-gDt"/>
                         <outlet property="equalButton" destination="13m-go-JJG" id="cx5-SD-Fs9"/>
+                        <outlet property="navigationBar" destination="gZB-gD-pAm" id="xOy-Ex-YQa"/>
                         <outletCollection property="digitButtonsArray" destination="jZv-Mu-ZvE" id="nQq-9P-RcQ"/>
                         <outletCollection property="digitButtonsArray" destination="Jtr-Nn-1ae" id="By8-nD-oJy"/>
                         <outletCollection property="digitButtonsArray" destination="rZk-Qj-DPL" id="uK9-7T-7Qd"/>
@@ -324,7 +325,7 @@
         <scene sceneID="pSP-0l-yTF">
             <objects>
                 <navigationController id="QAJ-qX-9Jo" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D2a-eu-4gH">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="D2a-eu-4gH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

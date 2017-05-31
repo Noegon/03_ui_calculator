@@ -16,6 +16,7 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 
 @interface ViewController () <CalculatorModelDelegate>
 
+
 #pragma mark - outlets
 @property (retain, nonatomic) IBOutlet UILabel *digitInsertionField;
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *digitButtonsArray;
