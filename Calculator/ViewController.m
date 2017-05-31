@@ -29,6 +29,9 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 #pragma mark - main logic performing arguments
 @property (retain, nonatomic) CalculatorModel *model;
 
+#pragma mark - flags
+@property (assign, nonatomic, getter=isValueEditingInProgress) BOOL valueEditingInProgress;
+
 #pragma mark - main logic performing methods
 - (IBAction)digitButtonTouched:(UIButton *)sender;
 - (IBAction)clearButtonTouched:(UIButton *)sender;
@@ -103,19 +106,17 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 }
 
 - (IBAction)digitButtonTouched:(UIButton *)sender {
-    if (!self.model.isNewOperand &&
-        !self.model.isNewOperatorAdded) {
-        self.model.newOperatorAdded = YES;
-        self.digitInsertionField.text = zeroString;
-    }
     NSString *tappedButtonTitle = [sender titleForState:UIControlStateNormal];
-    NSString *tmpStringfiedDigit = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tappedButtonTitle];
+    NSString *tmpStringfiedDigit  = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tappedButtonTitle];
     if ([tmpStringfiedDigit containsString:dotString]) {
         self.digitInsertionField.text = tmpStringfiedDigit;
     } else {
         self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpStringfiedDigit.integerValue];
     }
-    self.model.currentOperand = self.digitInsertionField.text.doubleValue;
+    if (!self.isValueEditingInProgress) {
+        self.digitInsertionField.text = tappedButtonTitle;
+    }
+    self.valueEditingInProgress = YES;
 }
 
 - (IBAction)clearButtonTouched:(UIButton *)sender {
@@ -146,7 +147,11 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 
 - (IBAction)equalsButtonTouched:(UIButton *)sender {
     @try {
-        [self.model equals];
+        if (self.isValueEditingInProgress) {
+            self.valueEditingInProgress = NO;
+            self.model.currentOperand = self.digitInsertionField.text.doubleValue;
+        }
+        [self.model equals]; //waiting operation always calculates, unary operation can not be waiting operation
     } @catch (NSException *exception) {
         [self exceptionHandling:exception];
     }
@@ -154,7 +159,11 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 
 - (IBAction)operationButtonTouched:(UIButton *)sender {
     @try {
-        NSString *operator = sender.titleLabel.text;
+        if (self.isValueEditingInProgress) {
+            self.model.currentOperand = self.digitInsertionField.text.doubleValue;
+            self.valueEditingInProgress = NO;
+        }
+        NSString *operator = [sender titleForState:UIControlStateNormal];
         [self.model executeOperationWithOperator:operator];
     } @catch (NSException *exception) {
         [self exceptionHandling:exception];

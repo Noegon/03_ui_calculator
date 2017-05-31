@@ -21,13 +21,9 @@
 @interface CalculatorModel : NSObject
 
 @property (assign, nonatomic) double currentOperand;
-@property (assign, nonatomic, readonly) NSString *stringfiedResult;
-@property (assign, nonatomic, getter=isNewOperand) BOOL newOperand;
-@property (assign, nonatomic, getter=isNewOperatorAdded) BOOL newOperatorAdded;
 @property (nonatomic, assign) id<CalculatorModelDelegate> delegate;
 
 - (void)executeOperationWithOperator:(NSString *)operator;
-- (void)executeOperation;
 - (void)clear;
 - (void)equals;
 

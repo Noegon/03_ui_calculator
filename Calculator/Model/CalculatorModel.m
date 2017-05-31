@@ -16,9 +16,14 @@
 @property (retain, nonatomic) NSDictionary *binaryOperations;
 @property (retain, nonatomic) NSDictionary *unaryOperations;
 @property (retain, nonatomic) NSString *waitingOperation;
-@property (assign, nonatomic, readwrite) NSString *stringfiedResult;
-//@property (assign, nonatomic, getter=isNewOperand, readwrite) BOOL newOperand;
-//@property (assign, nonatomic, getter=isNewOperandAdded, readwrite) BOOL newOperandAdded;
+@property (assign, nonatomic) NSString *stringfiedResult;
+//@property (retain, nonatomic) NSMutableArray *operationsStack;
+@property (assign, nonatomic, getter=isNewOperand, readwrite) BOOL newOperand;
+@property (assign, nonatomic, getter=isNewOperandAdded, readwrite) BOOL newOperandAdded;
+
+#pragma mark - main logic methods
+- (void)executeOperation;
+- (void)executeUnaryOperation:(NSString *)operator;
 
 #pragma mark - helper arguments
 @property (retain, nonatomic) NSNumberFormatter *outputFormatter;
@@ -26,6 +31,10 @@
 #pragma mark - helper methods
 - (BOOL) isBinaryOperation:(NSString *)operator;
 - (BOOL) isUnaryOperation:(NSString *)operator;
+
+//#pragma mark - operationStack logic
+//- (void)pushOperation:(NSString *)operator;
+//- (NSString *)popOperation;
 
 @end
 
@@ -37,7 +46,7 @@
     if (self = [super init]) {
         _result = NAN;
         _newOperand = YES;
-        _newOperatorAdded = NO;
+        _newOperandAdded = NO;
         _unaryOperations = [@{squareRootSign: @"squareRoot",
                               reverseSign: @"reverseSign"} retain];
         
@@ -49,6 +58,8 @@
         
         _operations = [[NSMutableDictionary alloc] initWithDictionary:_unaryOperations];
         [_operations addEntriesFromDictionary:_binaryOperations];
+        
+//        _operationsStack = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -60,6 +71,7 @@
     [_binaryOperations release];
     [_waitingOperation release];
     [_outputFormatter release];
+//    [_operationsStack release];
     [super dealloc];
 }
 
@@ -75,12 +87,16 @@
 #pragma mark - model logic methods
 // executing last operation
 - (void)executeOperation {
-    SEL tmpSelector = NSSelectorFromString([self.operations valueForKey:self.waitingOperation]);
+    [self executeUnaryOperation:self.waitingOperation];
+}
+
+// executing unary operation
+- (void)executeUnaryOperation:(NSString *)operator {
+    SEL tmpSelector = NSSelectorFromString([self.operations valueForKey:operator]);
     if ([self respondsToSelector:tmpSelector]) {
         [self performSelector:tmpSelector];
     }
-//    self.newOperand = NO;
-    self.newOperatorAdded = NO;
+    self.newOperandAdded = NO;
     [self sendMessageWithResultForDelegate];
 }
 
@@ -94,27 +110,56 @@
             self.result = self.currentOperand;
         }
         
-        if ([self isNewOperatorAdded]) {
-            [self executeOperation];
-        }
+//        if (self.isNewOperand) {
+//            self.result = self.currentOperand;
+//            self.newOperand = NO;
+//        }
         
-        if (self.isNewOperand && [self isBinaryOperation:operator]) {
-            [self executeOperation];
+        if ([self isBinaryOperation:operator]) {
+            if (self.isNewOperand) {
+                self.newOperand = NO;
+            }
+            if ([self isNewOperandAdded]) {
+                [self executeOperation];
+            }
+            self.currentOperand = self.result;
+            self.newOperandAdded = NO;
+            self.waitingOperation = operator;
         }
-        
-        self.waitingOperation = operator;
         
         if ([self isUnaryOperation:operator]) {
-            [self executeOperation];
+            [self executeUnaryOperation:operator];
         }
+        
+//        if ([self isNewOperandAdded]) {
+//            [self executeOperation];
+//        }
+//        
+//        if ([self isBinaryOperation:operator]) {
+//            if (self.isNewOperand) {
+//                self.newOperand = NO;
+//            }
+//        }
+//        
+//        self.waitingOperation = operator;
+//        
+//        if ([self isUnaryOperation:operator]) {
+//            [self executeOperation];
+//            self.currentOperand = self.result;
+//            self.waitingOperation = nil;
+//            if (self.isNewOperand) {
+//                self.newOperand = NO;
+//            }
+//        }
+    
     } else {
         @throw Constants.amountOverflowException;
     }
 }
 
 - (void)setCurrentOperand:(double)currentOperand {
-    if (isnan(self.result)) {
-        self.newOperand = YES;
+    if (!self.isNewOperandAdded && !self.isNewOperand) {
+        self.newOperandAdded = YES;
     }
     _currentOperand = currentOperand;
 }
@@ -201,3 +246,77 @@
 }
 
 @end
+
+
+
+
+
+//
+//#pragma mark - operationStack logic
+//- (void)pushOperation:(NSString *)operator {
+//    [self.operationsStack addObject:operator];
+//}
+//
+//- (NSString *)popOperation {
+//    NSString *operationObject = [[self.operationsStack lastObject]retain];
+//    if (operationObject) {
+//        [self.operationsStack removeLastObject];
+//    }
+//    return operationObject;
+//}
+
+//- (void)executeOperationWithOperator:(NSString *)operator {
+//
+//    if (self.currentOperand <= DBL_MAX &&
+//        self.currentOperand >= -DBL_MAX) {
+//        
+//        if (isnan(self.result)) {
+//            self.result = self.currentOperand;
+//        }
+//        
+//        if ([self isSecondOperatorAdded]) {
+//            [self executeOperation];
+//        }
+//        
+//        if (self.isNewOperand && [self isBinaryOperation:operator]) {
+//            [self executeOperation];
+//        }
+//        
+//        self.waitingOperation = operator;
+//        
+//        if ([self isUnaryOperation:operator]) {
+//            [self executeOperation];
+//        }
+//    } else {
+//        @throw Constants.amountOverflowException;
+//    }
+//}
+
+//- (void)executeOperationWithOperator:(NSString *)operator {
+//    
+//    if (self.currentOperand <= DBL_MAX &&
+//        self.currentOperand >= -DBL_MAX) {
+//        
+//        if (isnan(self.result)) {
+//            self.result = self.currentOperand;
+//        }
+//        
+//        if ([self isBinaryOperation:operator]) {
+//            if (self.isNewOperand) {
+//                self.waitingOperation = operator;
+//                self.newOperand = NO;
+//            } else {
+//                if (self.waitingSecondOperandAdded) {
+//                    [self executeOperation];
+//                }
+//                self.waitingOperation = operator;
+//            }
+//        } else {
+//            self.waitingOperation = operator;
+//            [self executeOperation];
+//        }
+//        
+//    } else {
+//        @throw Constants.amountOverflowException;
+//    }
+//}
