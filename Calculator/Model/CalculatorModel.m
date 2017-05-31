@@ -110,14 +110,10 @@
             self.result = self.currentOperand;
         }
         
-//        if (self.isNewOperand) {
-//            self.result = self.currentOperand;
-//            self.newOperand = NO;
-//        }
-        
         if ([self isBinaryOperation:operator]) {
             if (self.isNewOperand) {
                 self.newOperand = NO;
+                self.result = self.currentOperand;
             }
             if ([self isNewOperandAdded]) {
                 [self executeOperation];
@@ -130,27 +126,6 @@
         if ([self isUnaryOperation:operator]) {
             [self executeUnaryOperation:operator];
         }
-        
-//        if ([self isNewOperandAdded]) {
-//            [self executeOperation];
-//        }
-//        
-//        if ([self isBinaryOperation:operator]) {
-//            if (self.isNewOperand) {
-//                self.newOperand = NO;
-//            }
-//        }
-//        
-//        self.waitingOperation = operator;
-//        
-//        if ([self isUnaryOperation:operator]) {
-//            [self executeOperation];
-//            self.currentOperand = self.result;
-//            self.waitingOperation = nil;
-//            if (self.isNewOperand) {
-//                self.newOperand = NO;
-//            }
-//        }
     
     } else {
         @throw Constants.amountOverflowException;
@@ -246,77 +221,3 @@
 }
 
 @end
-
-
-
-
-
-//
-//#pragma mark - operationStack logic
-//- (void)pushOperation:(NSString *)operator {
-//    [self.operationsStack addObject:operator];
-//}
-//
-//- (NSString *)popOperation {
-//    NSString *operationObject = [[self.operationsStack lastObject]retain];
-//    if (operationObject) {
-//        [self.operationsStack removeLastObject];
-//    }
-//    return operationObject;
-//}
-
-//- (void)executeOperationWithOperator:(NSString *)operator {
-//
-//    if (self.currentOperand <= DBL_MAX &&
-//        self.currentOperand >= -DBL_MAX) {
-//        
-//        if (isnan(self.result)) {
-//            self.result = self.currentOperand;
-//        }
-//        
-//        if ([self isSecondOperatorAdded]) {
-//            [self executeOperation];
-//        }
-//        
-//        if (self.isNewOperand && [self isBinaryOperation:operator]) {
-//            [self executeOperation];
-//        }
-//        
-//        self.waitingOperation = operator;
-//        
-//        if ([self isUnaryOperation:operator]) {
-//            [self executeOperation];
-//        }
-//    } else {
-//        @throw Constants.amountOverflowException;
-//    }
-//}
-
-//- (void)executeOperationWithOperator:(NSString *)operator {
-//    
-//    if (self.currentOperand <= DBL_MAX &&
-//        self.currentOperand >= -DBL_MAX) {
-//        
-//        if (isnan(self.result)) {
-//            self.result = self.currentOperand;
-//        }
-//        
-//        if ([self isBinaryOperation:operator]) {
-//            if (self.isNewOperand) {
-//                self.waitingOperation = operator;
-//                self.newOperand = NO;
-//            } else {
-//                if (self.waitingSecondOperandAdded) {
-//                    [self executeOperation];
-//                }
-//                self.waitingOperation = operator;
-//            }
-//        } else {
-//            self.waitingOperation = operator;
-//            [self executeOperation];
-//        }
-//        
-//    } else {
-//        @throw Constants.amountOverflowException;
-//    }
-//}
