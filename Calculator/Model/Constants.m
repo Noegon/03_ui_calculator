@@ -12,25 +12,26 @@
 
 #pragma mark - exceptions
 
-+ (NSException *)divisionByZeroException {
-    return [NSException exceptionWithName:divisionByZeroExceptionName
-                                   reason:divisionByZeroExceptionReason
-                                 userInfo:@{errMessageKey: divisionByZeroExceptionUserInfoErrMessageValue,
-                                                   tagKey: tagValue}];
++ (NSException *)calculatorModelDivisionByZeroException {
+    return [NSException exceptionWithName:ExceptionDivisionByZeroExceptionName
+                                   reason:ExceptionDivisionByZeroExceptionReason
+                                 userInfo:@{ExceptionUserParamsKeysErrMessageKey:
+                                                ExceptionValuesDivisionByZeroExceptionUserParamsErrMessageValue,
+                                            ExceptionUserParamsKeysTagKey: ExceptionUserParamsValuesTagValue}];
 }
 
-+ (NSException *)amountOverflowException {
-    return [NSException exceptionWithName:amountOverflowExceptionName
-                                   reason:amountOverflowExceptionReason
-                                 userInfo:@{errMessageKey: amountOverflowExceptionUserInfoErrMessageValue,
-                                                   tagKey: tagValue}];
++ (NSException *)calculatorModelAmountOverflowException {
+    return [NSException exceptionWithName:ExceptionAmountOverflowExceptionName
+                                   reason:ExceptionAmountOverflowExceptionReason
+                                 userInfo:@{ExceptionUserParamsKeysErrMessageKey:
+                                                ExceptionValuesAmountOverflowExceptionUserParamsErrMessageValue,
+                                            ExceptionUserParamsKeysTagKey: ExceptionUserParamsValuesTagValue}];
 }
 
-+ (NSException *)squareRootFromNegativeException {
-    return [NSException exceptionWithName:squareRootFromNegativeExceptionName
-                                   reason:squareRootFromNegativeExceptionReason
-                                 userInfo:@{errMessageKey: squareRootFromNegativeExceptionUserInfoErrMessageValue,
-                                                   tagKey: tagValue}];
++ (NSException *)calculatorModelSquareRootFromNegativeException {
+    return [NSException exceptionWithName:ExceptionSquareRootFromNegativeExceptionName
+                                   reason:ExceptionSquareRootFromNegativeExceptionReason
+                                 userInfo:@{ExceptionUserParamsKeysErrMessageKey: ExceptionValuesSquareRootFromNegativeExceptionUserParamsErrMessageValue,                                                  ExceptionUserParamsKeysTagKey: ExceptionUserParamsValuesTagValue}];
 }
 
 @end
