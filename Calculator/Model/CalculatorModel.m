@@ -12,18 +12,23 @@
 @interface CalculatorModel ()
 
 @property (assign, nonatomic) double result;
+@property (assign, nonatomic) double lastInsertedOperand;
+
 @property (retain, nonatomic) NSMutableDictionary *operations;
 @property (retain, nonatomic) NSDictionary *binaryOperations;
 @property (retain, nonatomic) NSDictionary *unaryOperations;
 @property (retain, nonatomic) NSString *waitingOperation;
+
 @property (assign, nonatomic) NSString *stringfiedResult;
-//@property (retain, nonatomic) NSMutableArray *operationsStack;
-@property (assign, nonatomic, getter=isNewOperand, readwrite) BOOL newOperand;
-@property (assign, nonatomic, getter=isNewOperandAdded, readwrite) BOOL newOperandAdded;
+
+@property (assign, nonatomic, getter=isRenewedCalculationChain, readwrite) BOOL renewedCalculationChain;
+@property (assign, nonatomic, getter=isSecondOperandAdded, readwrite) BOOL secondOperandAdded;
+@property (assign, nonatomic, getter=isEqualsOperationPerformed, readwrite) BOOL equalsOperationPerformed;
 
 #pragma mark - main logic methods
-- (void)executeOperation;
-- (void)executeUnaryOperation:(NSString *)operator;
+- (void)executeBinaryOperation;
+- (void)executeUnaryOperationWithOperator:(NSString *)operator;
+- (void)executeOperationWithOperator:(NSString *)operator;
 
 #pragma mark - helper arguments
 @property (retain, nonatomic) NSNumberFormatter *outputFormatter;
@@ -31,10 +36,8 @@
 #pragma mark - helper methods
 - (BOOL) isBinaryOperation:(NSString *)operator;
 - (BOOL) isUnaryOperation:(NSString *)operator;
-
-//#pragma mark - operationStack logic
-//- (void)pushOperation:(NSString *)operator;
-//- (NSString *)popOperation;
+- (void) performBinaryOperationWithOperator:(NSString *)operator;
+- (void) performUnaryOperationWithOperator:(NSString *)operator;
 
 @end
 
@@ -45,8 +48,8 @@
 - (instancetype)init {
     if (self = [super init]) {
         _result = NAN;
-        _newOperand = YES;
-        _newOperandAdded = NO;
+        _renewedCalculationChain = YES;
+        _secondOperandAdded = NO;
         _unaryOperations = [@{squareRootSign: @"squareRoot",
                               reverseSign: @"reverseSign"} retain];
         
@@ -58,8 +61,6 @@
         
         _operations = [[NSMutableDictionary alloc] initWithDictionary:_unaryOperations];
         [_operations addEntriesFromDictionary:_binaryOperations];
-        
-//        _operationsStack = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -71,7 +72,6 @@
     [_binaryOperations release];
     [_waitingOperation release];
     [_outputFormatter release];
-//    [_operationsStack release];
     [super dealloc];
 }
 
@@ -85,22 +85,59 @@
 }
 
 #pragma mark - model logic methods
-// executing last operation
-- (void)executeOperation {
-    [self executeUnaryOperation:self.waitingOperation];
-}
-
-// executing unary operation
-- (void)executeUnaryOperation:(NSString *)operator {
+// template for operations executing
+- (void)executeRawOperation:(NSString *)operator {
     SEL tmpSelector = NSSelectorFromString([self.operations valueForKey:operator]);
     if ([self respondsToSelector:tmpSelector]) {
         [self performSelector:tmpSelector];
     }
-    self.newOperandAdded = NO;
+}
+
+// executing last inserted binary operation
+- (void)executeBinaryOperation {
+    [self executeRawOperation:self.waitingOperation];
+    self.secondOperandAdded = NO;
     [self sendMessageWithResultForDelegate];
 }
 
-//executing inserted operation
+// executing current unary operation
+- (void)executeUnaryOperationWithOperator:(NSString *)operator {
+    [self executeRawOperation:operator];
+    [self sendMessageWithCurrentOperandForDelegate];
+}
+
+// helper method to perform binary operations
+- (void) performBinaryOperationWithOperator:(NSString *)operator {
+    if (self.isRenewedCalculationChain) {
+        self.renewedCalculationChain = NO;
+        if (self.isEqualsOperationPerformed) {
+            self.currentOperand = self.result;
+            self.secondOperandAdded = NO;
+            self.equalsOperationPerformed = NO;
+        }
+        self.result = self.currentOperand;
+    }
+    if ([self isSecondOperandAdded]) {
+        [self executeBinaryOperation];
+    }
+    self.currentOperand = self.result;
+    self.secondOperandAdded = NO;
+    self.waitingOperation = operator;
+}
+
+// helper method to perform unary operations
+- (void) performUnaryOperationWithOperator:(NSString *)operator {
+    if (self.isEqualsOperationPerformed) {
+        self.currentOperand = self.result;
+        self.equalsOperationPerformed = NO;
+    }
+    [self executeUnaryOperationWithOperator:operator];
+    if (self.isRenewedCalculationChain) {
+        self.result = self.currentOperand;
+    }
+}
+
+// main method for executing inserted operation
 - (void)executeOperationWithOperator:(NSString *)operator {
     
     if (self.currentOperand <= DBL_MAX &&
@@ -111,20 +148,11 @@
         }
         
         if ([self isBinaryOperation:operator]) {
-            if (self.isNewOperand) {
-                self.newOperand = NO;
-                self.result = self.currentOperand;
-            }
-            if ([self isNewOperandAdded]) {
-                [self executeOperation];
-            }
-            self.currentOperand = self.result;
-            self.newOperandAdded = NO;
-            self.waitingOperation = operator;
+            [self performBinaryOperationWithOperator:operator];
         }
         
         if ([self isUnaryOperation:operator]) {
-            [self executeUnaryOperation:operator];
+            [self performUnaryOperationWithOperator:operator];
         }
     
     } else {
@@ -133,8 +161,8 @@
 }
 
 - (void)setCurrentOperand:(double)currentOperand {
-    if (!self.isNewOperandAdded && !self.isNewOperand) {
-        self.newOperandAdded = YES;
+    if (!self.isSecondOperandAdded && !self.isRenewedCalculationChain) {
+        self.secondOperandAdded = YES;
     }
     _currentOperand = currentOperand;
 }
@@ -147,8 +175,9 @@
 }
 
 - (void)equals {
-    [self executeOperation];
-    self.newOperand = YES;
+    [self executeBinaryOperation];
+    self.renewedCalculationChain = YES;
+    self.equalsOperationPerformed = YES;
 }
 
 - (BOOL) isBinaryOperation:(NSString *)operator {
@@ -159,6 +188,8 @@
     return [[self.unaryOperations allKeys]containsObject:operator];
 }
 
+#pragma mark - delegate helper methods
+
 - (void)setStringfiedResultFromDoubleValue:(double)newResult {
     NSString *tmpStringfiedResult = [[NSMutableString stringWithString:
                                      [self.outputFormatter stringFromNumber:
@@ -168,8 +199,16 @@
 }
 
 - (void)sendMessageWithResultForDelegate {
-    if (!isnan(self.result)) {
-        [self setStringfiedResultFromDoubleValue:self.result];
+    [self sendMessageForDelegateWithNumber:self.result];
+}
+
+- (void)sendMessageWithCurrentOperandForDelegate {
+    [self sendMessageForDelegateWithNumber:self.currentOperand];
+}
+
+- (void)sendMessageForDelegateWithNumber:(double)number {
+    if (!isnan(number)) {
+        [self setStringfiedResultFromDoubleValue:number];
         
         id<CalculatorModelDelegate> strongDelegate = self.delegate;
         
@@ -181,15 +220,15 @@
 
 #pragma mark - mathematic operations
 - (void)squareRoot {
-    if (self.result >= 0) {
-        self.result = sqrt(self.result);
+    if (self.currentOperand >= 0) {
+        self.currentOperand = sqrt(self.currentOperand);
     } else {
         @throw Constants.squareRootFromNegativeException;
     }
 }
 
 - (void)reverseSign {
-    self.result = -1 * self.result;
+    self.currentOperand = -1 * self.currentOperand;
 }
 
 - (void)divisionRemainder {
