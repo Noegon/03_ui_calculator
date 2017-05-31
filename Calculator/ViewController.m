@@ -33,18 +33,17 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
 @property (assign, nonatomic, getter=isValueEditingInProgress) BOOL valueEditingInProgress;
 
 #pragma mark - main logic performing methods
-- (IBAction)digitButtonTouched:(UIButton *)sender;
-- (IBAction)clearButtonTouched:(UIButton *)sender;
 - (IBAction)handleSwipeGesture:(UISwipeGestureRecognizer *)sender;
 - (IBAction)aboutButtonTouched:(UIButton *)sender;
 - (IBAction)licenseButtonTouched:(UIBarButtonItem *)sender;
+- (IBAction)digitButtonTouched:(UIButton *)sender;
+- (IBAction)clearButtonTouched:(UIButton *)sender;
 - (IBAction)dotButtonTouched:(UIButton *)sender;
 - (IBAction)equalsButtonTouched:(UIButton *)sender;
 - (IBAction)operationButtonTouched:(UIButton *)sender;
 
 #pragma mark - helper methods
 - (void)switchCalculationButtonsEnabled:(BOOL)areButtonsEnabled;
-- (void)exceptionHandling:(NSException *)exception;
 
 @end
 
@@ -77,14 +76,14 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
     [super viewDidLoad];
     
     self.navigationController.navigationBar.backgroundColor = [UIColor grayColor];
-    UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:aboutTitle
+    UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:ViewControllerAboutTitle
                                                                        style:UIBarButtonItemStylePlain
                                                                       target:self
                                                                       action:@selector(aboutButtonTouched:)];
     self.navigationItem.leftBarButtonItem = aboutBarButton;
     [aboutBarButton release];
     
-    UIBarButtonItem *licenseBarButton = [[UIBarButtonItem alloc] initWithTitle:licenseTitle
+    UIBarButtonItem *licenseBarButton = [[UIBarButtonItem alloc] initWithTitle:ViewControllerLicenseTitle
                                                                          style:UIBarButtonItemStylePlain
                                                                         target:self
                                                                         action:@selector(licenseButtonTouched:)];
@@ -99,30 +98,10 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
     NSString *value = self.digitInsertionField.text;
     NSString *result = [value substringToIndex:value.length - 1];
     if (result.length == 0) {
-        self.digitInsertionField.text = zeroString;
+        self.digitInsertionField.text = ViewControllerZeroString;
     } else {
         self.digitInsertionField.text = result;
     }
-}
-
-- (IBAction)digitButtonTouched:(UIButton *)sender {
-    NSString *tappedButtonTitle = [sender titleForState:UIControlStateNormal];
-    NSString *tmpStringfiedDigit  = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tappedButtonTitle];
-    if ([tmpStringfiedDigit containsString:dotString]) {
-        self.digitInsertionField.text = tmpStringfiedDigit;
-    } else {
-        self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpStringfiedDigit.integerValue];
-    }
-    if (!self.isValueEditingInProgress) {
-        self.digitInsertionField.text = tappedButtonTitle;
-    }
-    self.valueEditingInProgress = YES;
-}
-
-- (IBAction)clearButtonTouched:(UIButton *)sender {
-    [self.model clear];
-    self.digitInsertionField.text = zeroString;
-    [self switchCalculationButtonsEnabled:YES];
 }
 
 - (IBAction)aboutButtonTouched:(UIButton *)sender {
@@ -137,37 +116,49 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
     [licenseController release];
 }
 
+- (IBAction)digitButtonTouched:(UIButton *)sender {
+    NSString *tappedButtonTitle = [sender titleForState:UIControlStateNormal];
+    NSString *tmpStringfiedDigit  = [NSString stringWithFormat:@"%@%@", self.digitInsertionField.text, tappedButtonTitle];
+    if ([tmpStringfiedDigit containsString:ViewControllerDotString]) {
+        self.digitInsertionField.text = tmpStringfiedDigit;
+    } else {
+        self.digitInsertionField.text = [NSString stringWithFormat:@"%ld", tmpStringfiedDigit.integerValue];
+    }
+    if (!self.isValueEditingInProgress) {
+        self.digitInsertionField.text = tappedButtonTitle;
+    }
+    self.valueEditingInProgress = YES;
+}
+
+- (IBAction)clearButtonTouched:(UIButton *)sender {
+    [self.model clear];
+    self.digitInsertionField.text = ViewControllerZeroString;
+    [self switchCalculationButtonsEnabled:YES];
+}
+
 - (IBAction)dotButtonTouched:(UIButton *)sender {
-    if (![self.digitInsertionField.text containsString:dotString]) {
+    if (![self.digitInsertionField.text containsString:ViewControllerDotString]) {
         self.digitInsertionField.text = [NSString stringWithFormat:@"%@%@",
                                          self.digitInsertionField.text,
-                                         dotString];
+                                         ViewControllerDotString];
     }
 }
 
 - (IBAction)equalsButtonTouched:(UIButton *)sender {
-    @try {
-        if (self.isValueEditingInProgress) {
-            self.valueEditingInProgress = NO;
-            self.model.currentOperand = self.digitInsertionField.text.doubleValue;
-        }
-        [self.model equals]; //waiting operation always calculates, unary operation can not be waiting operation
-    } @catch (NSException *exception) {
-        [self exceptionHandling:exception];
+    if (self.isValueEditingInProgress) {
+        self.valueEditingInProgress = NO;
+        self.model.currentOperand = self.digitInsertionField.text.doubleValue;
     }
+    [self.model equals]; //waiting operation always calculates, unary operation cannot be waiting operation
 }
 
 - (IBAction)operationButtonTouched:(UIButton *)sender {
-    @try {
-        if (self.isValueEditingInProgress) {
-            self.model.currentOperand = self.digitInsertionField.text.doubleValue;
-            self.valueEditingInProgress = NO;
-        }
-        NSString *operator = [sender titleForState:UIControlStateNormal];
-        [self.model executeOperationWithOperator:operator];
-    } @catch (NSException *exception) {
-        [self exceptionHandling:exception];
+    if (self.isValueEditingInProgress) {
+        self.model.currentOperand = self.digitInsertionField.text.doubleValue;
+        self.valueEditingInProgress = NO;
     }
+    NSString *operator = [sender titleForState:UIControlStateNormal];
+    [self.model calculateWithOperator:operator];
 }
 
 #pragma mark - helper methods
@@ -188,22 +179,15 @@ static NSString *const uiViewPropertyUserInteractionEnabled = @"userInteractionE
     }
 }
 
-// method to help with handling my arithmetic exceptions
-- (void)exceptionHandling:(NSException *)exception {
-    if (exception.userInfo[errMessageKey]) {
-        self.digitInsertionField.text = [NSString stringWithFormat:@"%@%@",
-                                         exception.userInfo[tagKey],
-                                         exception.userInfo[errMessageKey]];
-        [self switchCalculationButtonsEnabled:NO];
-    }
-}
-
 #pragma mark - delegate methods
 
 // method changes digit in digit input label when 'displayedResult' variable in model changes
 - (void)calculatorModel:(CalculatorModel *)model
         didChangeResult:(NSString *)stringfiedResult {
     self.digitInsertionField.text = stringfiedResult;
+    if ([self.digitInsertionField.text containsString:ExceptionUserParamsValuesTagValue]) {
+        [self switchCalculationButtonsEnabled:NO];
+    }
 }
 
 @end

@@ -23,7 +23,8 @@
 @property (assign, nonatomic) double currentOperand;
 @property (nonatomic, assign) id<CalculatorModelDelegate> delegate;
 
-- (void)executeOperationWithOperator:(NSString *)operator;
+#pragma mark - model logic methods
+- (void)calculateWithOperator:(NSString *)operator;
 - (void)clear;
 - (void)equals;
 
