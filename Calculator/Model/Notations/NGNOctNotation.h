@@ -1,13 +1,13 @@
 //
-//  BINNotation.h
+//  NGNOctNotation.h
 //  Calculator
 //
-//  Created by Alex on 29.05.17.
+//  Created by Alex on 01.06.17.
 //  Copyright © 2017 study. All rights reserved.
 //
 
 #import "NGNAbstractNotation.h"
 
-@interface NGNBinNotation: NGNAbstractNotation
+@interface NGNOctNotation: NGNAbstractNotation
 
 @end

@@ -9,9 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "Constants.h"
 
-@interface NGNAbstractNotation : NSObject
+@protocol NGNNotationConvertible <NSObject>
 
-+ (double)decodeNumber:(NSString *)stringfiedNumber fromNotation:(Notations)notation;
+@optional
 + (NSString *)encode:(double)numberToEncode;
+@required
++ (double)decodeNumber:(NSString *)stringfiedNumber
+          fromNotation:(CalculatorModelNotations)notation;
+
+@end
+
+@interface NGNAbstractNotation: NSObject <NGNNotationConvertible>
 
 @end

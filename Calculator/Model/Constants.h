@@ -13,6 +13,10 @@
 #define SCREEN_WIDTH UIScreen.mainScreen.bounds.size.width
 #define SCREEN_HEIGHT UIScreen.mainScreen.bounds.size.height
 
+typedef const enum {
+    BINNotation, OCTNotation, DECNotation, HEXNotation
+} CalculatorModelNotations;
+
 static NSString *const CalculatorModelSquareRootSignOperation = @"√";
 static NSString *const CalculatorModelDivisonRemainderOperation = @"%";
 static NSString *const CalculatorModelPlusSignOperation = @"+";
