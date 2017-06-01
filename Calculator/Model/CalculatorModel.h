@@ -14,23 +14,18 @@
 
 @optional
 - (void)calculatorModel:(CalculatorModel *)model
-        didChangeResult:(double)displayedResult;
+        didChangeResult:(NSString *)stringfiedResult;
 
 @end;
 
 @interface CalculatorModel : NSObject
 
-@property (retain, nonatomic) NSString *currentOperator;
 @property (assign, nonatomic) double currentOperand;
-@property (assign, nonatomic) double displayedResult;
-// Delegate properties should always be weak references
-// See http://stackoverflow.com/a/4796131/263871 for the rationale
-// (Tip: If you're not using ARC, use `assign` instead of `weak`)
 @property (nonatomic, assign) id<CalculatorModelDelegate> delegate;
 
-- (void)executeOperationWithOperator:(NSString *)operator;
-- (void)executeOperation;
-- (void)executeLastOperation;
+#pragma mark - model logic methods
+- (void)calculateWithOperator:(NSString *)operator;
 - (void)clear;
+- (void)equals;
 
 @end
