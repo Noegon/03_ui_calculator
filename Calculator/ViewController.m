@@ -50,7 +50,8 @@
 - (UIColor *)disabledViewTextColor;
 
 #pragma mark - orientation change handling methods
-- (void)changeTheViewToPortrait:(BOOL)portrait duration:(NSTimeInterval)duration;
+//- (void)changeTheViewToPortrait:(BOOL)portrait duration:(NSTimeInterval)duration;
+- (void)changeTheViewToPortrait:(BOOL)portrait;
 
 @end
 
@@ -85,7 +86,7 @@
     [super viewDidLoad];
     
     if (SCREEN_HEIGHT < SCREEN_WIDTH) {
-        [self changeTheViewToPortrait:NO duration:0];
+        [self changeTheViewToPortrait:NO];
     }
     
     self.navigationController.navigationBar.backgroundColor = [UIColor grayColor];
@@ -215,7 +216,7 @@
 
 #pragma mark - orientation change handling methods
 
-//Note, that these two methods are in use begining from iOS 6 and latest versions
+//Note, that these two methods are in use begining from iOS 6 and latest versions:
 - (BOOL)shouldAutorotate {
     return YES;
 }
@@ -227,22 +228,21 @@
             UIInterfaceOrientationMaskLandscapeRight);
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    if(UIInterfaceOrientationIsPortrait(toInterfaceOrientation)){
-        [self changeTheViewToPortrait:YES duration:duration];
+-(void)willTransitionToTraitCollection:(UITraitCollection *)newCollection
+             withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [super willTransitionToTraitCollection:newCollection withTransitionCoordinator:coordinator];
+    
+    UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
+    if (UIDeviceOrientationIsPortrait(orientation)) {
+        [self changeTheViewToPortrait:YES];
     }
-    else if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation)){
-        [self changeTheViewToPortrait:NO duration:duration];
+    if (UIDeviceOrientationIsLandscape(orientation)) {
+        [self changeTheViewToPortrait:NO];
     }
 }
 
 //method changes the view and subview frames for the portrait/landscape view here
-- (void)changeTheViewToPortrait:(BOOL)portrait duration:(NSTimeInterval)duration {
-    
-    [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:duration];
-    
+- (void)changeTheViewToPortrait:(BOOL)portrait {    
     if(portrait) {
         NSLog(@"%@", @"portrait orientation");
         for (UIStackView *stackView in self.buttonsStackViews) {
@@ -258,8 +258,6 @@
             [stackView insertArrangedSubview:tmpButton atIndex:0];
         }
     }
-    
-    [UIView commitAnimations];
 }
 
 @end
