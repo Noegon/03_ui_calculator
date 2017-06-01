@@ -15,6 +15,7 @@
 @interface ViewController () <CalculatorModelDelegate>
 
 #pragma mark - outlets
+  
 @property (retain, nonatomic) IBOutlet UILabel *digitInsertionField;
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *digitButtonsArray;
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *binaryOperationButtonsArray;
@@ -88,6 +89,7 @@
     if (SCREEN_HEIGHT < SCREEN_WIDTH) {
         [self changeTheViewToPortrait:NO];
     }
+
     
     self.navigationController.navigationBar.backgroundColor = [UIColor grayColor];
     UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:ViewControllerAboutTitle
