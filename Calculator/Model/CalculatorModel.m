@@ -19,7 +19,6 @@
 @property (retain, nonatomic) NSDictionary *unaryOperations;
 @property (retain, nonatomic) NSString *waitingOperation;
 @property (assign, nonatomic) NSString *stringfiedResult;
-@property (retain, nonatomic) NSMutableArray<NSNumber *> *operandQueue; // could contain from 0 to 2 values
 
 #pragma mark - flags
 @property (assign, nonatomic, getter=isRenewedCalculationChain, readwrite) BOOL renewedCalculationChain;
@@ -65,7 +64,6 @@
         
         _operations = [[NSMutableDictionary alloc] initWithDictionary:_unaryOperations];
         [_operations addEntriesFromDictionary:_binaryOperations];
-        _operandQueue = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -77,7 +75,6 @@
     [_binaryOperations release];
     [_waitingOperation release];
     [_outputFormatter release];
-    [_operandQueue release];
     [super dealloc];
 }
 
@@ -97,25 +94,18 @@
     if ([self respondsToSelector:tmpSelector]) {
         [self performSelector:tmpSelector];
     }
+    self.secondOperandAdded = NO;
 }
 
 // helper method to perform binary operations
 - (void) performBinaryOperationWithOperator:(NSString *)operator {
-    if (!self.operandQueue.count) {
-        [self.operandQueue ngn_enqueue:[NSNumber numberWithFloat: self.currentOperand]];
-    }
-    
-    if (self.operandQueue.count == 1 &&
-        self.operandQueue.firstObject.doubleValue != self.currentOperand) {
-        [self.operandQueue ngn_enqueue:[NSNumber numberWithFloat: self.currentOperand]];
-        self.secondOperandAdded = YES;
+    if (self.isRenewedCalculationChain) {
+        self.renewedCalculationChain = NO;
     }
     
     if (self.isSecondOperandAdded) {
-        [self executeOperationWithOperator:operator];
-        [self.operandQueue ngn_enqueue:[NSNumber numberWithFloat: self.result]];
-        self.result = self.currentOperand;
         self.secondOperandAdded = NO;
+        [self executeOperationWithOperator:self.waitingOperation];
         [self sendMessageForDelegateWithNumber:self.result];
     }
     
@@ -124,7 +114,18 @@
 
 // helper method to perform unary operations
 - (void) performUnaryOperationWithOperator:(NSString *)operator {
-
+    if (self.isEqualsOperationPerformed) {
+        self.equalsOperationPerformed = NO;
+        [self setCurrentOperandWithoutSideEffects:self.result];
+    }
+    
+    [self executeOperationWithOperator:operator];
+    
+    if (self.isRenewedCalculationChain ||
+        isnan(self.result)) {
+        self.result = self.currentOperand;
+    }
+    [self sendMessageForDelegateWithNumber:self.currentOperand];
 }
 
 // main method for executing inserted operation
@@ -132,6 +133,10 @@
     @try {
         if (self.currentOperand <= DBL_MAX &&
             self.currentOperand >= -DBL_MAX) {
+            
+            if (isnan(self.result)) {
+                self.result = self.currentOperand;
+            }
             
             if ([self isBinaryOperation:operator]) {
                 [self performBinaryOperationWithOperator:operator];
@@ -150,67 +155,80 @@
 }
 
 - (void)setCurrentOperand:(double)currentOperand {
+    if (!isnan(self.result) && !self.isRenewedCalculationChain) {
+        self.secondOperandAdded = YES;
+    }
+    if (self.isEqualsOperationPerformed && !self.isSecondOperandAdded) {
+        self.equalsOperationPerformed = NO;
+        self.result = currentOperand;
+    }
+    _currentOperand = currentOperand;
+}
+
+- (void)setCurrentOperandWithoutSideEffects:(double)currentOperand {
     _currentOperand = currentOperand;
 }
 
 - (void)clear {
     self.result = NAN;
     self.waitingOperation = nil;
-    self.currentOperand = 0;
+    [self setCurrentOperandWithoutSideEffects:0];
     self.stringfiedResult = nil;
-    [self.operandQueue ngn_eraseQueue];
+    self.secondOperandAdded = NO;
+    self.renewedCalculationChain = YES;
+    self.equalsOperationPerformed = NO;
+    
 }
 
 - (void)equals {
     @try {
-        if (!self.operandQueue.count) {
-            [self.operandQueue ngn_enqueue:[NSNumber numberWithFloat:self.result]];
-            [self.operandQueue ngn_enqueue:[NSNumber numberWithFloat:self.currentOperand]];
-        }
         [self executeOperationWithOperator:self.waitingOperation];
-    } @catch (NSException *exception) {
-        [self exceptionHandling:exception];
-    } @finally {
+        self.renewedCalculationChain = YES;
+        self.equalsOperationPerformed = YES;
         [self sendMessageForDelegateWithNumber:self.result];
+    }
+    @catch (NSException *exception) {
+        [self exceptionHandling:exception];
+        [self sendMessageForDelegate:self.stringfiedResult];
     }
 }
 
 #pragma mark - mathematic operations
 - (void)squareRoot {
     if (self.currentOperand >= 0) {
-        self.result = sqrt(self.currentOperand);
+        [self setCurrentOperandWithoutSideEffects:sqrt(self.currentOperand)];
     } else {
         @throw Constants.calculatorModelSquareRootFromNegativeException;
     }
 }
 
 - (void)reverseSign {
-    self.result = -1 * self.currentOperand;
+    [self setCurrentOperandWithoutSideEffects:(-1 * self.currentOperand)];
 }
 
 - (void)divisionRemainder {
-    if ([[self.operandQueue lastObject]longValue] != 0) {
-        self.result = [self.operandQueue.ngn_dequeue longValue] % [self.operandQueue.ngn_dequeue longValue];
+    if (self.currentOperand != 0) {
+        self.result = (NSInteger)self.result % (NSInteger)self.currentOperand;
     } else {
         @throw Constants.calculatorModelDivisionByZeroException;
     }
 }
 
 - (void)add {
-    self.result = [self.operandQueue.ngn_dequeue doubleValue] + [self.operandQueue.ngn_dequeue doubleValue];
+    self.result += self.currentOperand;
 }
 
 - (void)subtract {
-    self.result = [self.operandQueue.ngn_dequeue doubleValue] - [self.operandQueue.ngn_dequeue doubleValue];
+    self.result -= self.currentOperand;
 }
 
 - (void)multiply {
-    self.result = [self.operandQueue.ngn_dequeue doubleValue] * [self.operandQueue.ngn_dequeue doubleValue];
+    self.result *= self.currentOperand;
 }
 
 - (void)divide {
-    if ([[self.operandQueue lastObject]longValue] != 0) {
-        self.result = [self.operandQueue.ngn_dequeue doubleValue] / [self.operandQueue.ngn_dequeue doubleValue];
+    if (self.currentOperand != 0) {
+        self.result /= self.currentOperand;
     } else {
         @throw Constants.calculatorModelDivisionByZeroException;
     }
