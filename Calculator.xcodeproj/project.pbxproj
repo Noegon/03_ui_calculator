@@ -19,14 +19,14 @@
 		CEF814BD1EC777F70002E360 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF814BB1EC777F70002E360 /* LaunchScreen.storyboard */; };
 		EF2FB4AA1ED5702000568FF8 /* CalculatorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */; };
 		EF2FB4C01ED8B29400568FF8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB4BF1ED8B29400568FF8 /* Constants.m */; };
-		EF509E8A1EDC39DA00210F64 /* NGNAbstractNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF509E891EDC39DA00210F64 /* NGNAbstractNotation.m */; };
-		EF509E8D1EDC53E900210F64 /* NGNBinNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF509E8C1EDC53E900210F64 /* NGNBinNotation.m */; };
-		EF81E7141EE03888007007EE /* NGNOctNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF81E7131EE03888007007EE /* NGNOctNotation.m */; };
-		EF81E7171EE03B32007007EE /* NGNDecNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF81E7161EE03B32007007EE /* NGNDecNotation.m */; };
-		EF81E71A1EE03BC6007007EE /* NGNHexNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF81E7191EE03BC6007007EE /* NGNHexNotation.m */; };
-		EF81E71D1EE04B0F007007EE /* NGNNotationFabric.m in Sources */ = {isa = PBXBuildFile; fileRef = EF81E71C1EE04B0F007007EE /* NGNNotationFabric.m */; };
-		EF81E7201EE05593007007EE /* NGNNotationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = EF81E71F1EE05593007007EE /* NGNNotationConverter.m */; };
-		EFCD46BA1EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46B91EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.m */; };
+		EFCD46C91EE1BD6100606FAB /* NGNAbstractNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46BC1EE1BD6100606FAB /* NGNAbstractNotation.m */; };
+		EFCD46CA1EE1BD6100606FAB /* NGNBinNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46BE1EE1BD6100606FAB /* NGNBinNotation.m */; };
+		EFCD46CB1EE1BD6100606FAB /* NGNDecNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46C01EE1BD6100606FAB /* NGNDecNotation.m */; };
+		EFCD46CC1EE1BD6100606FAB /* NGNHexNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46C21EE1BD6100606FAB /* NGNHexNotation.m */; };
+		EFCD46CD1EE1BD6100606FAB /* NGNNotationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46C41EE1BD6100606FAB /* NGNNotationConverter.m */; };
+		EFCD46CE1EE1BD6100606FAB /* NGNNotationFabric.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46C61EE1BD6100606FAB /* NGNNotationFabric.m */; };
+		EFCD46CF1EE1BD6100606FAB /* NGNOctNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46C81EE1BD6100606FAB /* NGNOctNotation.m */; };
+		EFCD46D41EE1BDC600606FAB /* NSMutableArray+QueueAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46D31EE1BDC600606FAB /* NSMutableArray+QueueAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,22 +50,22 @@
 		EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculatorModel.m; path = Model/CalculatorModel.m; sourceTree = "<group>"; };
 		EF2FB4BE1ED8B29400568FF8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Model/Constants.h; sourceTree = "<group>"; };
 		EF2FB4BF1ED8B29400568FF8 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = Model/Constants.m; sourceTree = "<group>"; };
-		EF509E881EDC39DA00210F64 /* NGNAbstractNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNAbstractNotation.h; path = Model/Notations/NGNAbstractNotation.h; sourceTree = "<group>"; };
-		EF509E891EDC39DA00210F64 /* NGNAbstractNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNAbstractNotation.m; path = Model/Notations/NGNAbstractNotation.m; sourceTree = "<group>"; };
-		EF509E8B1EDC53E900210F64 /* NGNBinNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNBinNotation.h; path = Model/Notations/NGNBinNotation.h; sourceTree = "<group>"; };
-		EF509E8C1EDC53E900210F64 /* NGNBinNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNBinNotation.m; path = Model/Notations/NGNBinNotation.m; sourceTree = "<group>"; };
-		EF81E7121EE03888007007EE /* NGNOctNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNOctNotation.h; path = Model/Notations/NGNOctNotation.h; sourceTree = "<group>"; };
-		EF81E7131EE03888007007EE /* NGNOctNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNOctNotation.m; path = Model/Notations/NGNOctNotation.m; sourceTree = "<group>"; };
-		EF81E7151EE03B32007007EE /* NGNDecNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNDecNotation.h; path = Model/Notations/NGNDecNotation.h; sourceTree = "<group>"; };
-		EF81E7161EE03B32007007EE /* NGNDecNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNDecNotation.m; path = Model/Notations/NGNDecNotation.m; sourceTree = "<group>"; };
-		EF81E7181EE03BC6007007EE /* NGNHexNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNHexNotation.h; path = Model/Notations/NGNHexNotation.h; sourceTree = "<group>"; };
-		EF81E7191EE03BC6007007EE /* NGNHexNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNHexNotation.m; path = Model/Notations/NGNHexNotation.m; sourceTree = "<group>"; };
-		EF81E71B1EE04B0F007007EE /* NGNNotationFabric.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNNotationFabric.h; path = Model/Notations/NGNNotationFabric.h; sourceTree = "<group>"; };
-		EF81E71C1EE04B0F007007EE /* NGNNotationFabric.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNNotationFabric.m; path = Model/Notations/NGNNotationFabric.m; sourceTree = "<group>"; };
-		EF81E71E1EE05593007007EE /* NGNNotationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNNotationConverter.h; path = Model/Notations/NGNNotationConverter.h; sourceTree = "<group>"; };
-		EF81E71F1EE05593007007EE /* NGNNotationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNNotationConverter.m; path = Model/Notations/NGNNotationConverter.m; sourceTree = "<group>"; };
-		EFCD46B81EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+QueueAdditions.h"; path = "Model/AdditionalCategories/NSMutableArray+QueueAdditions.h"; sourceTree = "<group>"; };
-		EFCD46B91EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+QueueAdditions.m"; path = "Model/AdditionalCategories/NSMutableArray+QueueAdditions.m"; sourceTree = "<group>"; };
+		EFCD46BB1EE1BD6100606FAB /* NGNAbstractNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNAbstractNotation.h; path = Model/Notations/NGNAbstractNotation.h; sourceTree = "<group>"; };
+		EFCD46BC1EE1BD6100606FAB /* NGNAbstractNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNAbstractNotation.m; path = Model/Notations/NGNAbstractNotation.m; sourceTree = "<group>"; };
+		EFCD46BD1EE1BD6100606FAB /* NGNBinNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNBinNotation.h; path = Model/Notations/NGNBinNotation.h; sourceTree = "<group>"; };
+		EFCD46BE1EE1BD6100606FAB /* NGNBinNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNBinNotation.m; path = Model/Notations/NGNBinNotation.m; sourceTree = "<group>"; };
+		EFCD46BF1EE1BD6100606FAB /* NGNDecNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNDecNotation.h; path = Model/Notations/NGNDecNotation.h; sourceTree = "<group>"; };
+		EFCD46C01EE1BD6100606FAB /* NGNDecNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNDecNotation.m; path = Model/Notations/NGNDecNotation.m; sourceTree = "<group>"; };
+		EFCD46C11EE1BD6100606FAB /* NGNHexNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNHexNotation.h; path = Model/Notations/NGNHexNotation.h; sourceTree = "<group>"; };
+		EFCD46C21EE1BD6100606FAB /* NGNHexNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNHexNotation.m; path = Model/Notations/NGNHexNotation.m; sourceTree = "<group>"; };
+		EFCD46C31EE1BD6100606FAB /* NGNNotationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNNotationConverter.h; path = Model/Notations/NGNNotationConverter.h; sourceTree = "<group>"; };
+		EFCD46C41EE1BD6100606FAB /* NGNNotationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNNotationConverter.m; path = Model/Notations/NGNNotationConverter.m; sourceTree = "<group>"; };
+		EFCD46C51EE1BD6100606FAB /* NGNNotationFabric.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNNotationFabric.h; path = Model/Notations/NGNNotationFabric.h; sourceTree = "<group>"; };
+		EFCD46C61EE1BD6100606FAB /* NGNNotationFabric.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNNotationFabric.m; path = Model/Notations/NGNNotationFabric.m; sourceTree = "<group>"; };
+		EFCD46C71EE1BD6100606FAB /* NGNOctNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNOctNotation.h; path = Model/Notations/NGNOctNotation.h; sourceTree = "<group>"; };
+		EFCD46C81EE1BD6100606FAB /* NGNOctNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNOctNotation.m; path = Model/Notations/NGNOctNotation.m; sourceTree = "<group>"; };
+		EFCD46D21EE1BDC600606FAB /* NSMutableArray+QueueAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+QueueAdditions.h"; path = "Model/AdditionalCategories/NSMutableArray+QueueAdditions.h"; sourceTree = "<group>"; };
+		EFCD46D31EE1BDC600606FAB /* NSMutableArray+QueueAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+QueueAdditions.m"; path = "Model/AdditionalCategories/NSMutableArray+QueueAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,8 +137,8 @@
 		EF2FB4A71ED56FD200568FF8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				EFCD46B41EE1B9F400606FAB /* AdditionalCategories */,
-				EF509E871EDC399D00210F64 /* Notations */,
+				EFCD46D11EE1BDAC00606FAB /* AdditionalCategories */,
+				EFCD46D01EE1BD6B00606FAB /* Notations */,
 				EF2FB4A81ED5702000568FF8 /* CalculatorModel.h */,
 				EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */,
 				EF2FB4BE1ED8B29400568FF8 /* Constants.h */,
@@ -147,32 +147,32 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		EF509E871EDC399D00210F64 /* Notations */ = {
+		EFCD46D01EE1BD6B00606FAB /* Notations */ = {
 			isa = PBXGroup;
 			children = (
-				EF509E881EDC39DA00210F64 /* NGNAbstractNotation.h */,
-				EF509E891EDC39DA00210F64 /* NGNAbstractNotation.m */,
-				EF509E8B1EDC53E900210F64 /* NGNBinNotation.h */,
-				EF509E8C1EDC53E900210F64 /* NGNBinNotation.m */,
-				EF81E7121EE03888007007EE /* NGNOctNotation.h */,
-				EF81E7131EE03888007007EE /* NGNOctNotation.m */,
-				EF81E7151EE03B32007007EE /* NGNDecNotation.h */,
-				EF81E7161EE03B32007007EE /* NGNDecNotation.m */,
-				EF81E7181EE03BC6007007EE /* NGNHexNotation.h */,
-				EF81E7191EE03BC6007007EE /* NGNHexNotation.m */,
-				EF81E71B1EE04B0F007007EE /* NGNNotationFabric.h */,
-				EF81E71C1EE04B0F007007EE /* NGNNotationFabric.m */,
-				EF81E71E1EE05593007007EE /* NGNNotationConverter.h */,
-				EF81E71F1EE05593007007EE /* NGNNotationConverter.m */,
+				EFCD46BB1EE1BD6100606FAB /* NGNAbstractNotation.h */,
+				EFCD46BC1EE1BD6100606FAB /* NGNAbstractNotation.m */,
+				EFCD46BD1EE1BD6100606FAB /* NGNBinNotation.h */,
+				EFCD46BE1EE1BD6100606FAB /* NGNBinNotation.m */,
+				EFCD46BF1EE1BD6100606FAB /* NGNDecNotation.h */,
+				EFCD46C01EE1BD6100606FAB /* NGNDecNotation.m */,
+				EFCD46C11EE1BD6100606FAB /* NGNHexNotation.h */,
+				EFCD46C21EE1BD6100606FAB /* NGNHexNotation.m */,
+				EFCD46C71EE1BD6100606FAB /* NGNOctNotation.h */,
+				EFCD46C81EE1BD6100606FAB /* NGNOctNotation.m */,
+				EFCD46C51EE1BD6100606FAB /* NGNNotationFabric.h */,
+				EFCD46C61EE1BD6100606FAB /* NGNNotationFabric.m */,
+				EFCD46C31EE1BD6100606FAB /* NGNNotationConverter.h */,
+				EFCD46C41EE1BD6100606FAB /* NGNNotationConverter.m */,
 			);
 			name = Notations;
 			sourceTree = "<group>";
 		};
-		EFCD46B41EE1B9F400606FAB /* AdditionalCategories */ = {
+		EFCD46D11EE1BDAC00606FAB /* AdditionalCategories */ = {
 			isa = PBXGroup;
 			children = (
-				EFCD46B81EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.h */,
-				EFCD46B91EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.m */,
+				EFCD46D21EE1BDC600606FAB /* NSMutableArray+QueueAdditions.h */,
+				EFCD46D31EE1BDC600606FAB /* NSMutableArray+QueueAdditions.m */,
 			);
 			name = AdditionalCategories;
 			sourceTree = "<group>";
@@ -251,21 +251,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF81E7171EE03B32007007EE /* NGNDecNotation.m in Sources */,
-				EFCD46BA1EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.m in Sources */,
 				CEF814B51EC777F70002E360 /* ViewController.m in Sources */,
+				EFCD46D41EE1BDC600606FAB /* NSMutableArray+QueueAdditions.m in Sources */,
 				CE735B531ECB2B7B004A4025 /* LicenseViewController.m in Sources */,
 				CEF814B21EC777F70002E360 /* AppDelegate.m in Sources */,
-				EF509E8D1EDC53E900210F64 /* NGNBinNotation.m in Sources */,
-				EF81E7141EE03888007007EE /* NGNOctNotation.m in Sources */,
+				EFCD46C91EE1BD6100606FAB /* NGNAbstractNotation.m in Sources */,
+				EFCD46CD1EE1BD6100606FAB /* NGNNotationConverter.m in Sources */,
+				EFCD46CB1EE1BD6100606FAB /* NGNDecNotation.m in Sources */,
+				EFCD46CF1EE1BD6100606FAB /* NGNOctNotation.m in Sources */,
+				EFCD46CC1EE1BD6100606FAB /* NGNHexNotation.m in Sources */,
 				CE735B4C1ECB0A37004A4025 /* AboutViewController.m in Sources */,
 				CEF814AF1EC777F70002E360 /* main.m in Sources */,
-				EF509E8A1EDC39DA00210F64 /* NGNAbstractNotation.m in Sources */,
+				EFCD46CA1EE1BD6100606FAB /* NGNBinNotation.m in Sources */,
+				EFCD46CE1EE1BD6100606FAB /* NGNNotationFabric.m in Sources */,
 				EF2FB4C01ED8B29400568FF8 /* Constants.m in Sources */,
-				EF81E7201EE05593007007EE /* NGNNotationConverter.m in Sources */,
-				EF81E71D1EE04B0F007007EE /* NGNNotationFabric.m in Sources */,
 				EF2FB4AA1ED5702000568FF8 /* CalculatorModel.m in Sources */,
-				EF81E71A1EE03BC6007007EE /* NGNHexNotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,7 +387,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9M22BH66EU;
 				INFOPLIST_FILE = Calculator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = noegon.Calculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -400,7 +399,6 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 9M22BH66EU;
 				INFOPLIST_FILE = Calculator/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = noegon.Calculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";

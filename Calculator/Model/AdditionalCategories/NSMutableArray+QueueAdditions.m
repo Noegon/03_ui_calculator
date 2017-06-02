@@ -8,7 +8,7 @@
 
 #import "NSMutableArray+QueueAdditions.h"
 
-@implementation NSMutableArray (QueueAdditions)
+@implementation NSMutableArray (NGNQueueAdditions)
 
 // method returns head object and removes this object from queue
 - (id) ngn_dequeue {
