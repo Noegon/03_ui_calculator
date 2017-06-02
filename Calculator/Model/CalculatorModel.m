@@ -102,13 +102,11 @@
     if (self.isRenewedCalculationChain) {
         self.renewedCalculationChain = NO;
     }
-    
     if (self.isSecondOperandAdded) {
         self.secondOperandAdded = NO;
         [self executeOperationWithOperator:self.waitingOperation];
         [self sendMessageForDelegateWithNumber:self.result];
     }
-    
     self.waitingOperation = operator;
 }
 
@@ -118,9 +116,7 @@
         self.equalsOperationPerformed = NO;
         [self setCurrentOperandWithoutSideEffects:self.result];
     }
-    
     [self executeOperationWithOperator:operator];
-    
     if (self.isRenewedCalculationChain ||
         isnan(self.result)) {
         self.result = self.currentOperand;
