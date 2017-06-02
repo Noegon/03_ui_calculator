@@ -17,6 +17,8 @@
 		CEF814B81EC777F70002E360 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF814B61EC777F70002E360 /* Main.storyboard */; };
 		CEF814BA1EC777F70002E360 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF814B91EC777F70002E360 /* Assets.xcassets */; };
 		CEF814BD1EC777F70002E360 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF814BB1EC777F70002E360 /* LaunchScreen.storyboard */; };
+		EF2FB4AA1ED5702000568FF8 /* CalculatorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */; };
+		EF2FB4C01ED8B29400568FF8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB4BF1ED8B29400568FF8 /* Constants.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,10 @@
 		CEF814B91EC777F70002E360 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEF814BC1EC777F70002E360 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEF814BE1EC777F70002E360 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EF2FB4A81ED5702000568FF8 /* CalculatorModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalculatorModel.h; path = Model/CalculatorModel.h; sourceTree = "<group>"; };
+		EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculatorModel.m; path = Model/CalculatorModel.m; sourceTree = "<group>"; };
+		EF2FB4BE1ED8B29400568FF8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Model/Constants.h; sourceTree = "<group>"; };
+		EF2FB4BF1ED8B29400568FF8 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = Model/Constants.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,7 @@
 		CEF814AC1EC777F70002E360 /* Calculator */ = {
 			isa = PBXGroup;
 			children = (
+				EF2FB4A71ED56FD200568FF8 /* Model */,
 				CE735B4E1ECB0A41004A4025 /* AdditionalControllers */,
 				CEF814B01EC777F70002E360 /* AppDelegate.h */,
 				CEF814B11EC777F70002E360 /* AppDelegate.m */,
@@ -101,6 +108,17 @@
 				CEF814AE1EC777F70002E360 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EF2FB4A71ED56FD200568FF8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EF2FB4A81ED5702000568FF8 /* CalculatorModel.h */,
+				EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */,
+				EF2FB4BE1ED8B29400568FF8 /* Constants.h */,
+				EF2FB4BF1ED8B29400568FF8 /* Constants.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,6 +200,8 @@
 				CEF814B21EC777F70002E360 /* AppDelegate.m in Sources */,
 				CE735B4C1ECB0A37004A4025 /* AboutViewController.m in Sources */,
 				CEF814AF1EC777F70002E360 /* main.m in Sources */,
+				EF2FB4C01ED8B29400568FF8 /* Constants.m in Sources */,
+				EF2FB4AA1ED5702000568FF8 /* CalculatorModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
