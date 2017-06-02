@@ -8,10 +8,10 @@
 
 #import "NSMutableArray+QueueAdditions.h"
 
-@implementation NSMutableArray (NGNQueueAdditions)
+@implementation NSMutableArray (QueueAdditions)
 
 // method returns head object and removes this object from queue
-- (id) ngn_dequeue {
+- (id) dequeue {
     id headObject = [self objectAtIndex:0];
     if (headObject) {
         [[headObject retain] autorelease];
@@ -21,11 +21,11 @@
 }
 
 // method adds an object to the tail of queue
-- (void) ngn_enqueue:(id)anObject {
+- (void) enqueue:(id)anObject {
     [self addObject:anObject];
 }
 
-- (void)ngn_eraseQueue {
+- (void)eraseQueue {
     [self removeAllObjects];
 }
 

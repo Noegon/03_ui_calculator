@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSMutableArray (NGNQueueAdditions)
+@interface NSMutableArray (QueueAdditions)
 
-- (id) ngn_dequeue;
-- (void) ngn_enqueue:(id)obj;
-- (void) ngn_eraseQueue;
+- (id) dequeue;
+- (void) enqueue:(id)obj;
+- (void) eraseQueue;
 
 @end

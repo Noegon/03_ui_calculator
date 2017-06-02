@@ -1,19 +1,15 @@
 //
-//  NGNNotationFabric.h
+//  NGNNumberNotationFabric.h
 //  Calculator
 //
-//  Created by Alex on 01.06.17.
+//  Created by Alex on 02.06.17.
 //  Copyright © 2017 study. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import "NGNAbstractNotation.h"
-#import "NGNBinNotation.h"
-#import "NGNOctNotation.h"
-#import "NGNDecNotation.m"
-#import "NGNHexNotation.h"
+#import "Constants.h"
 
-@interface NGNNotationFabric: NSObject
+@interface NGNNumberNotationFabric : NSObject
 
 + (double)decodeNumberFromStringfiedNumber:(NSString *)stringfiedNumber
                           withNotationType:(CalculatorModelNotations)notationType;
