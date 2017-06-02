@@ -29,12 +29,12 @@
 @property (retain, nonatomic) NSNumberFormatter *outputFormatter;
 
 #pragma mark - model logic methods
-- (void) performBinaryOperationWithOperator:(NSString *)operator;
-- (void) performUnaryOperationWithOperator:(NSString *)operator;
+- (void)performBinaryOperationWithOperator:(NSString *)operator;
+- (void)performUnaryOperationWithOperator:(NSString *)operator;
 
 #pragma mark - helper methods
-- (BOOL) isBinaryOperation:(NSString *)operator;
-- (BOOL) isUnaryOperation:(NSString *)operator;
+- (BOOL)isBinaryOperation:(NSString *)operator;
+- (BOOL)isUnaryOperation:(NSString *)operator;
 - (void)exceptionHandling:(NSException *)exception;
 
 #pragma mark - delegate helper methods
@@ -237,11 +237,11 @@
 #pragma mark - helper methods
 
 - (BOOL) isBinaryOperation:(NSString *)operator {
-    return [[self.binaryOperations allKeys]containsObject:operator];
+    return self.binaryOperations[operator];
 }
 
 - (BOOL) isUnaryOperation:(NSString *)operator {
-    return [[self.unaryOperations allKeys]containsObject:operator];
+    return self.unaryOperations[operator];
 }
 
 // method to help with handling my arithmetic exceptions
