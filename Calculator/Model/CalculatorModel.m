@@ -199,7 +199,6 @@
 
 - (void)reverseSign {
     [self setCurrentOperandWithoutSideEffects:(-1 * self.currentOperand)];
-}
 
 - (void)divisionRemainder {
     if (self.currentOperand != 0) {

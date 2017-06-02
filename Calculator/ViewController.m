@@ -158,6 +158,7 @@
                                          self.digitInsertionField.text,
                                          ViewControllerDotString];
     }
+    self.valueEditingInProgress = YES;
 }
 
 - (IBAction)equalsButtonTouched:(UIButton *)sender {
