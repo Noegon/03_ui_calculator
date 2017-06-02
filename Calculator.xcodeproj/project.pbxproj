@@ -26,6 +26,7 @@
 		EF81E71A1EE03BC6007007EE /* NGNHexNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EF81E7191EE03BC6007007EE /* NGNHexNotation.m */; };
 		EF81E71D1EE04B0F007007EE /* NGNNotationFabric.m in Sources */ = {isa = PBXBuildFile; fileRef = EF81E71C1EE04B0F007007EE /* NGNNotationFabric.m */; };
 		EF81E7201EE05593007007EE /* NGNNotationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = EF81E71F1EE05593007007EE /* NGNNotationConverter.m */; };
+		EFCD46BA1EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46B91EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,6 +64,8 @@
 		EF81E71C1EE04B0F007007EE /* NGNNotationFabric.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNNotationFabric.m; path = Model/Notations/NGNNotationFabric.m; sourceTree = "<group>"; };
 		EF81E71E1EE05593007007EE /* NGNNotationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNNotationConverter.h; path = Model/Notations/NGNNotationConverter.h; sourceTree = "<group>"; };
 		EF81E71F1EE05593007007EE /* NGNNotationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNNotationConverter.m; path = Model/Notations/NGNNotationConverter.m; sourceTree = "<group>"; };
+		EFCD46B81EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+QueueAdditions.h"; path = "Model/AdditionalCategories/NSMutableArray+QueueAdditions.h"; sourceTree = "<group>"; };
+		EFCD46B91EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+QueueAdditions.m"; path = "Model/AdditionalCategories/NSMutableArray+QueueAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +137,7 @@
 		EF2FB4A71ED56FD200568FF8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EFCD46B41EE1B9F400606FAB /* AdditionalCategories */,
 				EF509E871EDC399D00210F64 /* Notations */,
 				EF2FB4A81ED5702000568FF8 /* CalculatorModel.h */,
 				EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */,
@@ -162,6 +166,15 @@
 				EF81E71F1EE05593007007EE /* NGNNotationConverter.m */,
 			);
 			name = Notations;
+			sourceTree = "<group>";
+		};
+		EFCD46B41EE1B9F400606FAB /* AdditionalCategories */ = {
+			isa = PBXGroup;
+			children = (
+				EFCD46B81EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.h */,
+				EFCD46B91EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.m */,
+			);
+			name = AdditionalCategories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,6 +252,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF81E7171EE03B32007007EE /* NGNDecNotation.m in Sources */,
+				EFCD46BA1EE1BB2B00606FAB /* NSMutableArray+QueueAdditions.m in Sources */,
 				CEF814B51EC777F70002E360 /* ViewController.m in Sources */,
 				CE735B531ECB2B7B004A4025 /* LicenseViewController.m in Sources */,
 				CEF814B21EC777F70002E360 /* AppDelegate.m in Sources */,
