@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "Constants.h"
 
-@interface NGNNumberNotationFabric : NSObject
+@interface NGNNumberNotationFactory : NSObject
 
-+ (double)decodeNumberFromStringfiedNumber:(NSString *)stringfiedNumber
++ (instancetype)sharedInstance;
+
+- (double)decodeNumberFromStringfiedNumber:(NSString *)stringfiedNumber
                           withNotationType:(CalculatorModelNotations)notationType;
 
-+ (NSString *)encodeNumberToString:(double)number
+- (NSString *)encodeNumberToString:(double)number
                 withNotationType:(CalculatorModelNotations)notationType;
 
 @end

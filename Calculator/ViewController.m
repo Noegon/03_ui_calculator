@@ -12,9 +12,6 @@
 #import "LicenseViewController.h"
 #import "CalculatorModel.h"
 
-//typedef const enum {
-//    BIN = 0, OCT = 1, DEC = 2, HEX = 3
-//} NotationButtonsTags;
 static const double chosenNotationButtonAlpha = 0.6;
 static const double unchosenNotationButtonAlpha = 1.0;
 
@@ -65,14 +62,12 @@ static const double unchosenNotationButtonAlpha = 1.0;
 #pragma mark - helper methods
 - (void)switchCalculationButtonsEnabled:(BOOL)areButtonsEnabled
                        excludingButtons:(NSArray *)excludedButonsArray;
-//- (void)disableButtonsFromArray:(NSArray *)buttonsForDisable;
 
 #pragma mark - pre-defined colors
 - (UIColor *)enabledViewTextColor;
 - (UIColor *)disabledViewTextColor;
 
 #pragma mark - orientation change handling methods
-//- (void)changeTheViewToPortrait:(BOOL)portrait duration:(NSTimeInterval)duration;
 - (void)changeTheViewToPortrait:(BOOL)portrait;
 
 @end
@@ -108,6 +103,7 @@ static const double unchosenNotationButtonAlpha = 1.0;
     [_deprecatedForDecimalNotationButtonsArray release];
     [_notationButtonsStackView release];
     [_notationButtonsBoundedParameters release];
+    [_currentNotationButtonTitle release];
     [super dealloc];
 }
 
@@ -138,58 +134,22 @@ static const double unchosenNotationButtonAlpha = 1.0;
         [button setTitleColor:[self enabledViewTextColor] forState:UIControlStateNormal];
     }
     
-//    NSLog(@"%@", @(BINNotation));
-//    NSLog(@"%@", self.deprecatedForBinaryNotationButtonsArray);
-//    NSLog(@"%@", [self.notationButtonsStackView viewWithTag:0]);
-    
-//    NSLog(@"%@", @{@"BIN":@{@"notationType": @(BINNotation),
-//                            @"disabledButtons": self.deprecatedForBinaryNotationButtonsArray,
-//                            @"button": [self.notationButtonsStackView viewWithTag:0]},
-//                   @"OCT": @{@"notationType": @(OCTNotation),
-//                             @"disabledButtons": self.deprecatedForOctalNotationButtonsArray,
-//                             @"button": [self.notationButtonsStackView viewWithTag:1]},
-//                   @"DEC": @{@"notationType": @(DECNotation),
-//                             @"disabledButtons": self.deprecatedForDecimalNotationButtonsArray,
-//                             @"button": [self.notationButtonsStackView viewWithTag:2]},
-//                   @"HEX": @{@"notationType": @(HEXNotation),
-//                             @"disabledButtons": self.deprecatedForHexadecimalNotationButtonsArray,
-//                             @"button": [self.notationButtonsStackView viewWithTag:3]}
-//                   });
     self.notationButtonsBoundedParameters = @{@"BIN": @{@"notationType": @(BINNotation),
                                                         @"disabledButtons": self.deprecatedForBinaryNotationButtonsArray,
-                                                        @"button": [self.notationButtonsStackView viewWithTag:0]},
+                                                        @"button": [self.notationButtonsStackView viewWithTag:BINNotation]},
                                               @"OCT": @{@"notationType": @(OCTNotation),
                                                         @"disabledButtons": self.deprecatedForOctalNotationButtonsArray,
-                                                        @"button": [self.notationButtonsStackView viewWithTag:1]},
+                                                        @"button": [self.notationButtonsStackView viewWithTag:OCTNotation]},
                                               @"DEC": @{@"notationType": @(DECNotation),
                                                         @"disabledButtons": self.deprecatedForDecimalNotationButtonsArray,
-                                                        @"button": [self.notationButtonsStackView viewWithTag:2]},
+                                                        @"button": [self.notationButtonsStackView viewWithTag:DECNotation]},
                                               @"HEX": @{@"notationType": @(HEXNotation),
                                                         @"disabledButtons": self.deprecatedForHexadecimalNotationButtonsArray,
-                                                        @"button": [self.notationButtonsStackView viewWithTag:3]}
+                                                        @"button": [self.notationButtonsStackView viewWithTag:HEXNotation]}
                                               };
     
     [self notationButtonTouched: (self.notationButtonsBoundedParameters[@"DEC"])[@"button"]];
 }
-
-//- (NSDictionary *)notationButtonsBoundedParameters {
-//    if (!self.notationButtonsBoundedParameters) {
-//        _notationButtonsBoundedParameters = [@{@"BIN": @{@"notationType": @(BINNotation),
-//                                                         @"disabledButtons": self.deprecatedForBinaryNotationButtonsArray,
-//                                                         @"button": [self.notationButtonsStackView viewWithTag:0]},
-//                                               @"OCT": @{@"notationType": @(OCTNotation),
-//                                                         @"disabledButtons": self.deprecatedForOctalNotationButtonsArray,
-//                                                         @"button": [self.notationButtonsStackView viewWithTag:1]},
-//                                               @"DEC": @{@"notationType": @(DECNotation),
-//                                                         @"disabledButtons": self.deprecatedForDecimalNotationButtonsArray,
-//                                                         @"button": [self.notationButtonsStackView viewWithTag:2]},
-//                                               @"HEX": @{@"notationType": @(HEXNotation),
-//                                                         @"disabledButtons": self.deprecatedForHexadecimalNotationButtonsArray,
-//                                                         @"button": [self.notationButtonsStackView viewWithTag:3]}
-//                                               } retain];
-//    }
-//    return _notationButtonsBoundedParameters;
-//}
 
 #pragma mark - main logic performing methods
 
@@ -238,7 +198,8 @@ static const double unchosenNotationButtonAlpha = 1.0;
     [self.model clear];
     self.digitInsertionField.text = ViewControllerZeroString;
     [self switchCalculationButtonsEnabled:YES
-                         excludingButtons:self.notationButtonsBoundedParameters[self.currentNotationButtonTitle][@"disabledButtons"]];
+                         excludingButtons:self.notationButtonsBoundedParameters
+                            [self.currentNotationButtonTitle][@"disabledButtons"]];
 }
 
 - (IBAction)dotButtonTouched:(UIButton *)sender {
@@ -252,14 +213,14 @@ static const double unchosenNotationButtonAlpha = 1.0;
 - (IBAction)equalsButtonTouched:(UIButton *)sender {
     if (self.isValueEditingInProgress) {
         self.valueEditingInProgress = NO;
-        self.model.currentOperand = self.digitInsertionField.text.doubleValue;
+        [self.model setCurrentOperandWithString:self.digitInsertionField.text];
     }
     [self.model equals]; //waiting operation always calculates, unary operation cannot be waiting operation
 }
 
 - (IBAction)operationButtonTouched:(UIButton *)sender {
     if (self.isValueEditingInProgress) {
-        self.model.currentOperand = self.digitInsertionField.text.doubleValue;
+        [self.model setCurrentOperandWithString:self.digitInsertionField.text];
         self.valueEditingInProgress = NO;
     }
     NSString *operator = [sender titleForState:UIControlStateNormal];
@@ -273,12 +234,11 @@ static const double unchosenNotationButtonAlpha = 1.0;
     sender.alpha = chosenNotationButtonAlpha;
     [self switchCalculationButtonsEnabled:NO
                          excludingButtons:nil];
-    self.model.currentNotation =
-        (CalculatorModelNotations)[self.notationButtonsBoundedParameters
-                                   [tappedButtonTitle][@"notationType"] integerValue];
     [self switchCalculationButtonsEnabled:YES
                          excludingButtons:self.notationButtonsBoundedParameters[tappedButtonTitle][@"disabledButtons"]];
     self.currentNotationButtonTitle = tappedButtonTitle;
+    [self operationButtonTouched:sender];
+    self.valueEditingInProgress = YES;
 }
 
 #pragma mark - helper methods
@@ -292,8 +252,6 @@ static const double unchosenNotationButtonAlpha = 1.0;
         [self.blockableButtonsArray setValuesForKeysWithDictionary:@{@"enabled": @NO}];
     } else {
         self.digitInsertionField.userInteractionEnabled = YES;
-//        NSArray *buttonsToEnable = [@[self.blockableButtonsArray, excludedButonsArray]
-//                                    valueForKeyPath:@"@distinctUnionOfArrays.self"];
         NSArray *buttonsToEnable = [self filterButtons:self.blockableButtonsArray
                                   withButtonsToExclude:excludedButonsArray];
         
@@ -301,8 +259,12 @@ static const double unchosenNotationButtonAlpha = 1.0;
     }
 }
 
-- (NSArray *)filterButtons:(NSArray *)objects withButtonsToExclude:(NSArray *)buttonsToExclude {
-    return [objects filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"!SELF IN %@", buttonsToExclude]];
+// method filters blockable buttons to find what kind of buttons could be enabled
+// considering chosen notation type
+- (NSArray *)filterButtons:(NSArray *)objects
+      withButtonsToExclude:(NSArray *)buttonsToExclude {
+    return [objects filteredArrayUsingPredicate:
+            [NSPredicate predicateWithFormat:@"!SELF IN %@", buttonsToExclude]];
 }
 
 #pragma mark - pre-defined colors

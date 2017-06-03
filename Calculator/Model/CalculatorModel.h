@@ -21,13 +21,12 @@
 
 @interface CalculatorModel : NSObject
 
-@property (assign, nonatomic) double currentOperand;
 @property (nonatomic, assign) id<CalculatorModelDelegate> delegate;
-@property (nonatomic, assign) CalculatorModelNotations currentNotation;
 
 #pragma mark - model logic methods
 - (void)calculateWithOperator:(NSString *)operator;
 - (void)clear;
 - (void)equals;
+- (void)setCurrentOperandWithString:(NSString *)stringfiedOperand;
 
 @end

@@ -25,7 +25,7 @@
 		EFCD47011EE1C2B400606FAB /* NGNDecNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46FB1EE1C2B400606FAB /* NGNDecNotation.m */; };
 		EFCD47021EE1C2B400606FAB /* NGNHexNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46FD1EE1C2B400606FAB /* NGNHexNotation.m */; };
 		EFCD47031EE1C2B400606FAB /* NGNOctNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46FF1EE1C2B400606FAB /* NGNOctNotation.m */; };
-		EFCD470C1EE1C53F00606FAB /* NGNNumberNotationFabric.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD470B1EE1C53F00606FAB /* NGNNumberNotationFabric.m */; };
+		EFCD470C1EE1C53F00606FAB /* NGNNumberNotationFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD470B1EE1C53F00606FAB /* NGNNumberNotationFactory.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,8 +61,8 @@
 		EFCD46FD1EE1C2B400606FAB /* NGNHexNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNHexNotation.m; path = Model/Notations/NGNHexNotation.m; sourceTree = "<group>"; };
 		EFCD46FE1EE1C2B400606FAB /* NGNOctNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNOctNotation.h; path = Model/Notations/NGNOctNotation.h; sourceTree = "<group>"; };
 		EFCD46FF1EE1C2B400606FAB /* NGNOctNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNOctNotation.m; path = Model/Notations/NGNOctNotation.m; sourceTree = "<group>"; };
-		EFCD470A1EE1C53F00606FAB /* NGNNumberNotationFabric.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNNumberNotationFabric.h; path = Model/Notations/NGNNumberNotationFabric.h; sourceTree = "<group>"; };
-		EFCD470B1EE1C53F00606FAB /* NGNNumberNotationFabric.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNNumberNotationFabric.m; path = Model/Notations/NGNNumberNotationFabric.m; sourceTree = "<group>"; };
+		EFCD470A1EE1C53F00606FAB /* NGNNumberNotationFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNNumberNotationFactory.h; path = Model/Notations/NGNNumberNotationFactory.h; sourceTree = "<group>"; };
+		EFCD470B1EE1C53F00606FAB /* NGNNumberNotationFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNNumberNotationFactory.m; path = Model/Notations/NGNNumberNotationFactory.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,8 +166,8 @@
 				EFCD46FF1EE1C2B400606FAB /* NGNOctNotation.m */,
 				EFCD46F51EE1C28F00606FAB /* NGNAbstractNotation.h */,
 				EFCD46F61EE1C28F00606FAB /* NGNAbstractNotation.m */,
-				EFCD470A1EE1C53F00606FAB /* NGNNumberNotationFabric.h */,
-				EFCD470B1EE1C53F00606FAB /* NGNNumberNotationFabric.m */,
+				EFCD470A1EE1C53F00606FAB /* NGNNumberNotationFactory.h */,
+				EFCD470B1EE1C53F00606FAB /* NGNNumberNotationFactory.m */,
 			);
 			name = Notations;
 			sourceTree = "<group>";
@@ -251,7 +251,7 @@
 				CEF814B51EC777F70002E360 /* ViewController.m in Sources */,
 				CE735B531ECB2B7B004A4025 /* LicenseViewController.m in Sources */,
 				EFCD47001EE1C2B400606FAB /* NGNBinNotation.m in Sources */,
-				EFCD470C1EE1C53F00606FAB /* NGNNumberNotationFabric.m in Sources */,
+				EFCD470C1EE1C53F00606FAB /* NGNNumberNotationFactory.m in Sources */,
 				CEF814B21EC777F70002E360 /* AppDelegate.m in Sources */,
 				EFCD46DD1EE1C15D00606FAB /* NSMutableArray+QueueAdditions.m in Sources */,
 				CE735B4C1ECB0A37004A4025 /* AboutViewController.m in Sources */,

@@ -8,10 +8,31 @@
 
 #import "NGNDecNotation.h"
 
+@interface NGNDecNotation ()
+
+@property (retain, nonatomic) NSNumberFormatter *outputFormatter;
+
+@end
+
 @implementation NGNDecNotation
 
-+ (NSString *)encode:(double)numberToEncode {
-    return [NSString stringWithFormat:@"%g", numberToEncode];
+- (instancetype)init {
+    if (self = [super init]) {
+        _outputFormatter = [[NSNumberFormatter alloc]init];
+        _outputFormatter.maximumFractionDigits = CalculatorModelNumFormatterMaximumDisplayedFractionDigits;
+        _outputFormatter.minimumIntegerDigits = CalculatorModelNumFormatterMinimumDisplayedIntegerDigits;
+    }
+    return self;
+}
+
+- (NSString *)encode:(double)numberToEncode {
+    return [NSString stringWithFormat:@"%@", [self.outputFormatter stringFromNumber:@(numberToEncode)]];
+}
+
+- (void)dealloc
+{
+    [_outputFormatter release];
+    [super dealloc];
 }
 
 @end

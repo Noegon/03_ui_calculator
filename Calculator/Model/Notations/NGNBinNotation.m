@@ -10,12 +10,15 @@
 
 @implementation NGNBinNotation
 
-+ (NSString *)encode:(double)numberToEncode {
+- (NSString *)encode:(double)numberToEncode {
     NSString *binToString = @"";
-    NSUInteger x = (NSUInteger)numberToEncode;
+    NSInteger x = (NSInteger)numberToEncode;
     while (x > 0) {
         binToString = [[NSString stringWithFormat:@"%lu", x & 1]stringByAppendingString:binToString];
         x >>= 1;
+    }
+    if ([binToString isEqualToString:@""]) {
+        binToString = ViewControllerZeroString;
     }
     return binToString;
 }
