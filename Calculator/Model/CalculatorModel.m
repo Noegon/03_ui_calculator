@@ -147,6 +147,7 @@
         [self exceptionHandling:exception];
         [self sendMessageForDelegate:self.stringfiedResult];
     }
+    _currentOperand = currentOperand;
 }
 
 - (void)setCurrentOperand:(double)currentOperand {
