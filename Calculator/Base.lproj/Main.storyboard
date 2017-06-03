@@ -66,10 +66,10 @@
                                 <rect key="frame" x="0.0" y="124" width="414" height="612"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="iXj-Pt-Ypu">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="74.666666666666657"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8Y-gQ-ybV">
-                                                <rect key="frame" x="0.0" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="102" height="74.666666666666657"/>
                                                 <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="BIN">
@@ -78,10 +78,13 @@
                                                 <variation key="heightClass=regular">
                                                     <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                                 </variation>
+                                                <connections>
+                                                    <action selector="notationButtonTouched:" destination="Zef-R4-fTz" eventType="touchUpInside" id="Dbb-i1-iMT"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSb-Oh-rE4">
-                                                <rect key="frame" x="104" y="0.0" width="102" height="75"/>
-                                                <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zSb-Oh-rE4">
+                                                <rect key="frame" x="104" y="0.0" width="102" height="74.666666666666657"/>
+                                                <color key="backgroundColor" red="0.57249718900000002" green="0.57258230450000003" blue="0.57247859239999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="OCT">
                                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -89,10 +92,13 @@
                                                 <variation key="heightClass=regular">
                                                     <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                                 </variation>
+                                                <connections>
+                                                    <action selector="notationButtonTouched:" destination="Zef-R4-fTz" eventType="touchUpInside" id="vsw-0k-grJ"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iY4-Ut-Qke">
-                                                <rect key="frame" x="208" y="0.0" width="102" height="75"/>
-                                                <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iY4-Ut-Qke">
+                                                <rect key="frame" x="208" y="0.0" width="102" height="74.666666666666657"/>
+                                                <color key="backgroundColor" red="0.5725490196078431" green="0.57258230447769165" blue="0.57247859239578247" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="DEC">
                                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -100,9 +106,12 @@
                                                 <variation key="heightClass=regular">
                                                     <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                                 </variation>
+                                                <connections>
+                                                    <action selector="notationButtonTouched:" destination="Zef-R4-fTz" eventType="touchUpInside" id="2LX-x8-C3d"/>
+                                                </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sef-bN-axl">
-                                                <rect key="frame" x="312" y="0.0" width="102" height="75"/>
+                                            <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sef-bN-axl">
+                                                <rect key="frame" x="312" y="0.0" width="102" height="74.666666666666657"/>
                                                 <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <state key="normal" title="HEX">
@@ -111,14 +120,17 @@
                                                 <variation key="heightClass=regular">
                                                     <fontDescription key="fontDescription" type="system" pointSize="35"/>
                                                 </variation>
+                                                <connections>
+                                                    <action selector="notationButtonTouched:" destination="Zef-R4-fTz" eventType="touchUpInside" id="4qg-l4-Kpf"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="FWM-MR-ve3">
-                                        <rect key="frame" x="0.0" y="77" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="76.666666666666657" width="414" height="75.000000000000028"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ITV-Dn-gGb">
-                                                <rect key="frame" x="0.0" y="0.0" width="206" height="75"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="206" height="75.000000000000028"/>
                                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="C">
@@ -132,10 +144,10 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="zqh-kp-xUl">
-                                                <rect key="frame" x="208" y="0.0" width="206" height="75"/>
+                                                <rect key="frame" x="208" y="0.0" width="206" height="75.000000000000028"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXj-5z-Lev">
-                                                        <rect key="frame" x="0.0" y="0.0" width="102" height="75"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="102" height="75.000000000000028"/>
                                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                         <state key="normal" title="√">
@@ -149,7 +161,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUu-9t-Ch9">
-                                                        <rect key="frame" x="104" y="0.0" width="102" height="75"/>
+                                                        <rect key="frame" x="104" y="0.0" width="102" height="75.000000000000028"/>
                                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                         <state key="normal" title="+/-">
@@ -167,10 +179,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Sep-S6-tcQ">
-                                        <rect key="frame" x="0.0" y="154" width="414" height="74"/>
+                                        <rect key="frame" x="0.0" y="153.66666666666669" width="414" height="74.666666666666629"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Eb-02-ZFf">
-                                                <rect key="frame" x="0.0" y="0.0" width="102" height="74"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="102" height="74.666666666666629"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="D">
@@ -184,7 +196,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yID-eu-PG3">
-                                                <rect key="frame" x="104" y="0.0" width="102" height="74"/>
+                                                <rect key="frame" x="104" y="0.0" width="102" height="74.666666666666629"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="E">
@@ -198,7 +210,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d3l-tA-Jcv">
-                                                <rect key="frame" x="208" y="0.0" width="102" height="74"/>
+                                                <rect key="frame" x="208" y="0.0" width="102" height="74.666666666666629"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="F">
@@ -212,7 +224,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5u4-DB-J1L">
-                                                <rect key="frame" x="312" y="0.0" width="102" height="74"/>
+                                                <rect key="frame" x="312" y="0.0" width="102" height="74.666666666666629"/>
                                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="%">
@@ -228,10 +240,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="ahk-Qv-14L">
-                                        <rect key="frame" x="0.0" y="230" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="230.33333333333329" width="414" height="74.666666666666714"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bvg-Q9-ROA">
-                                                <rect key="frame" x="0.0" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="102" height="74.666666666666686"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="A">
@@ -245,7 +257,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JC5-O1-Ke8">
-                                                <rect key="frame" x="104" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="104" y="0.0" width="102" height="74.666666666666686"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="B">
@@ -259,7 +271,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="slh-ZL-rRv">
-                                                <rect key="frame" x="208" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="208" y="0.0" width="102" height="74.666666666666686"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="C">
@@ -273,7 +285,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sw0-gQ-vph">
-                                                <rect key="frame" x="312" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="312" y="0.0" width="102" height="74.666666666666686"/>
                                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="+">
@@ -289,10 +301,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="faI-Ur-6fd">
-                                        <rect key="frame" x="0.0" y="307" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="307" width="414" height="74.666666666666686"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y6z-UP-KSK">
-                                                <rect key="frame" x="0.0" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="102" height="74.666666666666686"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="7">
@@ -306,7 +318,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="po4-GL-dUt">
-                                                <rect key="frame" x="104" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="104" y="0.0" width="102" height="74.666666666666686"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="8">
@@ -320,7 +332,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J08-eD-i4S">
-                                                <rect key="frame" x="208" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="208" y="0.0" width="102" height="74.666666666666686"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="9">
@@ -334,7 +346,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pje-21-on0">
-                                                <rect key="frame" x="312" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="312" y="0.0" width="102" height="74.666666666666686"/>
                                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="-">
@@ -350,10 +362,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="FET-xl-wZg">
-                                        <rect key="frame" x="0.0" y="384" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="383.66666666666663" width="414" height="74.999999999999943"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4QZ-Tk-35p">
-                                                <rect key="frame" x="0.0" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="102" height="74.999999999999943"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="4">
@@ -367,7 +379,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OIs-Oe-9h0">
-                                                <rect key="frame" x="104" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="104" y="0.0" width="102" height="74.999999999999943"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="5">
@@ -381,7 +393,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WKs-4T-Hi6">
-                                                <rect key="frame" x="208" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="208" y="0.0" width="102" height="74.999999999999943"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="6">
@@ -395,7 +407,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JcS-Ez-68w">
-                                                <rect key="frame" x="312" y="0.0" width="102" height="75"/>
+                                                <rect key="frame" x="312" y="0.0" width="102" height="74.999999999999943"/>
                                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="25"/>
                                                 <state key="normal" title="x">
@@ -411,10 +423,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="k6E-ja-NsJ">
-                                        <rect key="frame" x="0.0" y="461" width="414" height="74"/>
+                                        <rect key="frame" x="0.0" y="460.66666666666663" width="414" height="74.666666666666742"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tro-1g-ZZx">
-                                                <rect key="frame" x="0.0" y="0.0" width="102" height="74"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="102" height="74.666666666666742"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="1">
@@ -428,7 +440,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZk-Qj-DPL">
-                                                <rect key="frame" x="104" y="0.0" width="102" height="74"/>
+                                                <rect key="frame" x="104" y="0.0" width="102" height="74.666666666666742"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="2">
@@ -442,7 +454,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jtr-Nn-1ae">
-                                                <rect key="frame" x="208" y="0.0" width="102" height="74"/>
+                                                <rect key="frame" x="208" y="0.0" width="102" height="74.666666666666742"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="3">
@@ -456,7 +468,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qiN-8V-H7L">
-                                                <rect key="frame" x="312" y="0.0" width="102" height="74"/>
+                                                <rect key="frame" x="312" y="0.0" width="102" height="74.666666666666742"/>
                                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="/">
@@ -472,10 +484,10 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="GuG-hu-YmK">
-                                        <rect key="frame" x="0.0" y="537" width="414" height="75"/>
+                                        <rect key="frame" x="0.0" y="537.33333333333348" width="414" height="74.666666666666629"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZv-Mu-ZvE">
-                                                <rect key="frame" x="0.0" y="0.0" width="206" height="75"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="206" height="74.666666666666629"/>
                                                 <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                 <state key="normal" title="0">
@@ -489,10 +501,10 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="eBV-Vj-FFd">
-                                                <rect key="frame" x="208" y="0.0" width="206" height="75"/>
+                                                <rect key="frame" x="208" y="0.0" width="206" height="74.666666666666629"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RTQ-2K-3kd">
-                                                        <rect key="frame" x="0.0" y="0.0" width="102" height="75"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="102" height="74.666666666666629"/>
                                                         <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                         <state key="normal" title=".">
@@ -506,7 +518,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13m-go-JJG">
-                                                        <rect key="frame" x="104" y="0.0" width="102" height="75"/>
+                                                        <rect key="frame" x="104" y="0.0" width="102" height="74.666666666666629"/>
                                                         <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="25"/>
                                                         <state key="normal" title="=">
@@ -545,6 +557,7 @@
                         <outlet property="digitInsertionField" destination="Ohk-0I-Yhf" id="H9T-iZ-PXz"/>
                         <outlet property="dotButton" destination="RTQ-2K-3kd" id="QlE-Hl-gDt"/>
                         <outlet property="equalButton" destination="13m-go-JJG" id="cx5-SD-Fs9"/>
+                        <outlet property="notationButtonsStackView" destination="iXj-Pt-Ypu" id="E5c-yL-a9a"/>
                         <outletCollection property="digitButtonsArray" destination="WKs-4T-Hi6" id="8uH-C3-w02"/>
                         <outletCollection property="digitButtonsArray" destination="po4-GL-dUt" id="iUx-5S-qsM"/>
                         <outletCollection property="digitButtonsArray" destination="4QZ-Tk-35p" id="CGR-UC-8vL"/>
@@ -598,6 +611,44 @@
                         <outletCollection property="blockableButtonsArray" destination="6Eb-02-ZFf" id="Vp6-me-77x"/>
                         <outletCollection property="blockableButtonsArray" destination="yID-eu-PG3" id="9q2-H1-LWK"/>
                         <outletCollection property="blockableButtonsArray" destination="d3l-tA-Jcv" id="Jg1-QS-rTL"/>
+                        <outletCollection property="blockableButtonsArray" destination="n8Y-gQ-ybV" id="EO1-x7-2Pk"/>
+                        <outletCollection property="blockableButtonsArray" destination="zSb-Oh-rE4" id="xok-k3-TNK"/>
+                        <outletCollection property="blockableButtonsArray" destination="iY4-Ut-Qke" id="pUA-Aq-xuy"/>
+                        <outletCollection property="blockableButtonsArray" destination="Sef-bN-axl" id="WKN-FQ-JjR"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="6Eb-02-ZFf" id="tYd-J7-Rdg"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="yID-eu-PG3" id="0g9-bg-3mh"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="d3l-tA-Jcv" id="JPQ-Yy-EUU"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="Bvg-Q9-ROA" id="c5g-mK-Y6o"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="JC5-O1-Ke8" id="u2q-wi-L6o"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="slh-ZL-rRv" id="mUx-cD-tai"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="Y6z-UP-KSK" id="Ylz-d7-q4i"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="po4-GL-dUt" id="9mJ-QA-o2z"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="J08-eD-i4S" id="pYM-bs-JhF"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="4QZ-Tk-35p" id="0V9-Wt-3tD"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="OIs-Oe-9h0" id="PEO-06-ePL"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="WKs-4T-Hi6" id="MBg-tH-v5C"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="rZk-Qj-DPL" id="a0Q-VV-DtT"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="Jtr-Nn-1ae" id="Xam-z2-fn3"/>
+                        <outletCollection property="deprecatedForBinaryNotationButtonsArray" destination="RTQ-2K-3kd" id="Vc4-3E-A6V"/>
+                        <outletCollection property="buttonsStackViews" destination="Sep-S6-tcQ" id="Zu6-J7-Sq3"/>
+                        <outletCollection property="buttonsStackViews" destination="ahk-Qv-14L" id="Lfk-av-gfK"/>
+                        <outletCollection property="buttonsStackViews" destination="iXj-Pt-Ypu" id="wdG-Sw-UpS"/>
+                        <outletCollection property="deprecatedForOctalNotationButtonsArray" destination="6Eb-02-ZFf" id="PSq-Iw-MrN"/>
+                        <outletCollection property="deprecatedForOctalNotationButtonsArray" destination="yID-eu-PG3" id="5tu-OW-h9i"/>
+                        <outletCollection property="deprecatedForOctalNotationButtonsArray" destination="d3l-tA-Jcv" id="ccy-UB-sa3"/>
+                        <outletCollection property="deprecatedForOctalNotationButtonsArray" destination="Bvg-Q9-ROA" id="fXn-lf-Izt"/>
+                        <outletCollection property="deprecatedForOctalNotationButtonsArray" destination="JC5-O1-Ke8" id="Jdl-kO-wHL"/>
+                        <outletCollection property="deprecatedForOctalNotationButtonsArray" destination="slh-ZL-rRv" id="kVt-z2-JpU"/>
+                        <outletCollection property="deprecatedForOctalNotationButtonsArray" destination="J08-eD-i4S" id="WJb-hS-nQ5"/>
+                        <outletCollection property="deprecatedForOctalNotationButtonsArray" destination="po4-GL-dUt" id="pPN-KQ-aCL"/>
+                        <outletCollection property="deprecatedForOctalNotationButtonsArray" destination="RTQ-2K-3kd" id="A2e-nT-RRy"/>
+                        <outletCollection property="deprecatedForHexadecimalNotationButtonsArray" destination="RTQ-2K-3kd" id="sz8-tJ-OOz"/>
+                        <outletCollection property="deprecatedForDecimalNotationButtonsArray" destination="6Eb-02-ZFf" id="wVy-aE-aMl"/>
+                        <outletCollection property="deprecatedForDecimalNotationButtonsArray" destination="yID-eu-PG3" id="OMJ-h7-fTn"/>
+                        <outletCollection property="deprecatedForDecimalNotationButtonsArray" destination="d3l-tA-Jcv" id="H2z-Xl-p9s"/>
+                        <outletCollection property="deprecatedForDecimalNotationButtonsArray" destination="Bvg-Q9-ROA" id="0Qb-hV-0nD"/>
+                        <outletCollection property="deprecatedForDecimalNotationButtonsArray" destination="JC5-O1-Ke8" id="eW2-nn-386"/>
+                        <outletCollection property="deprecatedForDecimalNotationButtonsArray" destination="slh-ZL-rRv" id="FrG-Jy-9m6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pt7-D1-g58" userLabel="First Responder" sceneMemberID="firstResponder"/>

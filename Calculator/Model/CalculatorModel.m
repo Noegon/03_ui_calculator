@@ -165,6 +165,10 @@
     _currentOperand = currentOperand;
 }
 
+- (void)setCurrentNotation:(CalculatorModelNotations)currentNotation {
+    NSLog(@"%d", currentNotation);
+}
+
 - (void)clear {
     self.result = NAN;
     self.waitingOperation = nil;
