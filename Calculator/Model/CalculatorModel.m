@@ -13,7 +13,7 @@
 
 #pragma mark - model logic properties
 @property (assign, nonatomic) double result;
-@property (retain, nonatomic) NSMutableDictionary *operations;
+@property (retain, nonatomic) NSMutableDictionary *operations; //contains both of unary and binary operations
 @property (retain, nonatomic) NSDictionary *binaryOperations;
 @property (retain, nonatomic) NSDictionary *unaryOperations;
 @property (retain, nonatomic) NSString *waitingOperation;
@@ -93,37 +93,31 @@
     if ([self respondsToSelector:tmpSelector]) {
         [self performSelector:tmpSelector];
     }
+    self.secondOperandAdded = NO;
 }
 
 // helper method to perform binary operations
 - (void) performBinaryOperationWithOperator:(NSString *)operator {
     if (self.isRenewedCalculationChain) {
         self.renewedCalculationChain = NO;
-        if (self.isEqualsOperationPerformed) {
-            self.currentOperand = self.result;
-            self.secondOperandAdded = NO;
-            self.equalsOperationPerformed = NO;
-        }
-        self.result = self.currentOperand;
     }
-    if ([self isSecondOperandAdded]) {
+    if (self.isSecondOperandAdded) {
         self.secondOperandAdded = NO;
         [self executeOperationWithOperator:self.waitingOperation];
+        [self sendMessageForDelegateWithNumber:self.result];
     }
-    self.currentOperand = self.result;
-    self.secondOperandAdded = NO;
     self.waitingOperation = operator;
-    [self sendMessageForDelegateWithNumber:self.result];
 }
 
 // helper method to perform unary operations
 - (void) performUnaryOperationWithOperator:(NSString *)operator {
     if (self.isEqualsOperationPerformed) {
-        self.currentOperand = self.result;
         self.equalsOperationPerformed = NO;
+        [self setCurrentOperandWithoutSideEffects:self.result];
     }
     [self executeOperationWithOperator:operator];
-    if (self.isRenewedCalculationChain) {
+    if (self.isRenewedCalculationChain ||
+        isnan(self.result)) {
         self.result = self.currentOperand;
     }
     [self sendMessageForDelegateWithNumber:self.currentOperand];
@@ -153,51 +147,64 @@
         [self exceptionHandling:exception];
         [self sendMessageForDelegate:self.stringfiedResult];
     }
+    _currentOperand = currentOperand;
 }
 
 - (void)setCurrentOperand:(double)currentOperand {
-    if (!self.isSecondOperandAdded && !self.isRenewedCalculationChain) {
+    if (!isnan(self.result) && !self.isRenewedCalculationChain) {
         self.secondOperandAdded = YES;
     }
+    if (self.isEqualsOperationPerformed && !self.isSecondOperandAdded) {
+        self.equalsOperationPerformed = NO;
+        self.result = currentOperand;
+    }
+    _currentOperand = currentOperand;
+}
+
+- (void)setCurrentOperandWithoutSideEffects:(double)currentOperand {
     _currentOperand = currentOperand;
 }
 
 - (void)clear {
     self.result = NAN;
     self.waitingOperation = nil;
-    self.currentOperand = 0;
+    [self setCurrentOperandWithoutSideEffects:0];
     self.stringfiedResult = nil;
+    self.secondOperandAdded = NO;
+    self.renewedCalculationChain = YES;
+    self.equalsOperationPerformed = NO;
+    
 }
 
 - (void)equals {
     @try {
         [self executeOperationWithOperator:self.waitingOperation];
-        self.secondOperandAdded = NO;
         self.renewedCalculationChain = YES;
         self.equalsOperationPerformed = YES;
-    } @catch (NSException *exception) {
-        [self exceptionHandling:exception];
-    } @finally {
         [self sendMessageForDelegateWithNumber:self.result];
+    }
+    @catch (NSException *exception) {
+        [self exceptionHandling:exception];
+        [self sendMessageForDelegate:self.stringfiedResult];
     }
 }
 
 #pragma mark - mathematic operations
 - (void)squareRoot {
     if (self.currentOperand >= 0) {
-        self.currentOperand = sqrt(self.currentOperand);
+        [self setCurrentOperandWithoutSideEffects:sqrt(self.currentOperand)];
     } else {
         @throw Constants.calculatorModelSquareRootFromNegativeException;
     }
 }
 
 - (void)reverseSign {
-    self.currentOperand = -1 * self.currentOperand;
+    [self setCurrentOperandWithoutSideEffects:(-1 * self.currentOperand)];
 }
 
 - (void)divisionRemainder {
     if (self.currentOperand != 0) {
-        self.result = (NSInteger)round(self.result) % (NSInteger)round(self.currentOperand);
+        self.result = (NSInteger)self.result % (NSInteger)self.currentOperand;
     } else {
         @throw Constants.calculatorModelDivisionByZeroException;
     }
