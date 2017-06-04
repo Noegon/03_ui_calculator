@@ -18,6 +18,7 @@ static const double unchosenNotationButtonAlpha = 1.0;
 @interface ViewController () <CalculatorModelDelegate>
 
 #pragma mark - outlets
+  
 @property (retain, nonatomic) IBOutlet UILabel *digitInsertionField;
 @property (retain, nonatomic) IBOutlet UIButton *dotButton;
 @property (retain, nonatomic) IBOutlet UIButton *equalButton;
@@ -117,6 +118,7 @@ static const double unchosenNotationButtonAlpha = 1.0;
     if (SCREEN_HEIGHT < SCREEN_WIDTH) {
         [self changeTheViewToPortrait:NO];
     }
+
     
     self.navigationController.navigationBar.backgroundColor = [UIColor grayColor];
     UIBarButtonItem *aboutBarButton = [[UIBarButtonItem alloc] initWithTitle:ViewControllerAboutTitle
@@ -231,6 +233,7 @@ static const double unchosenNotationButtonAlpha = 1.0;
                                          self.digitInsertionField.text,
                                          ViewControllerDotString];
     }
+    self.valueEditingInProgress = YES;
 }
 
 - (IBAction)equalsButtonTouched:(UIButton *)sender {

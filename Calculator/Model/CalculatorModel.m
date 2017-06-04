@@ -83,6 +83,15 @@
     [super dealloc];
 }
 
+- (NSNumberFormatter *)outputFormatter {
+    if (!_outputFormatter) {
+        _outputFormatter = [[NSNumberFormatter alloc]init];
+        _outputFormatter.maximumFractionDigits = CalculatorModelNumFormatterMaximumDisplayedFractionDigits;
+        _outputFormatter.minimumIntegerDigits = CalculatorModelNumFormatterMinimumDisplayedIntegerDigits;
+    }
+    return _outputFormatter;
+}
+
 #pragma mark - model logic methods
 // template for operations executing
 - (void)executeOperationWithOperator:(NSString *)operator {
