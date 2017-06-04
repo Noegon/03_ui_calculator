@@ -55,10 +55,10 @@
         _secondOperandAdded = NO;
         _unaryOperations = [@{CalculatorModelSquareRootSignOperation: @"squareRoot",
                               CalculatorModelReverseSignOperation: @"reverseSign",
-                              @"BIN": @"changeToBINNotation",
-                              @"OCT": @"changeToOCTNotation",
-                              @"DEC": @"changeToDECNotation",
-                              @"HEX": @"changeToHEXNotation"} retain];
+                              CalculatorModelBinaryNotationOperation: @"changeToBINNotation",
+                              CalculatorModelOctalNotationOperation: @"changeToOCTNotation",
+                              CalculatorModelDecimalNotationOperation: @"changeToDECNotation",
+                              CalculatorModelHexadecimalNotationOperation: @"changeToHEXNotation"} retain];
         
         _binaryOperations = [@{CalculatorModelDivisonRemainderOperation: @"divisionRemainder",
                                CalculatorModelPlusSignOperation: @"add",

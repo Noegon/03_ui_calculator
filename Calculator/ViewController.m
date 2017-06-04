@@ -134,21 +134,40 @@ static const double unchosenNotationButtonAlpha = 1.0;
         [button setTitleColor:[self enabledViewTextColor] forState:UIControlStateNormal];
     }
     
-    self.notationButtonsBoundedParameters = @{@"BIN": @{@"notationType": @(BINNotation),
-                                                        @"disabledButtons": self.deprecatedForBinaryNotationButtonsArray,
-                                                        @"button": [self.notationButtonsStackView viewWithTag:BINNotation]},
-                                              @"OCT": @{@"notationType": @(OCTNotation),
-                                                        @"disabledButtons": self.deprecatedForOctalNotationButtonsArray,
-                                                        @"button": [self.notationButtonsStackView viewWithTag:OCTNotation]},
-                                              @"DEC": @{@"notationType": @(DECNotation),
-                                                        @"disabledButtons": self.deprecatedForDecimalNotationButtonsArray,
-                                                        @"button": [self.notationButtonsStackView viewWithTag:DECNotation]},
-                                              @"HEX": @{@"notationType": @(HEXNotation),
-                                                        @"disabledButtons": self.deprecatedForHexadecimalNotationButtonsArray,
-                                                        @"button": [self.notationButtonsStackView viewWithTag:HEXNotation]}
+    self.notationButtonsBoundedParameters = @{CalculatorModelBinaryNotationOperation:
+                                                  @{ViewControllerNotationButtonsBoundedParametersNotationTypeKey:
+                                                        @(BINNotation),
+                                                    ViewControllerNotationButtonsBoundedParametersDisabledButtonsKey:
+                                                        self.deprecatedForBinaryNotationButtonsArray,
+                                                    ViewControllerNotationButtonsBoundedParametersButtonKey:
+                                                        [self.notationButtonsStackView viewWithTag:BINNotation]},
+                                              
+                                              CalculatorModelOctalNotationOperation:
+                                                  @{ViewControllerNotationButtonsBoundedParametersNotationTypeKey:
+                                                        @(OCTNotation),
+                                                    ViewControllerNotationButtonsBoundedParametersDisabledButtonsKey:
+                                                        self.deprecatedForOctalNotationButtonsArray,
+                                                    ViewControllerNotationButtonsBoundedParametersButtonKey:
+                                                        [self.notationButtonsStackView viewWithTag:OCTNotation]},
+                                              
+                                              CalculatorModelDecimalNotationOperation:
+                                                  @{ViewControllerNotationButtonsBoundedParametersNotationTypeKey:
+                                                        @(DECNotation),
+                                                    ViewControllerNotationButtonsBoundedParametersDisabledButtonsKey:
+                                                        self.deprecatedForDecimalNotationButtonsArray,
+                                                    ViewControllerNotationButtonsBoundedParametersButtonKey:
+                                                        [self.notationButtonsStackView viewWithTag:DECNotation]},
+                                              
+                                              CalculatorModelHexadecimalNotationOperation:
+                                                  @{ViewControllerNotationButtonsBoundedParametersNotationTypeKey:
+                                                        @(HEXNotation),
+                                                    ViewControllerNotationButtonsBoundedParametersDisabledButtonsKey:
+                                                        self.deprecatedForHexadecimalNotationButtonsArray,
+                                                    ViewControllerNotationButtonsBoundedParametersButtonKey:
+                                                        [self.notationButtonsStackView viewWithTag:HEXNotation]}
                                               };
     
-    [self notationButtonTouched: (self.notationButtonsBoundedParameters[@"DEC"])[@"button"]];
+    [self notationButtonTouched: self.notationButtonsBoundedParameters[CalculatorModelDecimalNotationOperation][@"button"]];
 }
 
 #pragma mark - main logic performing methods
