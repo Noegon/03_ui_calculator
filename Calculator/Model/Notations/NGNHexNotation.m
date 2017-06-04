@@ -10,7 +10,7 @@
 
 @implementation NGNHexNotation
 
-+ (NSString *)encode:(double)numberToEncode {
+- (NSString *)encode:(double)numberToEncode {
     return [NSString stringWithFormat:@"%lX", (NSUInteger)numberToEncode];
 }
 

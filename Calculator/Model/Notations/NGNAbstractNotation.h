@@ -12,9 +12,9 @@
 @protocol NGNNotationConvertible <NSObject>
 
 @optional
-+ (NSString *)encode:(double)numberToEncode;
+- (NSString *)encode:(double)numberToEncode;
 @required
-+ (double)decodeNumber:(NSString *)stringfiedNumber
+- (double)decodeNumber:(NSString *)stringfiedNumber
           fromNotation:(CalculatorModelNotations)notation;
 
 @end

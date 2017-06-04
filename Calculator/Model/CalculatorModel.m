@@ -7,33 +7,34 @@
 //
 
 #import "CalculatorModel.h"
+#import "NGNNumberNotationFactory.h"
 #import "Constants.h"
 
 @interface CalculatorModel ()
 
 #pragma mark - model logic properties
+@property (assign, nonatomic) double currentOperand;
 @property (assign, nonatomic) double result;
-@property (retain, nonatomic) NSMutableDictionary *operations;
+@property (retain, nonatomic) NSMutableDictionary *operations; //contains both of unary and binary operations
 @property (retain, nonatomic) NSDictionary *binaryOperations;
 @property (retain, nonatomic) NSDictionary *unaryOperations;
 @property (retain, nonatomic) NSString *waitingOperation;
 @property (assign, nonatomic) NSString *stringfiedResult;
+@property (assign, nonatomic) NSInteger currentNotation;
+@property (retain, nonatomic) NGNNumberNotationFactory *numberNotationFactory;
 
 #pragma mark - flags
 @property (assign, nonatomic, getter=isRenewedCalculationChain, readwrite) BOOL renewedCalculationChain;
 @property (assign, nonatomic, getter=isSecondOperandAdded, readwrite) BOOL secondOperandAdded;
 @property (assign, nonatomic, getter=isEqualsOperationPerformed, readwrite) BOOL equalsOperationPerformed;
 
-#pragma mark - helper properties
-@property (retain, nonatomic) NSNumberFormatter *outputFormatter;
-
 #pragma mark - model logic methods
-- (void) performBinaryOperationWithOperator:(NSString *)operator;
-- (void) performUnaryOperationWithOperator:(NSString *)operator;
+- (void)performBinaryOperationWithOperator:(NSString *)operator;
+- (void)performUnaryOperationWithOperator:(NSString *)operator;
 
 #pragma mark - helper methods
-- (BOOL) isBinaryOperation:(NSString *)operator;
-- (BOOL) isUnaryOperation:(NSString *)operator;
+- (BOOL)isBinaryOperation:(NSString *)operator;
+- (BOOL)isUnaryOperation:(NSString *)operator;
 - (void)exceptionHandling:(NSException *)exception;
 
 #pragma mark - delegate helper methods
@@ -53,7 +54,11 @@
         _renewedCalculationChain = YES;
         _secondOperandAdded = NO;
         _unaryOperations = [@{CalculatorModelSquareRootSignOperation: @"squareRoot",
-                              CalculatorModelReverseSignOperation: @"reverseSign"} retain];
+                              CalculatorModelReverseSignOperation: @"reverseSign",
+                              CalculatorModelBinaryNotationOperation: @"changeToBINNotation",
+                              CalculatorModelOctalNotationOperation: @"changeToOCTNotation",
+                              CalculatorModelDecimalNotationOperation: @"changeToDECNotation",
+                              CalculatorModelHexadecimalNotationOperation: @"changeToHEXNotation"} retain];
         
         _binaryOperations = [@{CalculatorModelDivisonRemainderOperation: @"divisionRemainder",
                                CalculatorModelPlusSignOperation: @"add",
@@ -63,6 +68,7 @@
         
         _operations = [[NSMutableDictionary alloc] initWithDictionary:_unaryOperations];
         [_operations addEntriesFromDictionary:_binaryOperations];
+        _numberNotationFactory = [[NGNNumberNotationFactory sharedInstance]retain];
     }
     return self;
 }
@@ -73,17 +79,8 @@
     [_unaryOperations release];
     [_binaryOperations release];
     [_waitingOperation release];
-    [_outputFormatter release];
+    [_numberNotationFactory release];
     [super dealloc];
-}
-
-- (NSNumberFormatter *)outputFormatter {
-    if (!_outputFormatter) {
-        _outputFormatter = [[NSNumberFormatter alloc]init];
-        _outputFormatter.maximumFractionDigits = CalculatorModelNumFormatterMaximumDisplayedFractionDigits;
-        _outputFormatter.minimumIntegerDigits = CalculatorModelNumFormatterMinimumDisplayedIntegerDigits;
-    }
-    return _outputFormatter;
 }
 
 #pragma mark - model logic methods
@@ -93,37 +90,34 @@
     if ([self respondsToSelector:tmpSelector]) {
         [self performSelector:tmpSelector];
     }
+    self.secondOperandAdded = NO;
 }
 
 // helper method to perform binary operations
 - (void) performBinaryOperationWithOperator:(NSString *)operator {
+    if (self.isEqualsOperationPerformed) {
+        self.equalsOperationPerformed = NO;
+    }
     if (self.isRenewedCalculationChain) {
         self.renewedCalculationChain = NO;
-        if (self.isEqualsOperationPerformed) {
-            self.currentOperand = self.result;
-            self.secondOperandAdded = NO;
-            self.equalsOperationPerformed = NO;
-        }
-        self.result = self.currentOperand;
     }
-    if ([self isSecondOperandAdded]) {
+    if (self.isSecondOperandAdded) {
         self.secondOperandAdded = NO;
         [self executeOperationWithOperator:self.waitingOperation];
+        [self sendMessageForDelegateWithNumber:self.result];
     }
-    self.currentOperand = self.result;
-    self.secondOperandAdded = NO;
     self.waitingOperation = operator;
-    [self sendMessageForDelegateWithNumber:self.result];
 }
 
 // helper method to perform unary operations
 - (void) performUnaryOperationWithOperator:(NSString *)operator {
     if (self.isEqualsOperationPerformed) {
-        self.currentOperand = self.result;
         self.equalsOperationPerformed = NO;
+        [self setCurrentOperandWithoutSideEffects:self.result];
     }
     [self executeOperationWithOperator:operator];
-    if (self.isRenewedCalculationChain) {
+    if (self.isRenewedCalculationChain ||
+        isnan(self.result)) {
         self.result = self.currentOperand;
     }
     [self sendMessageForDelegateWithNumber:self.currentOperand];
@@ -146,7 +140,8 @@
             if ([self isUnaryOperation:operator]) {
                 [self performUnaryOperationWithOperator:operator];
             }
-        } else {
+        }
+        else {
             @throw Constants.calculatorModelAmountOverflowException;
         }
     } @catch (NSException *exception) {
@@ -156,49 +151,76 @@
 }
 
 - (void)setCurrentOperand:(double)currentOperand {
-    if (!self.isSecondOperandAdded && !self.isRenewedCalculationChain) {
+    if (!isnan(self.result) && !self.isRenewedCalculationChain) {
         self.secondOperandAdded = YES;
     }
+    if (self.isEqualsOperationPerformed && !self.isSecondOperandAdded) {
+        self.equalsOperationPerformed = NO;
+        self.result = currentOperand;
+    }
     _currentOperand = currentOperand;
+}
+
+- (void)setCurrentOperandWithoutSideEffects:(double)currentOperand {
+    _currentOperand = currentOperand;
+}
+
+- (void)setCurrentOperandWithString:(NSString *)stringfiedCurrentOperand {
+    NSLog(@"notation = %ld", (long)self.currentNotation);
+    double decimalNotationValue =
+    [self.numberNotationFactory decodeNumberFromStringfiedNumber:stringfiedCurrentOperand
+                                                withNotationType:(CalculatorModelNotations)self.currentNotation];
+    self.currentOperand = decimalNotationValue;
+}
+
+- (void)setCurrentNotation:(NSInteger)notation {
+    _currentNotation = notation;
 }
 
 - (void)clear {
     self.result = NAN;
     self.waitingOperation = nil;
-    self.currentOperand = 0;
+    [self setCurrentOperandWithoutSideEffects:0];
     self.stringfiedResult = nil;
+    self.secondOperandAdded = NO;
+    self.renewedCalculationChain = YES;
+    self.equalsOperationPerformed = NO;
+    
 }
 
 - (void)equals {
     @try {
         [self executeOperationWithOperator:self.waitingOperation];
-        self.secondOperandAdded = NO;
         self.renewedCalculationChain = YES;
         self.equalsOperationPerformed = YES;
-    } @catch (NSException *exception) {
-        [self exceptionHandling:exception];
-    } @finally {
         [self sendMessageForDelegateWithNumber:self.result];
+    }
+    @catch (NSException *exception) {
+        [self exceptionHandling:exception];
+        [self sendMessageForDelegate:self.stringfiedResult];
     }
 }
 
 #pragma mark - mathematic operations
+
 - (void)squareRoot {
     if (self.currentOperand >= 0) {
-        self.currentOperand = sqrt(self.currentOperand);
-    } else {
+        [self setCurrentOperandWithoutSideEffects:sqrt(self.currentOperand)];
+    }
+    else {
         @throw Constants.calculatorModelSquareRootFromNegativeException;
     }
 }
 
 - (void)reverseSign {
-    self.currentOperand = -1 * self.currentOperand;
+    [self setCurrentOperandWithoutSideEffects:(-1 * self.currentOperand)];
 }
 
 - (void)divisionRemainder {
     if (self.currentOperand != 0) {
-        self.result = (NSInteger)round(self.result) % (NSInteger)round(self.currentOperand);
-    } else {
+        self.result = (NSInteger)self.result % (NSInteger)self.currentOperand;
+    }
+    else {
         @throw Constants.calculatorModelDivisionByZeroException;
     }
 }
@@ -218,19 +240,37 @@
 - (void)divide {
     if (self.currentOperand != 0) {
         self.result /= self.currentOperand;
-    } else {
+    }
+    else {
         @throw Constants.calculatorModelDivisionByZeroException;
     }
+}
+
+#pragma mark - notation changing
+- (void)changeToBINNotation {
+    self.currentNotation = BINNotation;
+}
+
+- (void)changeToOCTNotation {
+    self.currentNotation = OCTNotation;
+}
+
+- (void)changeToDECNotation {
+    self.currentNotation = DECNotation;
+}
+
+- (void)changeToHEXNotation {
+    self.currentNotation = HEXNotation;
 }
 
 #pragma mark - helper methods
 
 - (BOOL) isBinaryOperation:(NSString *)operator {
-    return [[self.binaryOperations allKeys]containsObject:operator];
+    return self.binaryOperations[operator];
 }
 
 - (BOOL) isUnaryOperation:(NSString *)operator {
-    return [[self.unaryOperations allKeys]containsObject:operator];
+    return self.unaryOperations[operator];
 }
 
 // method to help with handling my arithmetic exceptions
@@ -245,11 +285,11 @@
 #pragma mark - delegate helper methods
 
 - (void)setStringfiedResultFromDoubleValue:(double)newResult {
-    NSString *tmpStringfiedResult = [[NSMutableString stringWithString:
-                                      [self.outputFormatter stringFromNumber:
-                                       [NSNumber numberWithDouble:newResult]]]retain];
+    NSString *tmpStringfiedResult =
+        [self.numberNotationFactory encodeNumberToString:newResult
+                                        withNotationType:(CalculatorModelNotations)self.currentNotation];
     [_stringfiedResult release];
-    _stringfiedResult = tmpStringfiedResult;
+    _stringfiedResult = [tmpStringfiedResult retain];
 }
 
 - (void)sendMessageForDelegateWithNumber:(double)number {
@@ -261,10 +301,11 @@
 
 - (void)sendMessageForDelegate:(NSString *)message {
     self.stringfiedResult = message;
-    id<CalculatorModelDelegate> strongDelegate = self.delegate;
+    id<CalculatorModelDelegate> strongDelegate = [self.delegate retain];
     if ([strongDelegate respondsToSelector:@selector(calculatorModel:didChangeResult:)]) {
-        [strongDelegate calculatorModel:self didChangeResult:message];
+        [strongDelegate calculatorModel:self didChangeResult:self.stringfiedResult];
     }
+    [strongDelegate release];
 }
 
 @end

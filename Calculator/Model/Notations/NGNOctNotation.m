@@ -10,7 +10,7 @@
 
 @implementation NGNOctNotation
 
-+ (NSString *)encode:(double)numberToEncode {
+- (NSString *)encode:(double)numberToEncode {
     return [NSString stringWithFormat:@"%lo", (NSUInteger)numberToEncode];
 }
 
