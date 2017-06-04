@@ -24,6 +24,8 @@ static const double unchosenNotationButtonAlpha = 1.0;
 @property (retain, nonatomic) IBOutlet UIButton *clearButton;
 @property (retain, nonatomic) IBOutlet UIButton *aboutButton;
 @property (retain, nonatomic) IBOutlet UIStackView *notationButtonsStackView;
+@property (retain, nonatomic) IBOutlet UIStackView *innerVerticalButtonContainerStackView;
+@property (retain, nonatomic) IBOutlet UIStackView *outerHorizontalButtonContainerStackView;
 
 #pragma mark - common outlet collections
 @property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *digitButtonsArray;
@@ -104,6 +106,8 @@ static const double unchosenNotationButtonAlpha = 1.0;
     [_notationButtonsStackView release];
     [_notationButtonsBoundedParameters release];
     [_currentNotationButtonTitle release];
+    [_innerVerticalButtonContainerStackView release];
+    [_outerHorizontalButtonContainerStackView release];
     [super dealloc];
 }
 
@@ -339,18 +343,15 @@ static const double unchosenNotationButtonAlpha = 1.0;
 - (void)changeTheViewToPortrait:(BOOL)portrait {    
     if(portrait) {
         NSLog(@"%@", @"portrait orientation");
-        for (UIStackView *stackView in self.buttonsStackViews) {
-            UIButton *tmpButton = stackView.arrangedSubviews.firstObject;
-            [stackView removeArrangedSubview:tmpButton];
-            [stackView addArrangedSubview:tmpButton];
-        }
+        [self.outerHorizontalButtonContainerStackView removeArrangedSubview:self.notationButtonsStackView];
+        [self.innerVerticalButtonContainerStackView insertArrangedSubview:self.notationButtonsStackView
+                                                                  atIndex:0];
+        self.notationButtonsStackView.axis = UILayoutConstraintAxisHorizontal;
     } else {
         NSLog(@"%@", @"landscape orientation");
-        for (UIStackView *stackView in self.buttonsStackViews) {
-            UIButton *tmpButton = stackView.arrangedSubviews.lastObject;
-            [stackView removeArrangedSubview:tmpButton];
-            [stackView insertArrangedSubview:tmpButton atIndex:0];
-        }
+        [self.innerVerticalButtonContainerStackView removeArrangedSubview:self.notationButtonsStackView];
+        [self.outerHorizontalButtonContainerStackView addArrangedSubview:self.notationButtonsStackView];
+        self.notationButtonsStackView.axis = UILayoutConstraintAxisVertical;
     }
 }
 
