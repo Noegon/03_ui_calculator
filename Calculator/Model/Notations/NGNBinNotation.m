@@ -17,7 +17,7 @@
         binToString = [[NSString stringWithFormat:@"%lu", x & 1]stringByAppendingString:binToString];
         x >>= 1;
     }
-    if ([binToString isEqualToString:@""]) {
+    if (!binToString.length) {
         binToString = ViewControllerZeroString;
     }
     return binToString;
