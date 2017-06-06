@@ -19,7 +19,6 @@
 		CEF814BD1EC777F70002E360 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF814BB1EC777F70002E360 /* LaunchScreen.storyboard */; };
 		EF2FB4AA1ED5702000568FF8 /* CalculatorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */; };
 		EF2FB4C01ED8B29400568FF8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB4BF1ED8B29400568FF8 /* Constants.m */; };
-		EFCD46DD1EE1C15D00606FAB /* NSMutableArray+QueueAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46DC1EE1C15D00606FAB /* NSMutableArray+QueueAdditions.m */; };
 		EFCD46F71EE1C28F00606FAB /* NGNAbstractNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46F61EE1C28F00606FAB /* NGNAbstractNotation.m */; };
 		EFCD47001EE1C2B400606FAB /* NGNBinNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46F91EE1C2B400606FAB /* NGNBinNotation.m */; };
 		EFCD47011EE1C2B400606FAB /* NGNDecNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46FB1EE1C2B400606FAB /* NGNDecNotation.m */; };
@@ -49,8 +48,6 @@
 		EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculatorModel.m; path = Model/CalculatorModel.m; sourceTree = "<group>"; };
 		EF2FB4BE1ED8B29400568FF8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Model/Constants.h; sourceTree = "<group>"; };
 		EF2FB4BF1ED8B29400568FF8 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = Model/Constants.m; sourceTree = "<group>"; };
-		EFCD46DB1EE1C15D00606FAB /* NSMutableArray+QueueAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableArray+QueueAdditions.h"; path = "Model/AdditionalCathegories/NSMutableArray+QueueAdditions.h"; sourceTree = "<group>"; };
-		EFCD46DC1EE1C15D00606FAB /* NSMutableArray+QueueAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableArray+QueueAdditions.m"; path = "Model/AdditionalCathegories/NSMutableArray+QueueAdditions.m"; sourceTree = "<group>"; };
 		EFCD46F51EE1C28F00606FAB /* NGNAbstractNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNAbstractNotation.h; path = Model/Notations/NGNAbstractNotation.h; sourceTree = "<group>"; };
 		EFCD46F61EE1C28F00606FAB /* NGNAbstractNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNAbstractNotation.m; path = Model/Notations/NGNAbstractNotation.m; sourceTree = "<group>"; };
 		EFCD46F81EE1C2B400606FAB /* NGNBinNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNBinNotation.h; path = Model/Notations/NGNBinNotation.h; sourceTree = "<group>"; };
@@ -135,22 +132,12 @@
 			isa = PBXGroup;
 			children = (
 				EFCD46F41EE1C27E00606FAB /* Notations */,
-				EFCD46DA1EE1C12900606FAB /* AdditionalCategories */,
 				EF2FB4A81ED5702000568FF8 /* CalculatorModel.h */,
 				EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */,
 				EF2FB4BE1ED8B29400568FF8 /* Constants.h */,
 				EF2FB4BF1ED8B29400568FF8 /* Constants.m */,
 			);
 			name = Model;
-			sourceTree = "<group>";
-		};
-		EFCD46DA1EE1C12900606FAB /* AdditionalCategories */ = {
-			isa = PBXGroup;
-			children = (
-				EFCD46DB1EE1C15D00606FAB /* NSMutableArray+QueueAdditions.h */,
-				EFCD46DC1EE1C15D00606FAB /* NSMutableArray+QueueAdditions.m */,
-			);
-			name = AdditionalCategories;
 			sourceTree = "<group>";
 		};
 		EFCD46F41EE1C27E00606FAB /* Notations */ = {
@@ -253,7 +240,6 @@
 				EFCD47001EE1C2B400606FAB /* NGNBinNotation.m in Sources */,
 				EFCD470C1EE1C53F00606FAB /* NGNNumberNotationFactory.m in Sources */,
 				CEF814B21EC777F70002E360 /* AppDelegate.m in Sources */,
-				EFCD46DD1EE1C15D00606FAB /* NSMutableArray+QueueAdditions.m in Sources */,
 				CE735B4C1ECB0A37004A4025 /* AboutViewController.m in Sources */,
 				CEF814AF1EC777F70002E360 /* main.m in Sources */,
 				EFCD47031EE1C2B400606FAB /* NGNOctNotation.m in Sources */,

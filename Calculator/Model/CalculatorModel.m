@@ -21,7 +21,7 @@
 @property (retain, nonatomic) NSString *waitingOperation;
 @property (assign, nonatomic) NSString *stringfiedResult;
 @property (assign, nonatomic) NSInteger currentNotation;
-@property (retain, nonatomic) NGNNumberNotationFactory *numberNotationFactory;
+//@property (retain, nonatomic) NGNNumberNotationFactory *numberNotationFactory;
 
 #pragma mark - flags
 @property (assign, nonatomic, getter=isRenewedCalculationChain, readwrite) BOOL renewedCalculationChain;
@@ -68,7 +68,6 @@
         
         _operations = [[NSMutableDictionary alloc] initWithDictionary:_unaryOperations];
         [_operations addEntriesFromDictionary:_binaryOperations];
-        _numberNotationFactory = [[NGNNumberNotationFactory sharedInstance]retain];
     }
     return self;
 }
@@ -79,7 +78,7 @@
     [_unaryOperations release];
     [_binaryOperations release];
     [_waitingOperation release];
-    [_numberNotationFactory release];
+//    [_numberNotationFactory release];
     [super dealloc];
 }
 
@@ -168,8 +167,8 @@
 - (void)setCurrentOperandWithString:(NSString *)stringfiedCurrentOperand {
     NSLog(@"notation = %ld", (long)self.currentNotation);
     double decimalNotationValue =
-    [self.numberNotationFactory decodeNumberFromStringfiedNumber:stringfiedCurrentOperand
-                                                withNotationType:(CalculatorModelNotations)self.currentNotation];
+    [[NGNNumberNotationFactory sharedInstance] decodeNumberFromStringfiedNumber:stringfiedCurrentOperand
+                                                               withNotationType:(CalculatorModelNotations)self.currentNotation];
     self.currentOperand = decimalNotationValue;
 }
 
@@ -286,8 +285,8 @@
 
 - (void)setStringfiedResultFromDoubleValue:(double)newResult {
     NSString *tmpStringfiedResult =
-        [self.numberNotationFactory encodeNumberToString:newResult
-                                        withNotationType:(CalculatorModelNotations)self.currentNotation];
+        [[NGNNumberNotationFactory sharedInstance] encodeNumberToString:newResult
+                                                       withNotationType:(CalculatorModelNotations)self.currentNotation];
     [_stringfiedResult release];
     _stringfiedResult = [tmpStringfiedResult retain];
 }
@@ -301,11 +300,9 @@
 
 - (void)sendMessageForDelegate:(NSString *)message {
     self.stringfiedResult = message;
-    id<CalculatorModelDelegate> strongDelegate = [self.delegate retain];
-    if ([strongDelegate respondsToSelector:@selector(calculatorModel:didChangeResult:)]) {
-        [strongDelegate calculatorModel:self didChangeResult:self.stringfiedResult];
+    if ([self.delegate respondsToSelector:@selector(calculatorModel:didChangeResult:)]) {
+        [self.delegate calculatorModel:self didChangeResult:self.stringfiedResult];
     }
-    [strongDelegate release];
 }
 
 @end

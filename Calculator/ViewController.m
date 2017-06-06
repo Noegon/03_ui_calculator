@@ -253,7 +253,7 @@ static const double unchosenNotationButtonAlpha = 1.0;
 - (IBAction)notationButtonTouched:(UIButton *)sender {
     NSString *tappedButtonTitle = [sender titleForState:UIControlStateNormal];
     [[self.notationButtonsStackView arrangedSubviews]setValuesForKeysWithDictionary:
-        @{@"alpha": [NSNumber numberWithDouble:unchosenNotationButtonAlpha]}];
+        @{@"alpha": @(unchosenNotationButtonAlpha)}];
     sender.alpha = chosenNotationButtonAlpha;
     [self switchCalculationButtonsEnabled:NO
                          excludingButtons:nil];
