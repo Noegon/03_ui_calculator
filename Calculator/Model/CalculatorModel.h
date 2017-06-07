@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Constants.h"
 
 @class CalculatorModel;
 //definition of delegate protocol and methods
@@ -20,12 +21,12 @@
 
 @interface CalculatorModel : NSObject
 
-@property (assign, nonatomic) double currentOperand;
 @property (nonatomic, assign) id<CalculatorModelDelegate> delegate;
 
 #pragma mark - model logic methods
 - (void)calculateWithOperator:(NSString *)operator;
 - (void)clear;
 - (void)equals;
+- (void)setCurrentOperandWithString:(NSString *)stringfiedOperand;
 
 @end
