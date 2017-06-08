@@ -21,7 +21,6 @@
 @property (retain, nonatomic) NSString *waitingOperation;
 @property (assign, nonatomic) NSString *stringfiedResult;
 @property (assign, nonatomic) NSInteger currentNotation;
-//@property (retain, nonatomic) NGNNumberNotationFactory *numberNotationFactory;
 
 #pragma mark - flags
 @property (assign, nonatomic, getter=isRenewedCalculationChain, readwrite) BOOL renewedCalculationChain;
@@ -78,17 +77,7 @@
     [_unaryOperations release];
     [_binaryOperations release];
     [_waitingOperation release];
-//    [_numberNotationFactory release];
     [super dealloc];
-}
-
-- (NSNumberFormatter *)outputFormatter {
-    if (!_outputFormatter) {
-        _outputFormatter = [[NSNumberFormatter alloc]init];
-        _outputFormatter.maximumFractionDigits = CalculatorModelNumFormatterMaximumDisplayedFractionDigits;
-        _outputFormatter.minimumIntegerDigits = CalculatorModelNumFormatterMinimumDisplayedIntegerDigits;
-    }
-    return _outputFormatter;
 }
 
 #pragma mark - model logic methods
@@ -156,7 +145,6 @@
         [self exceptionHandling:exception];
         [self sendMessageForDelegate:self.stringfiedResult];
     }
-    _currentOperand = currentOperand;
 }
 
 - (void)setCurrentOperand:(double)currentOperand {
