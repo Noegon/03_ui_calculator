@@ -10,7 +10,7 @@
 
 @interface NGNDecNotation ()
 
-@property (retain, nonatomic) NSNumberFormatter *outputFormatter;
+@property (strong, nonatomic) NSNumberFormatter *outputFormatter;
 
 @end
 
@@ -29,10 +29,5 @@
     return [NSString stringWithFormat:@"%@", [self.outputFormatter stringFromNumber:@(numberToEncode)]];
 }
 
-- (void)dealloc
-{
-    [_outputFormatter release];
-    [super dealloc];
-}
 
 @end

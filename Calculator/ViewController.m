@@ -19,34 +19,34 @@ static const double unchosenNotationButtonAlpha = 1.0;
 
 #pragma mark - outlets
   
-@property (retain, nonatomic) IBOutlet UILabel *digitInsertionField;
-@property (retain, nonatomic) IBOutlet UIButton *dotButton;
-@property (retain, nonatomic) IBOutlet UIButton *equalButton;
-@property (retain, nonatomic) IBOutlet UIButton *clearButton;
-@property (retain, nonatomic) IBOutlet UIButton *aboutButton;
-@property (retain, nonatomic) IBOutlet UIStackView *notationButtonsStackView;
-@property (retain, nonatomic) IBOutlet UIStackView *innerVerticalButtonContainerStackView;
-@property (retain, nonatomic) IBOutlet UIStackView *outerHorizontalButtonContainerStackView;
+@property (strong, nonatomic) IBOutlet UILabel *digitInsertionField;
+@property (strong, nonatomic) IBOutlet UIButton *dotButton;
+@property (strong, nonatomic) IBOutlet UIButton *equalButton;
+@property (strong, nonatomic) IBOutlet UIButton *clearButton;
+@property (strong, nonatomic) IBOutlet UIButton *aboutButton;
+@property (strong, nonatomic) IBOutlet UIStackView *notationButtonsStackView;
+@property (strong, nonatomic) IBOutlet UIStackView *innerVerticalButtonContainerStackView;
+@property (strong, nonatomic) IBOutlet UIStackView *outerHorizontalButtonContainerStackView;
 
 #pragma mark - common outlet collections
-@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *digitButtonsArray;
-@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *binaryOperationButtonsArray;
-@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *unaryOperationsButtonsArray;
-@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *blockableButtonsArray;
-@property (retain, nonatomic) IBOutletCollection(UIStackView) NSArray *buttonsStackViews;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *digitButtonsArray;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *binaryOperationButtonsArray;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *unaryOperationsButtonsArray;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *blockableButtonsArray;
+@property (strong, nonatomic) IBOutletCollection(UIStackView) NSArray *buttonsStackViews;
 
 #pragma mark - notations maintenance outlet collections
-@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *deprecatedForBinaryNotationButtonsArray;
-@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *deprecatedForOctalNotationButtonsArray;
-@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *deprecatedForDecimalNotationButtonsArray;
-@property (retain, nonatomic) IBOutletCollection(UIButton) NSArray *deprecatedForHexadecimalNotationButtonsArray;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *deprecatedForBinaryNotationButtonsArray;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *deprecatedForOctalNotationButtonsArray;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *deprecatedForDecimalNotationButtonsArray;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *deprecatedForHexadecimalNotationButtonsArray;
 
 #pragma mark - notation maintenance properties
-@property (retain, nonatomic) NSDictionary *notationButtonsBoundedParameters;
-@property (retain, nonatomic) NSString *currentNotationButtonTitle;
+@property (strong, nonatomic) NSDictionary *notationButtonsBoundedParameters;
+@property (strong, nonatomic) NSString *currentNotationButtonTitle;
 
 #pragma mark - main logic performing properties
-@property (retain, nonatomic) CalculatorModel *model;
+@property (strong, nonatomic) CalculatorModel *model;
 
 #pragma mark - flags
 @property (assign, nonatomic, getter=isValueEditingInProgress) BOOL valueEditingInProgress;
@@ -87,30 +87,6 @@ static const double unchosenNotationButtonAlpha = 1.0;
     return self;
 }
 
-- (void)dealloc {
-    [_digitInsertionField release];
-    [_digitButtonsArray release];
-    [_dotButton release];
-    [_equalButton release];
-    [_clearButton release];
-    [_aboutButton release];
-    [_binaryOperationButtonsArray release];
-    [_model release];
-    [_unaryOperationsButtonsArray release];
-    [_blockableButtonsArray release];
-    [_buttonsStackViews release];
-    [_digitButtonsArray release];
-    [_deprecatedForBinaryNotationButtonsArray release];
-    [_deprecatedForOctalNotationButtonsArray release];
-    [_deprecatedForHexadecimalNotationButtonsArray release];
-    [_deprecatedForDecimalNotationButtonsArray release];
-    [_notationButtonsStackView release];
-    [_notationButtonsBoundedParameters release];
-    [_currentNotationButtonTitle release];
-    [_innerVerticalButtonContainerStackView release];
-    [_outerHorizontalButtonContainerStackView release];
-    [super dealloc];
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -126,14 +102,12 @@ static const double unchosenNotationButtonAlpha = 1.0;
                                                                       target:self
                                                                       action:@selector(aboutButtonTouched:)];
     self.navigationItem.leftBarButtonItem = aboutBarButton;
-    [aboutBarButton release];
     
     UIBarButtonItem *licenseBarButton = [[UIBarButtonItem alloc] initWithTitle:ViewControllerLicenseTitle
                                                                          style:UIBarButtonItemStylePlain
                                                                         target:self
                                                                         action:@selector(licenseButtonTouched:)];
     self.navigationItem.rightBarButtonItem = licenseBarButton;
-    [licenseBarButton release];
     
     for (UIButton *button in self.blockableButtonsArray) {
         [button setTitleColor:[self disabledViewTextColor] forState:UIControlStateDisabled];
@@ -192,13 +166,11 @@ static const double unchosenNotationButtonAlpha = 1.0;
 - (IBAction)aboutButtonTouched:(UIButton *)sender {
     AboutViewController *aboutViewController = [[AboutViewController alloc] init];
     [self.navigationController pushViewController:aboutViewController animated:YES];
-    [aboutViewController release];
 }
 
 - (IBAction)licenseButtonTouched:(UIBarButtonItem *)sender {
     LicenseViewController *licenseController = [[LicenseViewController alloc] init];
     [self presentViewController:licenseController animated:YES completion: nil];
-    [licenseController release];
 }
 
 - (IBAction)digitButtonTouched:(UIButton *)sender {
