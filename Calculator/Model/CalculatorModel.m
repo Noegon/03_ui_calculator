@@ -10,17 +10,25 @@
 #import "NGNNumberNotationFactory.h"
 #import "Constants.h"
 
+typedef struct {
+    double result;
+    double currentOperand;
+} Results;
+//typedef Results(^operation_t)(double result, double currentOperand, );
+//typedef void(^operation_t)(double *result, double *currentOperand);
+typedef void(^operation_t)(void);
+
 @interface CalculatorModel ()
 
 #pragma mark - model logic properties
-@property (assign, nonatomic) double currentOperand;
-@property (assign, nonatomic) double result;
+@property (assign, nonatomic) __block double currentOperand;
+@property (assign, nonatomic) __block double result;
 @property (strong, nonatomic) NSMutableDictionary *operations; //contains both of unary and binary operations
 @property (strong, nonatomic) NSDictionary *binaryOperations;
 @property (strong, nonatomic) NSDictionary *unaryOperations;
 @property (strong, nonatomic) NSString *waitingOperation;
 @property (strong, nonatomic) NSString *stringfiedResult;
-@property (assign, nonatomic) NSInteger currentNotation;
+@property (assign, nonatomic) __block NSInteger currentNotation;
 
 #pragma mark - flags
 @property (assign, nonatomic, getter=isRenewedCalculationChain, readwrite) BOOL renewedCalculationChain;
@@ -52,19 +60,58 @@
         _result = NAN;
         _renewedCalculationChain = YES;
         _secondOperandAdded = NO;
-        _unaryOperations = @{CalculatorModelSquareRootSignOperation: @"squareRoot",
-                              CalculatorModelReverseSignOperation: @"reverseSign",
-                              CalculatorModelBinaryNotationOperation: @"changeToBINNotation",
-                              CalculatorModelOctalNotationOperation: @"changeToOCTNotation",
-                              CalculatorModelDecimalNotationOperation: @"changeToDECNotation",
-                              CalculatorModelHexadecimalNotationOperation: @"changeToHEXNotation"};
+
+        __weak CalculatorModel *weakSelf = self;
         
-        _binaryOperations = @{CalculatorModelDivisonRemainderOperation: @"divisionRemainder",
-                               CalculatorModelPlusSignOperation: @"add",
-                               CalculatorModelMinusSignOperation: @"subtract",
-                               CalculatorModelMultiplicationSignOperation: @"multiply",
-                               CalculatorModelDivisionSignOperation: @"divide"};
+        _unaryOperations = @{CalculatorModelSquareRootSignOperation: ^{
+                                 if (weakSelf.currentOperand >= 0) {
+                                     [weakSelf setCurrentOperandWithoutSideEffects:sqrt(weakSelf.currentOperand)];
+                                 }
+                                 else {
+                                     @throw Constants.calculatorModelSquareRootFromNegativeException;
+                                 }
+                             },
+                             CalculatorModelReverseSignOperation: ^{
+                                 [weakSelf setCurrentOperandWithoutSideEffects:(-1 * weakSelf.currentOperand)];
+                             },
+                             CalculatorModelBinaryNotationOperation: ^{
+                                 weakSelf.currentNotation = BINNotation;
+                             },
+                             CalculatorModelOctalNotationOperation: ^{
+                                 weakSelf.currentNotation = OCTNotation;
+                             },
+                             CalculatorModelDecimalNotationOperation: ^{
+                                 weakSelf.currentNotation = DECNotation;
+                             },
+                             CalculatorModelHexadecimalNotationOperation: ^{
+                                 weakSelf.currentNotation = DECNotation;
+                             }};
         
+        _binaryOperations = @{CalculatorModelDivisonRemainderOperation: ^{
+                                  if (weakSelf.currentOperand != 0) {
+                                      weakSelf.result = (NSInteger)weakSelf.result % (NSInteger)weakSelf.currentOperand;
+                                  } else {
+                                      @throw Constants.calculatorModelDivisionByZeroException;
+                                  }
+                              },
+                              CalculatorModelPlusSignOperation: ^{
+                                  weakSelf.result += weakSelf.currentOperand;
+                              },
+                              CalculatorModelMinusSignOperation: ^{
+                                  weakSelf.result -= weakSelf.currentOperand;
+                              },
+                              CalculatorModelMultiplicationSignOperation: ^{
+                                  weakSelf.result *= weakSelf.currentOperand;
+                              },
+                              CalculatorModelDivisionSignOperation: ^{
+                                  if (weakSelf.currentOperand != 0) {
+                                      weakSelf.result /= weakSelf.currentOperand;
+                                  }
+                                  else {
+                                      @throw Constants.calculatorModelDivisionByZeroException;
+                                  }
+                              }};
+    
         _operations = [[NSMutableDictionary alloc] initWithDictionary:_unaryOperations];
         [_operations addEntriesFromDictionary:_binaryOperations];
     }
@@ -75,10 +122,8 @@
 #pragma mark - model logic methods
 // template for operations executing
 - (void)executeOperationWithOperator:(NSString *)operator {
-    SEL tmpSelector = NSSelectorFromString([self.operations valueForKey:operator]);
-    if ([self respondsToSelector:tmpSelector]) {
-        [self performSelector:tmpSelector];
-    }
+    operation_t operation = self.operations[operator];
+    operation();
     self.secondOperandAdded = NO;
 }
 
@@ -143,6 +188,9 @@
     if (!isnan(self.result) && !self.isRenewedCalculationChain) {
         self.secondOperandAdded = YES;
     }
+//    if (isnan(_currentOperand)) {
+//        _currentOperand = 0;
+//    }
     if (self.isEqualsOperationPerformed && !self.isSecondOperandAdded) {
         self.equalsOperationPerformed = NO;
         self.result = currentOperand;
@@ -188,68 +236,6 @@
         [self exceptionHandling:exception];
         [self sendMessageForDelegate:self.stringfiedResult];
     }
-}
-
-#pragma mark - mathematic operations
-
-- (void)squareRoot {
-    if (self.currentOperand >= 0) {
-        [self setCurrentOperandWithoutSideEffects:sqrt(self.currentOperand)];
-    }
-    else {
-        @throw Constants.calculatorModelSquareRootFromNegativeException;
-    }
-}
-
-- (void)reverseSign {
-    [self setCurrentOperandWithoutSideEffects:(-1 * self.currentOperand)];
-}
-
-- (void)divisionRemainder {
-    if (self.currentOperand != 0) {
-        self.result = (NSInteger)self.result % (NSInteger)self.currentOperand;
-    }
-    else {
-        @throw Constants.calculatorModelDivisionByZeroException;
-    }
-}
-
-- (void)add {
-    self.result += self.currentOperand;
-}
-
-- (void)subtract {
-    self.result -= self.currentOperand;
-}
-
-- (void)multiply {
-    self.result *= self.currentOperand;
-}
-
-- (void)divide {
-    if (self.currentOperand != 0) {
-        self.result /= self.currentOperand;
-    }
-    else {
-        @throw Constants.calculatorModelDivisionByZeroException;
-    }
-}
-
-#pragma mark - notation changing
-- (void)changeToBINNotation {
-    self.currentNotation = BINNotation;
-}
-
-- (void)changeToOCTNotation {
-    self.currentNotation = OCTNotation;
-}
-
-- (void)changeToDECNotation {
-    self.currentNotation = DECNotation;
-}
-
-- (void)changeToHEXNotation {
-    self.currentNotation = HEXNotation;
 }
 
 #pragma mark - helper methods
