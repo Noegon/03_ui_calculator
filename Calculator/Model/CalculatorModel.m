@@ -129,9 +129,11 @@
 - (void)executeOperationWithOperator:(NSString *)operator {
     operation_t operation = self.operations[operator];
     __block Results *results = malloc(sizeof(Results));
+    results->currentOperand = NAN;
+    results->result = NAN;
     operation(self.result, self.currentOperand, results);
-    self.result = results->result;
-    [self setCurrentOperandWithoutSideEffects:results->currentOperand];
+    self.result = (!isnan(results->result)) ? results->result : self.result;
+    [self setCurrentOperandWithoutSideEffects:(!isnan(results->currentOperand) ? results->currentOperand : self.currentOperand)];
     free(results);
     self.secondOperandAdded = NO;
 }
