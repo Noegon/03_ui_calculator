@@ -125,6 +125,7 @@
 
 
 #pragma mark - model logic methods
+
 // template for operations executing
 - (void)executeOperationWithOperator:(NSString *)operator {
     operation_t operation = self.operations[operator];
