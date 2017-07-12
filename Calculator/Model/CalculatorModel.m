@@ -15,13 +15,12 @@
 #pragma mark - model logic properties
 @property (assign, nonatomic) double currentOperand;
 @property (assign, nonatomic) double result;
-@property (retain, nonatomic) NSMutableDictionary *operations; //contains both of unary and binary operations
-@property (retain, nonatomic) NSDictionary *binaryOperations;
-@property (retain, nonatomic) NSDictionary *unaryOperations;
-@property (retain, nonatomic) NSString *waitingOperation;
-@property (assign, nonatomic) NSString *stringfiedResult;
+@property (strong, nonatomic) NSMutableDictionary *operations; //contains both of unary and binary operations
+@property (strong, nonatomic) NSDictionary *binaryOperations;
+@property (strong, nonatomic) NSDictionary *unaryOperations;
+@property (strong, nonatomic) NSString *waitingOperation;
+@property (strong, nonatomic) NSString *stringfiedResult;
 @property (assign, nonatomic) NSInteger currentNotation;
-//@property (retain, nonatomic) NGNNumberNotationFactory *numberNotationFactory;
 
 #pragma mark - flags
 @property (assign, nonatomic, getter=isRenewedCalculationChain, readwrite) BOOL renewedCalculationChain;
@@ -53,18 +52,18 @@
         _result = NAN;
         _renewedCalculationChain = YES;
         _secondOperandAdded = NO;
-        _unaryOperations = [@{CalculatorModelSquareRootSignOperation: @"squareRoot",
+        _unaryOperations = @{CalculatorModelSquareRootSignOperation: @"squareRoot",
                               CalculatorModelReverseSignOperation: @"reverseSign",
                               CalculatorModelBinaryNotationOperation: @"changeToBINNotation",
                               CalculatorModelOctalNotationOperation: @"changeToOCTNotation",
                               CalculatorModelDecimalNotationOperation: @"changeToDECNotation",
-                              CalculatorModelHexadecimalNotationOperation: @"changeToHEXNotation"} retain];
+                              CalculatorModelHexadecimalNotationOperation: @"changeToHEXNotation"};
         
-        _binaryOperations = [@{CalculatorModelDivisonRemainderOperation: @"divisionRemainder",
+        _binaryOperations = @{CalculatorModelDivisonRemainderOperation: @"divisionRemainder",
                                CalculatorModelPlusSignOperation: @"add",
                                CalculatorModelMinusSignOperation: @"subtract",
                                CalculatorModelMultiplicationSignOperation: @"multiply",
-                               CalculatorModelDivisionSignOperation: @"divide"} retain];
+                               CalculatorModelDivisionSignOperation: @"divide"};
         
         _operations = [[NSMutableDictionary alloc] initWithDictionary:_unaryOperations];
         [_operations addEntriesFromDictionary:_binaryOperations];
@@ -72,24 +71,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [_operations release];
-    [_unaryOperations release];
-    [_binaryOperations release];
-    [_waitingOperation release];
-//    [_numberNotationFactory release];
-    [super dealloc];
-}
-
-- (NSNumberFormatter *)outputFormatter {
-    if (!_outputFormatter) {
-        _outputFormatter = [[NSNumberFormatter alloc]init];
-        _outputFormatter.maximumFractionDigits = CalculatorModelNumFormatterMaximumDisplayedFractionDigits;
-        _outputFormatter.minimumIntegerDigits = CalculatorModelNumFormatterMinimumDisplayedIntegerDigits;
-    }
-    return _outputFormatter;
-}
 
 #pragma mark - model logic methods
 // template for operations executing
@@ -296,8 +277,7 @@
     NSString *tmpStringfiedResult =
         [[NGNNumberNotationFactory sharedInstance] encodeNumberToString:newResult
                                                        withNotationType:(CalculatorModelNotations)self.currentNotation];
-    [_stringfiedResult release];
-    _stringfiedResult = [tmpStringfiedResult retain];
+    _stringfiedResult = tmpStringfiedResult;
 }
 
 - (void)sendMessageForDelegateWithNumber:(double)number {
