@@ -50,16 +50,16 @@
     NGNAbstractNotation * notation;
     switch (notationType) {
         case BINNotation:
-            notation = [[[NGNBinNotation alloc]init]autorelease];
+            notation = [[NGNBinNotation alloc] init];
             break;
         case OCTNotation:
-            notation = [[[NGNOctNotation alloc]init]autorelease];
+            notation = [[NGNOctNotation alloc] init];
             break;
         case DECNotation:
-            notation = [[[NGNDecNotation alloc]init]autorelease];
+            notation = [[NGNDecNotation alloc] init];
             break;
         case HEXNotation:
-            notation = [[[NGNHexNotation alloc]init]autorelease];
+            notation = [[NGNHexNotation alloc] init];
             break;
     }
     return notation;

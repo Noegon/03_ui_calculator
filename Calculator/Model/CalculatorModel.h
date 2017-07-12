@@ -21,7 +21,7 @@
 
 @interface CalculatorModel : NSObject
 
-@property (nonatomic, assign) id<CalculatorModelDelegate> delegate;
+@property (nonatomic, weak) id<CalculatorModelDelegate> delegate;
 
 #pragma mark - model logic methods
 - (void)calculateWithOperator:(NSString *)operator;
