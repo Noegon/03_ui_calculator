@@ -30,7 +30,7 @@
 - (void)setCurrentOperandWithString:(NSString *)stringfiedOperand;
 
 #pragma mark - adding additional operations
-- (void)addBinaryOperationWithOperationSymbol:(NSString *)symbol WithBlock:(operation_t)operationBlock;
-- (void)addUnaryOperationWithOperationSymbol:(NSString *)symbol WithBlock:(operation_t)operationBlock;
+- (void)addBinaryOperationWithOperationSymbol:(NSString *)symbol block:(operation_t)operationBlock;
+- (void)addUnaryOperationWithOperationSymbol:(NSString *)symbol block:(operation_t)operationBlock;
 
 @end
