@@ -148,6 +148,7 @@ static const double unchosenNotationButtonAlpha = 1.0;
                                               };
     
     [self notationButtonTouched: self.notationButtonsBoundedParameters[CalculatorModelDecimalNotationOperation][@"button"]];
+    [self.model clear];
 }
 
 #pragma mark - main logic performing methods

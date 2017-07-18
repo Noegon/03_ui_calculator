@@ -13,6 +13,13 @@
 #define SCREEN_WIDTH UIScreen.mainScreen.bounds.size.width
 #define SCREEN_HEIGHT UIScreen.mainScreen.bounds.size.height
 
+typedef struct {
+    double result;
+    double currentOperand;
+} Results;
+
+typedef void(^operation_t)(double result, double currentOperand, Results *results);
+
 typedef const enum {
     BINNotation, OCTNotation, DECNotation, HEXNotation
 } CalculatorModelNotations;
