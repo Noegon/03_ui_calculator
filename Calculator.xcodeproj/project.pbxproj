@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82CD7EC7CA3197D98D041367 /* libPods-Calculator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 835C1399713F6685C1AAB16C /* libPods-Calculator.a */; };
 		CE735B4C1ECB0A37004A4025 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE735B4A1ECB0A37004A4025 /* AboutViewController.m */; };
 		CE735B4D1ECB0A37004A4025 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE735B4B1ECB0A37004A4025 /* AboutViewController.xib */; };
 		CE735B531ECB2B7B004A4025 /* LicenseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE735B511ECB2B7B004A4025 /* LicenseViewController.m */; };
@@ -22,6 +23,9 @@
 		EF3480901F16397500733E86 /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34808F1F16397500733E86 /* AbstractViewController.m */; };
 		EF3480931F164B3E00733E86 /* EngineerCalcViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3480921F164B3E00733E86 /* EngineerCalcViewController.m */; };
 		EF3480961F164C2600733E86 /* ProgrammerCalcViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3480951F164C2600733E86 /* ProgrammerCalcViewController.m */; };
+		EF3480991F1E4F2E00733E86 /* NGNRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3480981F1E4F2E00733E86 /* NGNRootViewController.m */; };
+		EF34809C1F1E606800733E86 /* NGNNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34809B1F1E606800733E86 /* NGNNavigationController.m */; };
+		EF34809F1F1E628C00733E86 /* NGNMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34809E1F1E628C00733E86 /* NGNMenuViewController.m */; };
 		EFCD46F71EE1C28F00606FAB /* NGNAbstractNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46F61EE1C28F00606FAB /* NGNAbstractNotation.m */; };
 		EFCD47001EE1C2B400606FAB /* NGNBinNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46F91EE1C2B400606FAB /* NGNBinNotation.m */; };
 		EFCD47011EE1C2B400606FAB /* NGNDecNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46FB1EE1C2B400606FAB /* NGNDecNotation.m */; };
@@ -31,6 +35,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		672D5D6B4826494125B0E6FD /* Pods-Calculator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calculator.release.xcconfig"; path = "Pods/Target Support Files/Pods-Calculator/Pods-Calculator.release.xcconfig"; sourceTree = "<group>"; };
+		835C1399713F6685C1AAB16C /* libPods-Calculator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Calculator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D37FF6965313E1AA5356B72 /* Pods-Calculator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Calculator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Calculator/Pods-Calculator.debug.xcconfig"; sourceTree = "<group>"; };
 		CE735B491ECB0A37004A4025 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = AdditionalControllers/AboutViewController.h; sourceTree = "<group>"; };
 		CE735B4A1ECB0A37004A4025 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = AdditionalControllers/AboutViewController.m; sourceTree = "<group>"; };
 		CE735B4B1ECB0A37004A4025 /* AboutViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AboutViewController.xib; path = AdditionalControllers/AboutViewController.xib; sourceTree = "<group>"; };
@@ -57,6 +64,12 @@
 		EF3480921F164B3E00733E86 /* EngineerCalcViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EngineerCalcViewController.m; path = BasicControllers/EngineerCalcViewController.m; sourceTree = "<group>"; };
 		EF3480941F164C2600733E86 /* ProgrammerCalcViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgrammerCalcViewController.h; path = BasicControllers/ProgrammerCalcViewController.h; sourceTree = "<group>"; };
 		EF3480951F164C2600733E86 /* ProgrammerCalcViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgrammerCalcViewController.m; path = BasicControllers/ProgrammerCalcViewController.m; sourceTree = "<group>"; };
+		EF3480971F1E4F2E00733E86 /* NGNRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNRootViewController.h; path = AdditionalControllers/NGNRootViewController.h; sourceTree = "<group>"; };
+		EF3480981F1E4F2E00733E86 /* NGNRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNRootViewController.m; path = AdditionalControllers/NGNRootViewController.m; sourceTree = "<group>"; };
+		EF34809A1F1E606800733E86 /* NGNNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNNavigationController.h; path = AdditionalControllers/NGNNavigationController.h; sourceTree = "<group>"; };
+		EF34809B1F1E606800733E86 /* NGNNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNNavigationController.m; path = AdditionalControllers/NGNNavigationController.m; sourceTree = "<group>"; };
+		EF34809D1F1E628C00733E86 /* NGNMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNMenuViewController.h; path = AdditionalControllers/NGNMenuViewController.h; sourceTree = "<group>"; };
+		EF34809E1F1E628C00733E86 /* NGNMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNMenuViewController.m; path = AdditionalControllers/NGNMenuViewController.m; sourceTree = "<group>"; };
 		EFCD46F51EE1C28F00606FAB /* NGNAbstractNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNAbstractNotation.h; path = Model/Notations/NGNAbstractNotation.h; sourceTree = "<group>"; };
 		EFCD46F61EE1C28F00606FAB /* NGNAbstractNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNAbstractNotation.m; path = Model/Notations/NGNAbstractNotation.m; sourceTree = "<group>"; };
 		EFCD46F81EE1C2B400606FAB /* NGNBinNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNBinNotation.h; path = Model/Notations/NGNBinNotation.h; sourceTree = "<group>"; };
@@ -76,12 +89,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82CD7EC7CA3197D98D041367 /* libPods-Calculator.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7BC93474821CE198049049E7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				835C1399713F6685C1AAB16C /* libPods-Calculator.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8A1C3B6010DE70210474F022 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8D37FF6965313E1AA5356B72 /* Pods-Calculator.debug.xcconfig */,
+				672D5D6B4826494125B0E6FD /* Pods-Calculator.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		CE735B4E1ECB0A41004A4025 /* AdditionalControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +122,12 @@
 				CE735B501ECB2B7B004A4025 /* LicenseViewController.h */,
 				CE735B511ECB2B7B004A4025 /* LicenseViewController.m */,
 				CE735B521ECB2B7B004A4025 /* LicenseViewController.xib */,
+				EF3480971F1E4F2E00733E86 /* NGNRootViewController.h */,
+				EF3480981F1E4F2E00733E86 /* NGNRootViewController.m */,
+				EF34809A1F1E606800733E86 /* NGNNavigationController.h */,
+				EF34809B1F1E606800733E86 /* NGNNavigationController.m */,
+				EF34809D1F1E628C00733E86 /* NGNMenuViewController.h */,
+				EF34809E1F1E628C00733E86 /* NGNMenuViewController.m */,
 			);
 			name = AdditionalControllers;
 			sourceTree = "<group>";
@@ -100,6 +137,8 @@
 			children = (
 				CEF814AC1EC777F70002E360 /* Calculator */,
 				CEF814AB1EC777F70002E360 /* Products */,
+				8A1C3B6010DE70210474F022 /* Pods */,
+				7BC93474821CE198049049E7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -189,9 +228,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CEF814C11EC777F70002E360 /* Build configuration list for PBXNativeTarget "Calculator" */;
 			buildPhases = (
+				662390760DA617DC4327BD80 /* [CP] Check Pods Manifest.lock */,
 				CEF814A61EC777F70002E360 /* Sources */,
 				CEF814A71EC777F70002E360 /* Frameworks */,
 				CEF814A81EC777F70002E360 /* Resources */,
+				5E6F5354179C2F64077BF20E /* [CP] Embed Pods Frameworks */,
+				5767B4BF28DB0CEFB11AE242 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -208,6 +250,7 @@
 		CEF814A21EC777F70002E360 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = NGN;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = study;
 				TargetAttributes = {
@@ -251,6 +294,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5767B4BF28DB0CEFB11AE242 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Calculator/Pods-Calculator-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5E6F5354179C2F64077BF20E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Calculator/Pods-Calculator-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		662390760DA617DC4327BD80 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CEF814A61EC777F70002E360 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -263,11 +354,14 @@
 				EFCD47001EE1C2B400606FAB /* NGNBinNotation.m in Sources */,
 				EFCD470C1EE1C53F00606FAB /* NGNNumberNotationFactory.m in Sources */,
 				CEF814B21EC777F70002E360 /* AppDelegate.m in Sources */,
+				EF34809C1F1E606800733E86 /* NGNNavigationController.m in Sources */,
 				EF3480961F164C2600733E86 /* ProgrammerCalcViewController.m in Sources */,
 				CE735B4C1ECB0A37004A4025 /* AboutViewController.m in Sources */,
 				CEF814AF1EC777F70002E360 /* main.m in Sources */,
 				EF34808D1F161DC600733E86 /* SimpleCalcViewController.m in Sources */,
+				EF3480991F1E4F2E00733E86 /* NGNRootViewController.m in Sources */,
 				EFCD47031EE1C2B400606FAB /* NGNOctNotation.m in Sources */,
+				EF34809F1F1E628C00733E86 /* NGNMenuViewController.m in Sources */,
 				EF2FB4C01ED8B29400568FF8 /* Constants.m in Sources */,
 				EF2FB4AA1ED5702000568FF8 /* CalculatorModel.m in Sources */,
 				EF3480901F16397500733E86 /* AbstractViewController.m in Sources */,
@@ -389,6 +483,7 @@
 		};
 		CEF814C21EC777F70002E360 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D37FF6965313E1AA5356B72 /* Pods-Calculator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -403,6 +498,7 @@
 		};
 		CEF814C31EC777F70002E360 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 672D5D6B4826494125B0E6FD /* Pods-Calculator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
