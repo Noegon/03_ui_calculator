@@ -40,7 +40,7 @@
 - (void)setStringfiedResultFromDoubleValue:(double)newResult;
 - (void)sendMessageForDelegateWithNumber:(double)number;
 - (void)sendMessageForDelegate:(NSString *)message;
-- (void)fillResults:(Results *)results WithResult:(double)result CurrentOperand:(double)currentOperand;
+- (void)fillResults:(Results *)results result:(double)result currentOperand:(double)currentOperand;
 
 @end
 
@@ -56,63 +56,63 @@
 
         __weak CalculatorModel *weakSelf = self;
         
-        _unaryOperations = [@{CalculatorModelSquareRootSignOperation: ^(double result, double currentOperand, Results *results){
+        _unaryOperations = [@{CalculatorModelSquareRootSignOperation: ^(double result, double currentOperand, Results *results) {
                                  if (weakSelf.currentOperand >= 0) {
                                      currentOperand = sqrt(currentOperand);
-                                     [weakSelf fillResults:results WithResult:result CurrentOperand:currentOperand];
+                                     [weakSelf fillResults:results result:result currentOperand:currentOperand];
                                  } else {
-                                     [weakSelf fillResults:results WithResult:0 CurrentOperand:0];
+                                     [weakSelf fillResults:results result:0 currentOperand:0];
                                      @throw Constants.calculatorModelSquareRootFromNegativeException;
                                  }
                              },
-                             CalculatorModelReverseSignOperation: ^(double result, double currentOperand, Results *results){
+                             CalculatorModelReverseSignOperation: ^(double result, double currentOperand, Results *results) {
                                  currentOperand *= -1;
-                                 [weakSelf fillResults:results WithResult:result CurrentOperand:currentOperand];
+                                 [weakSelf fillResults:results result:result currentOperand:currentOperand];
                              },
-                             CalculatorModelBinaryNotationOperation: ^(double result, double currentOperand, Results *results){
+                             CalculatorModelBinaryNotationOperation: ^(double result, double currentOperand, Results *results) {
                                  weakSelf.currentNotation = BINNotation;
-                                 [weakSelf fillResults:results WithResult:result CurrentOperand:currentOperand];
+                                 [weakSelf fillResults:results result:result currentOperand:currentOperand];
                              },
-                             CalculatorModelOctalNotationOperation: ^(double result, double currentOperand, Results *results){
+                             CalculatorModelOctalNotationOperation: ^(double result, double currentOperand, Results *results) {
                                  weakSelf.currentNotation = OCTNotation;
-                                 [weakSelf fillResults:results WithResult:result CurrentOperand:currentOperand];
+                                 [weakSelf fillResults:results result:result currentOperand:currentOperand];
                              },
-                             CalculatorModelDecimalNotationOperation: ^(double result, double currentOperand, Results *results){
+                             CalculatorModelDecimalNotationOperation: ^(double result, double currentOperand, Results *results) {
                                  weakSelf.currentNotation = DECNotation;
-                                 [weakSelf fillResults:results WithResult:result CurrentOperand:currentOperand];
+                                 [weakSelf fillResults:results result:result currentOperand:currentOperand];
                              },
-                             CalculatorModelHexadecimalNotationOperation: ^(double result, double currentOperand, Results *results){
+                             CalculatorModelHexadecimalNotationOperation: ^(double result, double currentOperand, Results *results) {
                                  weakSelf.currentNotation = DECNotation;
-                                 [weakSelf fillResults:results WithResult:result CurrentOperand:currentOperand];
+                                 [weakSelf fillResults:results result:result currentOperand:currentOperand];
                              }} mutableCopy];
         
-        _binaryOperations = [@{CalculatorModelDivisonRemainderOperation: ^(double result, double currentOperand, Results *results){
+        _binaryOperations = [@{CalculatorModelDivisonRemainderOperation: ^(double result, double currentOperand, Results *results) {
                                   if (currentOperand != 0) {
                                       result = (NSInteger)result % (NSInteger)currentOperand;
-                                      [weakSelf fillResults:results WithResult:result CurrentOperand:currentOperand];
+                                      [weakSelf fillResults:results result:result currentOperand:currentOperand];
                                   } else {
-                                      [weakSelf fillResults:results WithResult:0 CurrentOperand:0];
+                                      [weakSelf fillResults:results result:0 currentOperand:0];
                                       @throw Constants.calculatorModelDivisionByZeroException;
                                   }
                               },
-                              CalculatorModelPlusSignOperation: ^(double result, double currentOperand, Results *results){
+                              CalculatorModelPlusSignOperation: ^(double result, double currentOperand, Results *results) {
                                   result += currentOperand;
-                                  [weakSelf fillResults:results WithResult:result CurrentOperand:currentOperand];
+                                  [weakSelf fillResults:results result:result currentOperand:currentOperand];
                               },
-                              CalculatorModelMinusSignOperation: ^(double result, double currentOperand, Results *results){
+                              CalculatorModelMinusSignOperation: ^(double result, double currentOperand, Results *results) {
                                   result -= currentOperand;
-                                  [weakSelf fillResults:results WithResult:result CurrentOperand:currentOperand];
+                                  [weakSelf fillResults:results result:result currentOperand:currentOperand];
                               },
-                              CalculatorModelMultiplicationSignOperation: ^(double result, double currentOperand, Results *results){
+                              CalculatorModelMultiplicationSignOperation: ^(double result, double currentOperand, Results *results) {
                                   result *= currentOperand;
-                                  [weakSelf fillResults:results WithResult:result CurrentOperand:currentOperand];
+                                  [weakSelf fillResults:results result:result currentOperand:currentOperand];
                               },
-                              CalculatorModelDivisionSignOperation: ^(double result, double currentOperand, Results *results){
+                              CalculatorModelDivisionSignOperation: ^(double result, double currentOperand, Results *results) {
                                   if (currentOperand != 0) {
                                       result /= currentOperand;
-                                      [weakSelf fillResults:results WithResult:result CurrentOperand:currentOperand];
+                                      [weakSelf fillResults:results result:result currentOperand:currentOperand];
                                   } else {
-                                      [weakSelf fillResults:results WithResult:0 CurrentOperand:0];
+                                      [weakSelf fillResults:results result:0 currentOperand:0];
                                       @throw Constants.calculatorModelDivisionByZeroException;
                                   }
                               }} mutableCopy];
@@ -306,7 +306,7 @@
     }
 }
 
-- (void)fillResults:(Results *)results WithResult:(double)result CurrentOperand:(double)currentOperand {
+- (void)fillResults:(Results *)results result:(double)result currentOperand:(double)currentOperand {
     results->result = result;
     results->currentOperand = currentOperand;
 }
