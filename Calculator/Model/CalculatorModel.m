@@ -249,19 +249,19 @@
 
 #pragma mark - adding additional operations
 
-- (NSDictionary *)addOperationWithOperationSymbol:(NSString *)symbol WithBlock:(operation_t)operationBlock {
+- (NSDictionary *)addOperationWithOperationSymbol:(NSString *)symbol block:(operation_t)operationBlock {
     operationBlock = [operationBlock copy];
     NSDictionary *resultPair = @{symbol: operationBlock};
     [self.operations addEntriesFromDictionary:resultPair];
     return @{symbol: operationBlock};
 }
 
-- (void)addBinaryOperationWithOperationSymbol:(NSString *)symbol WithBlock:(operation_t)operationBlock {
-    [self.binaryOperations addEntriesFromDictionary:[self addOperationWithOperationSymbol:symbol WithBlock:operationBlock]];
+- (void)addBinaryOperationWithOperationSymbol:(NSString *)symbol block:(operation_t)operationBlock {
+    [self.binaryOperations addEntriesFromDictionary:[self addOperationWithOperationSymbol:symbol block:operationBlock]];
 }
 
-- (void)addUnaryOperationWithOperationSymbol:(NSString *)symbol WithBlock:(operation_t)operationBlock {
-    [self.unaryOperations addEntriesFromDictionary:[self addOperationWithOperationSymbol:symbol WithBlock:operationBlock]];
+- (void)addUnaryOperationWithOperationSymbol:(NSString *)symbol block:(operation_t)operationBlock {
+    [self.unaryOperations addEntriesFromDictionary:[self addOperationWithOperationSymbol:symbol block:operationBlock]];
 }
 
 #pragma mark - helper methods
