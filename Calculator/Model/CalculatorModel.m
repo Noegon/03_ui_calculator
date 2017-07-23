@@ -129,9 +129,11 @@
 - (void)executeOperationWithOperator:(NSString *)operator {
     operation_t operation = self.operations[operator];
     __block Results *results = malloc(sizeof(Results));
+    results->currentOperand = NAN;
+    results->result = NAN;
     operation(self.result, self.currentOperand, results);
-    self.result = results->result;
-    [self setCurrentOperandWithoutSideEffects:results->currentOperand];
+    self.result = (!isnan(results->result)) ? results->result : self.result;
+    [self setCurrentOperandWithoutSideEffects:(!isnan(results->currentOperand) ? results->currentOperand : self.currentOperand)];
     free(results);
     self.secondOperandAdded = NO;
 }
@@ -246,12 +248,19 @@
 
 #pragma mark - adding additional operations
 
+- (NSDictionary *)addOperationWithOperationSymbol:(NSString *)symbol block:(operation_t)operationBlock {
+    operationBlock = [operationBlock copy];
+    NSDictionary *resultPair = @{symbol: operationBlock};
+    [self.operations addEntriesFromDictionary:resultPair];
+    return @{symbol: operationBlock};
+}
+
 - (void)addBinaryOperationWithOperationSymbol:(NSString *)symbol block:(operation_t)operationBlock {
-    [self.binaryOperations addEntriesFromDictionary:@{symbol: operationBlock}];
+    [self.binaryOperations addEntriesFromDictionary:[self addOperationWithOperationSymbol:symbol block:operationBlock]];
 }
 
 - (void)addUnaryOperationWithOperationSymbol:(NSString *)symbol block:(operation_t)operationBlock {
-    [self.unaryOperations addEntriesFromDictionary:@{symbol: operationBlock}];
+    [self.unaryOperations addEntriesFromDictionary:[self addOperationWithOperationSymbol:symbol block:operationBlock]];
 }
 
 #pragma mark - helper methods
