@@ -19,6 +19,7 @@ typedef struct {
 } Results;
 
 typedef void(^operation_t)(double result, double currentOperand, Results *results);
+typedef void(^no_params_operation_t)(void);
 
 typedef const enum {
     BINNotation, OCTNotation, DECNotation, HEXNotation
