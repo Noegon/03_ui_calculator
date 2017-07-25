@@ -13,12 +13,15 @@
 		CE735B541ECB2B7B004A4025 /* LicenseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE735B521ECB2B7B004A4025 /* LicenseViewController.xib */; };
 		CEF814AF1EC777F70002E360 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF814AE1EC777F70002E360 /* main.m */; };
 		CEF814B21EC777F70002E360 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF814B11EC777F70002E360 /* AppDelegate.m */; };
-		CEF814B51EC777F70002E360 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEF814B41EC777F70002E360 /* ViewController.m */; };
 		CEF814B81EC777F70002E360 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF814B61EC777F70002E360 /* Main.storyboard */; };
 		CEF814BA1EC777F70002E360 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF814B91EC777F70002E360 /* Assets.xcassets */; };
 		CEF814BD1EC777F70002E360 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF814BB1EC777F70002E360 /* LaunchScreen.storyboard */; };
 		EF2FB4AA1ED5702000568FF8 /* CalculatorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */; };
 		EF2FB4C01ED8B29400568FF8 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = EF2FB4BF1ED8B29400568FF8 /* Constants.m */; };
+		EF34808D1F161DC600733E86 /* SimpleCalcViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34808B1F161DC600733E86 /* SimpleCalcViewController.m */; };
+		EF3480901F16397500733E86 /* AbstractViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34808F1F16397500733E86 /* AbstractViewController.m */; };
+		EF3480931F164B3E00733E86 /* EngineerCalcViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3480921F164B3E00733E86 /* EngineerCalcViewController.m */; };
+		EF3480961F164C2600733E86 /* ProgrammerCalcViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF3480951F164C2600733E86 /* ProgrammerCalcViewController.m */; };
 		EFCD46F71EE1C28F00606FAB /* NGNAbstractNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46F61EE1C28F00606FAB /* NGNAbstractNotation.m */; };
 		EFCD47001EE1C2B400606FAB /* NGNBinNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46F91EE1C2B400606FAB /* NGNBinNotation.m */; };
 		EFCD47011EE1C2B400606FAB /* NGNDecNotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCD46FB1EE1C2B400606FAB /* NGNDecNotation.m */; };
@@ -38,8 +41,6 @@
 		CEF814AE1EC777F70002E360 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEF814B01EC777F70002E360 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CEF814B11EC777F70002E360 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CEF814B31EC777F70002E360 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CEF814B41EC777F70002E360 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		CEF814B71EC777F70002E360 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CEF814B91EC777F70002E360 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEF814BC1EC777F70002E360 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -48,6 +49,14 @@
 		EF2FB4A91ED5702000568FF8 /* CalculatorModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CalculatorModel.m; path = Model/CalculatorModel.m; sourceTree = "<group>"; };
 		EF2FB4BE1ED8B29400568FF8 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Model/Constants.h; sourceTree = "<group>"; };
 		EF2FB4BF1ED8B29400568FF8 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Constants.m; path = Model/Constants.m; sourceTree = "<group>"; };
+		EF34808A1F161DC600733E86 /* SimpleCalcViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SimpleCalcViewController.h; path = BasicControllers/SimpleCalcViewController.h; sourceTree = "<group>"; };
+		EF34808B1F161DC600733E86 /* SimpleCalcViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SimpleCalcViewController.m; path = BasicControllers/SimpleCalcViewController.m; sourceTree = "<group>"; };
+		EF34808E1F16397500733E86 /* AbstractViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AbstractViewController.h; path = BasicControllers/AbstractViewController.h; sourceTree = "<group>"; };
+		EF34808F1F16397500733E86 /* AbstractViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AbstractViewController.m; path = BasicControllers/AbstractViewController.m; sourceTree = "<group>"; };
+		EF3480911F164B3E00733E86 /* EngineerCalcViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EngineerCalcViewController.h; path = BasicControllers/EngineerCalcViewController.h; sourceTree = "<group>"; };
+		EF3480921F164B3E00733E86 /* EngineerCalcViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EngineerCalcViewController.m; path = BasicControllers/EngineerCalcViewController.m; sourceTree = "<group>"; };
+		EF3480941F164C2600733E86 /* ProgrammerCalcViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgrammerCalcViewController.h; path = BasicControllers/ProgrammerCalcViewController.h; sourceTree = "<group>"; };
+		EF3480951F164C2600733E86 /* ProgrammerCalcViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgrammerCalcViewController.m; path = BasicControllers/ProgrammerCalcViewController.m; sourceTree = "<group>"; };
 		EFCD46F51EE1C28F00606FAB /* NGNAbstractNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNAbstractNotation.h; path = Model/Notations/NGNAbstractNotation.h; sourceTree = "<group>"; };
 		EFCD46F61EE1C28F00606FAB /* NGNAbstractNotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NGNAbstractNotation.m; path = Model/Notations/NGNAbstractNotation.m; sourceTree = "<group>"; };
 		EFCD46F81EE1C2B400606FAB /* NGNBinNotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NGNBinNotation.h; path = Model/Notations/NGNBinNotation.h; sourceTree = "<group>"; };
@@ -106,11 +115,10 @@
 			isa = PBXGroup;
 			children = (
 				EF2FB4A71ED56FD200568FF8 /* Model */,
-				CE735B4E1ECB0A41004A4025 /* AdditionalControllers */,
 				CEF814B01EC777F70002E360 /* AppDelegate.h */,
 				CEF814B11EC777F70002E360 /* AppDelegate.m */,
-				CEF814B31EC777F70002E360 /* ViewController.h */,
-				CEF814B41EC777F70002E360 /* ViewController.m */,
+				CE735B4E1ECB0A41004A4025 /* AdditionalControllers */,
+				EF3480871F160E9C00733E86 /* BasicControllers */,
 				CEF814AD1EC777F70002E360 /* Supporting Files */,
 			);
 			path = Calculator;
@@ -138,6 +146,21 @@
 				EF2FB4BF1ED8B29400568FF8 /* Constants.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		EF3480871F160E9C00733E86 /* BasicControllers */ = {
+			isa = PBXGroup;
+			children = (
+				EF34808E1F16397500733E86 /* AbstractViewController.h */,
+				EF34808F1F16397500733E86 /* AbstractViewController.m */,
+				EF34808A1F161DC600733E86 /* SimpleCalcViewController.h */,
+				EF34808B1F161DC600733E86 /* SimpleCalcViewController.m */,
+				EF3480911F164B3E00733E86 /* EngineerCalcViewController.h */,
+				EF3480921F164B3E00733E86 /* EngineerCalcViewController.m */,
+				EF3480941F164C2600733E86 /* ProgrammerCalcViewController.h */,
+				EF3480951F164C2600733E86 /* ProgrammerCalcViewController.m */,
+			);
+			name = BasicControllers;
 			sourceTree = "<group>";
 		};
 		EFCD46F41EE1C27E00606FAB /* Notations */ = {
@@ -233,18 +256,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF3480931F164B3E00733E86 /* EngineerCalcViewController.m in Sources */,
 				EFCD47011EE1C2B400606FAB /* NGNDecNotation.m in Sources */,
 				EFCD46F71EE1C28F00606FAB /* NGNAbstractNotation.m in Sources */,
-				CEF814B51EC777F70002E360 /* ViewController.m in Sources */,
 				CE735B531ECB2B7B004A4025 /* LicenseViewController.m in Sources */,
 				EFCD47001EE1C2B400606FAB /* NGNBinNotation.m in Sources */,
 				EFCD470C1EE1C53F00606FAB /* NGNNumberNotationFactory.m in Sources */,
 				CEF814B21EC777F70002E360 /* AppDelegate.m in Sources */,
+				EF3480961F164C2600733E86 /* ProgrammerCalcViewController.m in Sources */,
 				CE735B4C1ECB0A37004A4025 /* AboutViewController.m in Sources */,
 				CEF814AF1EC777F70002E360 /* main.m in Sources */,
+				EF34808D1F161DC600733E86 /* SimpleCalcViewController.m in Sources */,
 				EFCD47031EE1C2B400606FAB /* NGNOctNotation.m in Sources */,
 				EF2FB4C01ED8B29400568FF8 /* Constants.m in Sources */,
 				EF2FB4AA1ED5702000568FF8 /* CalculatorModel.m in Sources */,
+				EF3480901F16397500733E86 /* AbstractViewController.m in Sources */,
 				EFCD47021EE1C2B400606FAB /* NGNHexNotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
