@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AbstractViewController.h"
 
-@interface ViewController : UIViewController
+@interface SimpleCalcViewController : AbstractViewController
 
 @end
 

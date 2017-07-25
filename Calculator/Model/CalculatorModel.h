@@ -28,6 +28,7 @@
 - (void)clear;
 - (void)equals;
 - (void)setCurrentOperandWithString:(NSString *)stringfiedOperand;
+- (void)setCurrentNotation:(NSInteger)notation;
 
 #pragma mark - adding additional operations
 - (void)addBinaryOperationWithOperationSymbol:(NSString *)symbol block:(operation_t)operationBlock;
