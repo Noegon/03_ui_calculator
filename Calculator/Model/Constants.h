@@ -78,6 +78,13 @@ static NSString *const ExceptionDivisionByZeroExceptionReason = @"Division by ze
 static NSString *const ExceptionAmountOverflowExceptionReason = @"Too large number";
 static NSString *const ExceptionSquareRootFromNegativeExceptionReason = @"Square root from negative";
 
+#pragma mark - storyboard identifiers
+
+static NSString *const ControllerIdentifierMenuController = @"menuController";
+static NSString *const ControllerIdentifierContentController = @"contentController";
+static NSString *const ControllerIdentifierSimpleCalcController = @"simpleCalcController";
+static NSString *const ControllerIdentifierEngineerCalcController = @"engineerCalcController";
+static NSString *const ControllerIdentifierProgrammerCalcController = @"programmerCalcController";
 
 @interface Constants : NSObject
 

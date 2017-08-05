@@ -11,6 +11,7 @@
 #import "SimpleCalcViewController.h"
 #import "EngineerCalcViewController.h"
 #import "ProgrammerCalcViewController.h"
+#import "Constants.h"
 
 @interface NGNMenuViewController ()
 
@@ -47,17 +48,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NGNNavigationController *navigationController =
-        [self.storyboard instantiateViewControllerWithIdentifier:@"contentController"];
+        [self.storyboard instantiateViewControllerWithIdentifier:ControllerIdentifierContentController];
     
     if (indexPath.row == 0) {
         SimpleCalcViewController *simpleViewController =
-            [self.storyboard instantiateViewControllerWithIdentifier:@"simpleCalcController"];
+            [self.storyboard instantiateViewControllerWithIdentifier:ControllerIdentifierSimpleCalcController];
         navigationController.viewControllers = @[simpleViewController];
     } else if (indexPath.row == 1) {
-        EngineerCalcViewController *engineerViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"engineerCalcController"];
+        EngineerCalcViewController *engineerViewController =
+            [self.storyboard instantiateViewControllerWithIdentifier:ControllerIdentifierEngineerCalcController];
         navigationController.viewControllers = @[engineerViewController];
     } else {
-        ProgrammerCalcViewController *programmerViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"programmerCalcController"];
+        ProgrammerCalcViewController *programmerViewController =
+            [self.storyboard instantiateViewControllerWithIdentifier:ControllerIdentifierProgrammerCalcController];
         navigationController.viewControllers = @[programmerViewController];
     }
     

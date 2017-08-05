@@ -7,6 +7,7 @@
 //
 
 #import "NGNRootViewController.h"
+#import "Constants.h"
 
 @interface NGNRootViewController ()
 
@@ -15,9 +16,9 @@
 @implementation NGNRootViewController
 
 - (void)awakeFromNib {
-//    [super awakeFromNib];
-    self.contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"contentController"];
-    self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"menuController"];
+    [super awakeFromNib];
+    self.contentViewController = [self.storyboard instantiateViewControllerWithIdentifier:ControllerIdentifierContentController];
+    self.menuViewController = [self.storyboard instantiateViewControllerWithIdentifier:ControllerIdentifierMenuController];
 }
 
 @end
